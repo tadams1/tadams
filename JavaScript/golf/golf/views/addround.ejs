@@ -1,0 +1,47 @@
+<html>
+<title>Add Round</title>
+	<link href="stylesheets/style.css" rel="stylesheet" type="text/css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+	<script type="text/javascript">
+
+  
+   		function addRound() {
+        	var roundname = document.getElementById('roundname');
+        	var player = document.getElementById('player');
+        	var course = document.getElementById('course');
+        
+       
+        	var newJSON = {
+          	    "name": roundname.value,
+      			"player": player.value,
+      			"course": course.value 	
+        	};
+
+        alert(JSON.stringify(newJSON));
+  
+        $.ajax({
+            type: 'POST',
+            url: '/addround',
+            data: JSON.stringify(newJSON),
+            success: function(data, textStatus) {
+            	window.location = "/round"
+            }
+        });
+    }
+    </script>
+
+<body>
+
+<div class="left-panel"></div>
+<div class="right-panel" id="map-canvas"></div>
+<div class="bottom-panel" id="user-input">
+  <p><label>Add Round Name<input type="text" name="roundname" value="" id="roundname"/></label></p>
+  <p><label>Player<input type="text" name="player" value="" id="player"/></label></p>
+  <p><label>Course<input type="text" name="course" value="" id="course"/></label></p>
+  <p><input type="button" value="Add Round" onclick="addRound()"></p>
+
+</div>
+</body>
+</html> 	
