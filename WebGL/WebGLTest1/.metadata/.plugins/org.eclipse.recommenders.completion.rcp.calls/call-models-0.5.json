@@ -1,0 +1,17 @@
+{
+  "/Users/d2d/Documents/WebGLTest1/com.adams.test/war/WEB-INF/lib/gwtgl-0.9.1.jar": {
+    "location": "/Users/d2d/Documents/WebGLTest1/com.adams.test/war/WEB-INF/lib/gwtgl-0.9.1.jar",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027/Users/d2d/Documents/WebGLTest1/com.adams.test/war/WEB-INF/lib/gwtgl-0.9.1.jar\u0027. Neither fingerprint \u0027aef1376fb62f9bb9c4f2120f2ff06b82a7c4bcb4\u0027 nor symbolic name \u0027com.googlecode.gwtgl.gwtgl\u0027 are known."
+  },
+  "/Users/d2d/Documents/WebGLTest1/com.adams.test/src": {
+    "location": "/Users/d2d/Documents/WebGLTest1/com.adams.test/src",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027/Users/d2d/Documents/WebGLTest1/com.adams.test/src\u0027. Skipped."
+  },
+  "/Applications/eclipse 2/plugins/com.google.gwt.eclipse.sdkbundle_2.6.0/gwt-2.6.0/gwt-user.jar": {
+    "location": "/Applications/eclipse 2/plugins/com.google.gwt.eclipse.sdkbundle_2.6.0/gwt-2.6.0/gwt-user.jar",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027/Applications/eclipse 2/plugins/com.google.gwt.eclipse.sdkbundle_2.6.0/gwt-2.6.0/gwt-user.jar\u0027. Neither fingerprint \u002736493fb55c84368ea43451f799f0b0ae0bbed11e\u0027 nor symbolic name \u0027gwt-user\u0027 are known."
+  }
+}

@@ -1,0 +1,743 @@
+[
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "14b2318e78e9bfdb9d3e8733616367d67dd4b72a",
+    "jarFileModificationDate": "2014-03-18T18:47:34+11:00",
+    "location": "/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/jre/lib/ext/localedata.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "com.google.appengine.datanucleus",
+    "version": {
+      "major": 2,
+      "minor": 1,
+      "micro": 1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "82202384a1cf0115e5a024361b15d0fb3c24b63d",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/opt/user/datanucleus/v2/datanucleus-appengine-2.1.2.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a85d5af49e138a0adefc26bf22d2cfc8c754e6dd",
+    "jarFileModificationDate": "2013-08-08T12:11:25+10:00",
+    "location": "/System/Library/Java/Extensions/jai_codec.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "3bc82c5707e80b282524f41eb633f7abf03b23b6",
+    "jarFileModificationDate": "2014-03-18T18:47:34+11:00",
+    "location": "/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/jre/lib/ext/sunec.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "repackaged-appengine-jasper-el-6.0.29",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "d1cb756ac654e1e6461fddcf9df6038f6bd22e5a",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/shared/jsp/repackaged-appengine-jasper-el-6.0.29.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "096d28ce6e0ff470aa8ef77a8aa504a9e0e141dc",
+    "jarFileModificationDate": "2014-03-18T18:47:34+11:00",
+    "location": "/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/jre/lib/jsse.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "appengine-api-1.0-sdk-1.9.6",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "068743af7f65aa9f2d6f37d22ac6b93501de76a7",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/user/appengine-api-1.0-sdk-1.9.6.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f0175c4c28f08b9236108499c33d6542c0bcd8b4",
+    "jarFileModificationDate": "2013-08-08T12:15:41+10:00",
+    "location": "/System/Library/Java/Extensions/j3daudio.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "repackaged-appengine-ant-launcher-1.7.1",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "c639bfb44abc9da61916e248958dcd0a4f4a155b",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/shared/jsp/repackaged-appengine-ant-launcher-1.7.1.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "appengine-tools-api",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "866f0e9492981e74f915968cc3b81cc82415dff0",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/appengine-tools-api.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jta-1.1",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "2ca09f0b36ca7d71b762e14ea2ff09d5eac57558",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/opt/user/datanucleus/v2/jta-1.1.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "el-api",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5ac5e1fd11e7a194a9208004470e0a765be739a7",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/shared/el-api.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "4f4081b69df48f293cf72c65d2cbe0108fbd1539",
+    "jarFileModificationDate": "2014-03-18T18:47:34+11:00",
+    "location": "/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/jre/lib/ext/sunpkcs11.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "appengine-jsr107cache-1.9.6",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "86c86f99ba5a04a883145bfcb4759c438efcd9e8",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/opt/user/jsr107/v1/appengine-jsr107cache-1.9.6.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "010262dc3ab6da57eaef700d8d7d134f39fc09d7",
+    "jarFileModificationDate": "2014-03-18T18:47:34+11:00",
+    "location": "/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/jre/lib/ext/zipfs.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "repackaged-appengine-jasper-6.0.29",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a8323563496877401755fde1c8c39dd7c98c334a",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/shared/jsp/repackaged-appengine-jasper-6.0.29.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5e2c12ffab605a78f773e42b2497a9569316346f",
+    "jarFileModificationDate": "2014-03-18T18:47:34+11:00",
+    "location": "/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/jre/lib/ext/sunjce_provider.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "org.datanucleus.api.jdo",
+    "version": {
+      "major": 3,
+      "minor": 1,
+      "micro": 3,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "2b516725909217520c9c55b591b5e48ab3a0dc64",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/opt/user/datanucleus/v2/datanucleus-api-jdo-3.1.3.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "d57b4588c1c302ad017b0cf25de95dfb1b22e8fc",
+    "jarFileModificationDate": "2014-06-14T17:19:47+10:00",
+    "location": "/System/Library/Java/Extensions/MRJToolkit.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "e025051fbcb83787ec5bc90c7b9b6c9fcd4e5c55",
+    "jarFileModificationDate": "2014-03-18T18:47:34+11:00",
+    "location": "/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/jre/lib/resources.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "3688828da27c14972d47e818200bd8ddbe5ef026",
+    "jarFileModificationDate": "2014-03-18T18:47:34+11:00",
+    "location": "/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/jre/lib/ext/nashorn.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "appengine-api-labs",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a51a335fd053b610e302c2f4d609e9de369b066e",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/opt/user/appengine-api-labs/v1/appengine-api-labs.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jsp-api",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5b0a9b1e424fb64f976a774a80b9d0081a9cdc51",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/shared/jsp-api.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "21240ab7c12f378058cbb7a9b2f5b762dd30e1b8",
+    "jarFileModificationDate": "2013-08-08T12:11:25+10:00",
+    "location": "/System/Library/Java/Extensions/jai_core.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "005810d865dab9bd200ea485d0e44c18a329aa26",
+    "jarFileModificationDate": "2013-08-08T12:15:41+10:00",
+    "location": "/System/Library/Java/Extensions/vecmath.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "gwt-user",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "36493fb55c84368ea43451f799f0b0ae0bbed11e",
+    "jarFileModificationDate": "2014-01-23T12:34:22+11:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.gwt.eclipse.sdkbundle_2.6.0/gwt-2.6.0/gwt-user.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "gwtgl-0.9.1-sources",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "21c576e482f0260807b9d78a55b410746e6cb06c",
+    "jarFileModificationDate": "2011-12-31T22:58:00+11:00",
+    "location": "/Users/d2d/Documents/WebGLTest1/com.adams.test/war/WEB-INF/lib/gwtgl-0.9.1-sources.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "org.datanucleus",
+    "version": {
+      "major": 3,
+      "minor": 1,
+      "micro": 3,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "7d242e12ee2171a092b6ba1da6a03f8872f422d7",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/opt/user/datanucleus/v2/datanucleus-core-3.1.3.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "51dbde992ee8e0ee2e9e1be38fcc6d3295ebc66e",
+    "jarFileModificationDate": "2013-08-08T12:16:58+10:00",
+    "location": "/System/Library/Java/Extensions/AppleScriptEngine.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "appengine-local-runtime-shared",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "6093a7b9de1a7ee581b561a891510f6b861d673a",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/shared/appengine-local-runtime-shared.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "asm-4.0",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "659add6efc75a4715d738e73f07505246edf4d66",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/opt/user/datanucleus/v2/asm-4.0.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "24e0571e05e3ea75ffcb79cfb170aee4d723b656",
+    "jarFileModificationDate": "2014-03-18T05:45:24+11:00",
+    "location": "/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/jre/lib/ext/jfxrt.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "7f517adf74fb6a885c444768f6ce5d724e8a8385",
+    "jarFileModificationDate": "2014-03-18T18:47:34+11:00",
+    "location": "/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/jre/lib/ext/cldrdata.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "06b897f357f111e205017803b1d10f972e8f1075",
+    "jarFileModificationDate": "2013-08-08T12:15:41+10:00",
+    "location": "/System/Library/Java/Extensions/j3dcore.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "validation-api-1.0.0.GA-sources",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "7a561191db2203550fbfa40d534d4997624cd369",
+    "jarFileModificationDate": "2013-11-21T12:18:22+11:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.gwt.eclipse.sdkbundle_2.6.0/gwt-2.6.0/validation-api-1.0.0.GA-sources.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "9a1284417f00f1a4c77e67d71a6fbea2eeaf5d7c",
+    "jarFileModificationDate": "2014-03-18T18:47:34+11:00",
+    "location": "/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/jre/lib/jce.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "javax.jdo",
+    "version": {
+      "major": 3,
+      "minor": 0,
+      "micro": 1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "058e7a538e020b73871e232eeb064835fd98a492",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/opt/user/datanucleus/v2/jdo-api-3.0.1.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "org.apache.james.apache-mime4j",
+    "version": {
+      "major": 0,
+      "minor": 6,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "b43fe07841b100c5f8cde7d5e855fc294f6a56f4",
+    "jarFileModificationDate": "2014-01-23T12:33:38+11:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.gwt.eclipse.sdkbundle_2.6.0/gwt-2.6.0/gwt-dev.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "repackaged-appengine-tomcat-juli-6.0.29",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "2a029b6fac8d10c86687bc586fc1e4be80277312",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/shared/jsp/repackaged-appengine-tomcat-juli-6.0.29.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "gwtgl-0.9.1-javadoc",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "4052b7f72b37a695a8fd1e64a85a40b439316dc9",
+    "jarFileModificationDate": "2011-12-31T23:05:44+11:00",
+    "location": "/Users/d2d/Documents/WebGLTest1/com.adams.test/war/WEB-INF/lib/gwtgl-0.9.1-javadoc.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "net.sf.jsr107cache.jsr107cache",
+    "version": {
+      "major": 1,
+      "minor": 1,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "193a0dca92c221ebf45c7181f00e5db967721c08",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/opt/user/jsr107/v1/jsr107cache-1.1.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "javax.validation.validation-api",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": "GA"
+    },
+    "jarFileFingerprint": "b6bd7f9d78f6fdaa3c37dae18a4bd298915f328e",
+    "jarFileModificationDate": "2013-11-21T12:18:22+11:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.gwt.eclipse.sdkbundle_2.6.0/gwt-2.6.0/validation-api-1.0.0.GA.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "af0c71e14ca402301689c88c498d6eb322af587c",
+    "jarFileModificationDate": "2014-03-18T18:47:34+11:00",
+    "location": "/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/jre/lib/jfr.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "org.apache.geronimo.specs.geronimo-jpa_2.0_spec",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5db1ae9b2de405fd9dcfa0af373cbe0183f65d58",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/opt/user/datanucleus/v2/geronimo-jpa_2.0_spec-1.0.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "appengine-endpoints-deps",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "bdd10124e5abcade11ad21cb441cb60002df9ef5",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/opt/user/appengine-endpoints/v1/appengine-endpoints-deps.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "com.googlecode.gwtgl.gwtgl",
+    "version": {
+      "major": 0,
+      "minor": 9,
+      "micro": 1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "aef1376fb62f9bb9c4f2120f2ff06b82a7c4bcb4",
+    "jarFileModificationDate": "2011-12-31T22:58:00+11:00",
+    "location": "/Users/d2d/Documents/WebGLTest1/com.adams.test/war/WEB-INF/lib/gwtgl-0.9.1.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "b2addd48bed86a6b2695e97878c59cd9bc84e9fe",
+    "jarFileModificationDate": "2014-03-10T17:03:31+11:00",
+    "location": "/System/Library/Java/Extensions/QTJava.zip",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "e7533ef29283d456ddcc700ad2ccdd0c3452e464",
+    "jarFileModificationDate": "2013-08-08T12:15:41+10:00",
+    "location": "/System/Library/Java/Extensions/j3dutils.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "63fbdd9c7e93573cc15ee487950217886be2aef6",
+    "jarFileModificationDate": "2014-06-14T17:19:50+10:00",
+    "location": "/System/Library/Java/Extensions/dns_sd.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "297aea888a3f3d11e11d81a4e940571ed892551e",
+    "jarFileModificationDate": "2014-03-18T18:47:35+11:00",
+    "location": "/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/jre/lib/rt.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5db3bc5b2e552949a492443d9499d9073e277f27",
+    "jarFileModificationDate": "2014-03-18T18:47:34+11:00",
+    "location": "/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/jre/lib/charsets.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "org.datanucleus.api.jpa",
+    "version": {
+      "major": 3,
+      "minor": 1,
+      "micro": 3,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "09866db180ef911990dbb1f82ce7015d8135d40b",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/opt/user/datanucleus/v2/datanucleus-api-jpa-3.1.3.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "c5d7b7bfab9b433c4b62aebbe76a564b6bcf8192",
+    "jarFileModificationDate": "2013-08-08T12:11:00+10:00",
+    "location": "/System/Library/Java/Extensions/mlibwrapper_jai.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "appengine-endpoints",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "9d7ed6abf1ad5295601ad2627965cf3041545fad",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/opt/user/appengine-endpoints/v1/appengine-endpoints.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "servlet-api",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "feed6ab434b4f27e43c9ff8c2a13d67fc1990a52",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/shared/servlet-api.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "2a86052cce150823174cfde7208cf3a71aba4016",
+    "jarFileModificationDate": "2014-03-18T18:47:34+11:00",
+    "location": "/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/jre/lib/ext/dnsns.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "repackaged-appengine-ant-1.7.1",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "070e56fd7fe9dba38f68255310f593fc3d569828",
+    "jarFileModificationDate": "2014-05-29T18:24:52+10:00",
+    "location": "/Applications/eclipse 2/plugins/com.google.appengine.eclipse.sdkbundle_1.9.6/appengine-java-sdk-1.9.6/lib/shared/jsp/repackaged-appengine-ant-1.7.1.jar",
+    "javaRuntime": false
+  }
+]

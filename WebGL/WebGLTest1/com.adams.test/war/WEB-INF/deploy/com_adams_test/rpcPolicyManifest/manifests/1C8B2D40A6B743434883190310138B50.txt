@@ -1,0 +1,2 @@
+serviceClass: webgltest1.client.GreetingService
+path: EB3EFCEA4DA6F66E9772CD58603AA20E.gwt.rpc

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.googlecode.gwtgl.array.Float32Array"/>
+<fullyQualifiedTypeName name="com.googlecode.gwtgl.binding.WebGLShader"/>
+<fullyQualifiedTypeName name="com.googlecode.gwtgl.binding.WebGLUniformLocation"/>
+<fullyQualifiedTypeName name="com.google.gwt.core.client.JavaScriptObject"/>
+<fullyQualifiedTypeName name="com.google.gwt.core.client.JsArrayNumber"/>
+<fullyQualifiedTypeName name="java.util.Stack"/>
+<fullyQualifiedTypeName name="java.util.EmptyStackException"/>
+<fullyQualifiedTypeName name="com.google.gwt.user.client.Timer"/>
+<fullyQualifiedTypeName name="com.google.gwt.user.client.ui.FocusPanel"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index>
+<deps cu="=com.adams.test/src&lt;webgltest1.client{Shaders.java">
+<res path="webgltest1/client/vertex-shader.txt"/>
+<res path="fragment-shader.txt"/>
+<res path="webgltest1/client/fragment-shader.txt"/>
+<res path="vertex-shader.txt"/>
+</deps>
+</index>
