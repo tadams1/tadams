@@ -1,0 +1,171 @@
+<html>
+<title></title>
+    <link href="stylesheets/style.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQ6LMGS6ebrYR_ABSnMfudwc7sgwgoTWg">
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript">
+      var theMap;
+
+      function initialize() {
+ 	      var mapOptions = {
+          zoom: 4,
+          center: {lat: -28, lng: 137.883},
+    		  mapTypeId: google.maps.MapTypeId.TERRAIN
+  		  };
+        
+        var bermudaTriangle;
+
+        var triangleCoords = [
+    		  new google.maps.LatLng(25.774252, -80.190262),
+    		  new google.maps.LatLng(18.466465, -66.118292),
+    		  new google.maps.LatLng(32.321384, -64.75737),
+    		  new google.maps.LatLng(25.774252, -80.190262)
+  		  ];
+
+        // Load a GeoJSON from the same server as our demo.
+  		  bermudaTriangle = new google.maps.Polygon({
+   			  paths: triangleCoords,
+    		  strokeColor: '#FF0000',
+    		  strokeOpacity: 0.8,
+    		  strokeWeight: 2,
+    		  fillColor: '#FF0000',
+    		  fillOpacity: 0.35
+ 		   });
+
+        theMap = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        //map.data.loadGeoJson('https://storage.googleapis.com/maps-devrel/google.json');
+
+ 		   theMap.data.addGeoJson(<%- points %>);
+ 	     theMap.data.addGeoJson(<%- polygons %>);
+  
+      var infowindow = new google.maps.InfoWindow({
+        content: "This is a test"
+      });
+
+      theMap.data.addListener('dblclick', function(event) {
+        var myHTML = event.feature.getProperty("infobox");
+        infowindow.setContent("<div style='width:150px; text-align: center;'>"+myHTML+"</div>");
+        //alert(JSON.stringify(event.feature.getGeometry().getArray().getArray()));
+        infowindow.setPosition(event.latLng);
+        infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
+        infowindow.open(theMap);
+      });
+ 
+      theMap.addListener('click', function(event) {
+        infowindow.setContent("<div style='width:150px; text-align: center;'>Add bird here</div>");
+        infowindow.setPosition(event.latLng);
+        infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
+        infowindow.open(theMap);
+
+        var tb1 = document.getElementById('Lat');
+        tb1.value = event.latLng.lat();
+        tb1 = document.getElementById('Lng');
+        tb1.value = event.latLng.lng();
+      });
+
+
+        var callback=function(feature) {
+              theMap.data.setStyle(function(feature) {
+                 return {icon:feature.getProperty('icon')};
+              });
+          }
+        
+        theMap.data.forEach(callback);
+
+        //bermudaTriangle.setMap(map);
+    }
+
+    
+    function addBird() {
+        var tb1 = document.getElementById('Lat');
+        var tb2 = document.getElementById('Lng');
+        var tb3 = document.getElementById('desc');
+        
+        var myLatlng = new google.maps.LatLng(tb1.value,tb2.value);
+
+        $("input[name=group1]:checked").val()
+
+        var newJSON = {
+          "type": "Feature",
+          "properties": {
+            "letter": "o",
+            "infobox": tb3.value,
+            "icon": $("input[name=group1]:checked").val()
+          },
+          "geometry": 
+          {
+            "type": "Point",
+            "coordinates": [myLatlng.lng(), myLatlng.lat()]
+          }
+        }
+
+        alert(JSON.stringify(newJSON));
+  
+        $.ajax({
+            type: 'POST',
+            url: '/',
+            data: JSON.stringify(newJSON),
+            success: function(data) { alert('data: ' + data); },
+            contentType: "application/json",
+            dataType: 'json'
+        });
+
+
+
+        theMap.data.addGeoJson(newJSON);
+      
+
+    }
+
+
+    function findMe() {
+       if(navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var infowindow = new google.maps.InfoWindow({
+                map: theMap,
+                position: pos,
+                content: 'Here you are'
+            });
+
+            theMap.setCenter(pos);
+            theMap.setZoom(13);
+         }, function() {
+          });
+      }
+    }
+
+    function removeAll() {
+      var callback=function(feature) {
+        theMap.data.remove(feature);
+      };
+      theMap.data.forEach(callback);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+
+      
+
+    </script>
+
+
+<body>
+
+<div class="left-panel"></div>
+<div class="right-panel" id="map-canvas"></div>
+<div class="bottom-panel" id="user-input">
+  <p><label>Lat<input type="text" name="Lat" value="" id="Lat"/></label></p>
+  <p><label>Lng<input type="text" name="Lng" value="" id="Lng"/></label></p>
+  <p><label>Threat Description<br><textarea name="Description" value="" rows="5" cols="50" id="desc"></textarea></label></p>
+  <p><input type="button" value="Add Bird" onclick="addBird()"></p>
+  <p><input type="button" value="Remove Bird" onclick="removeAll()"></p>
+  <p><input type="button" value="Find Me" onclick="findMe()"></p>
+  <p><input type="radio" name="group1" value="images/Car-4wd-Icon.png">4WD</p>
+  <p><input type="radio" name="group1" value="images/Fox_icon.png" checked>Fox</p>
+  <p><input type="radio" name="group1" value="images/Water_Tap_Circle_Green.png">Tap</p>
+</div>
+</body>
+</html> 	
