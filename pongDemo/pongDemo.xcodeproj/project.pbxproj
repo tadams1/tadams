@@ -14,6 +14,15 @@
 		8C1E661A1A78C6EB00511FF8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C1E66191A78C6EB00511FF8 /* Images.xcassets */; };
 		8C1E661D1A78C6EB00511FF8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C1E661B1A78C6EB00511FF8 /* LaunchScreen.xib */; };
 		8C1E66291A78C6EB00511FF8 /* pongDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1E66281A78C6EB00511FF8 /* pongDemoTests.m */; };
+		8C1E663A1A78C7AA00511FF8 /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C1E66321A78C7AA00511FF8 /* Ball.png */; };
+		8C1E663B1A78C7AA00511FF8 /* Desktop1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C1E66331A78C7AA00511FF8 /* Desktop1.png */; };
+		8C1E663C1A78C7AA00511FF8 /* Desktop2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C1E66341A78C7AA00511FF8 /* Desktop2.png */; };
+		8C1E663D1A78C7AA00511FF8 /* Desktop3.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C1E66351A78C7AA00511FF8 /* Desktop3.png */; };
+		8C1E663E1A78C7AA00511FF8 /* Desktop4.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C1E66361A78C7AA00511FF8 /* Desktop4.png */; };
+		8C1E663F1A78C7AA00511FF8 /* Desktop5.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C1E66371A78C7AA00511FF8 /* Desktop5.png */; };
+		8C1E66401A78C7AA00511FF8 /* GameBackGround.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C1E66381A78C7AA00511FF8 /* GameBackGround.png */; };
+		8C1E66411A78C7AA00511FF8 /* Paddle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C1E66391A78C7AA00511FF8 /* Paddle.png */; };
+		8C1E66441A78D0F500511FF8 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1E66431A78D0F400511FF8 /* Game.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +49,16 @@
 		8C1E66221A78C6EB00511FF8 /* pongDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pongDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C1E66271A78C6EB00511FF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C1E66281A78C6EB00511FF8 /* pongDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = pongDemoTests.m; sourceTree = "<group>"; };
+		8C1E66321A78C7AA00511FF8 /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Ball.png; path = pongDemoTests/Ball.png; sourceTree = SOURCE_ROOT; };
+		8C1E66331A78C7AA00511FF8 /* Desktop1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Desktop1.png; path = pongDemoTests/Desktop1.png; sourceTree = SOURCE_ROOT; };
+		8C1E66341A78C7AA00511FF8 /* Desktop2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Desktop2.png; path = pongDemoTests/Desktop2.png; sourceTree = SOURCE_ROOT; };
+		8C1E66351A78C7AA00511FF8 /* Desktop3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Desktop3.png; path = pongDemoTests/Desktop3.png; sourceTree = SOURCE_ROOT; };
+		8C1E66361A78C7AA00511FF8 /* Desktop4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Desktop4.png; path = pongDemoTests/Desktop4.png; sourceTree = SOURCE_ROOT; };
+		8C1E66371A78C7AA00511FF8 /* Desktop5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Desktop5.png; path = pongDemoTests/Desktop5.png; sourceTree = SOURCE_ROOT; };
+		8C1E66381A78C7AA00511FF8 /* GameBackGround.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GameBackGround.png; path = pongDemoTests/GameBackGround.png; sourceTree = SOURCE_ROOT; };
+		8C1E66391A78C7AA00511FF8 /* Paddle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Paddle.png; path = pongDemoTests/Paddle.png; sourceTree = SOURCE_ROOT; };
+		8C1E66421A78D0F400511FF8 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Game.h; path = ../Game.h; sourceTree = "<group>"; };
+		8C1E66431A78D0F400511FF8 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Game.m; path = ../Game.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +104,8 @@
 				8C1E66111A78C6EA00511FF8 /* AppDelegate.m */,
 				8C1E66131A78C6EA00511FF8 /* ViewController.h */,
 				8C1E66141A78C6EA00511FF8 /* ViewController.m */,
+				8C1E66421A78D0F400511FF8 /* Game.h */,
+				8C1E66431A78D0F400511FF8 /* Game.m */,
 				8C1E66161A78C6EA00511FF8 /* Main.storyboard */,
 				8C1E66191A78C6EB00511FF8 /* Images.xcassets */,
 				8C1E661B1A78C6EB00511FF8 /* LaunchScreen.xib */,
@@ -97,6 +118,14 @@
 			isa = PBXGroup;
 			children = (
 				8C1E660D1A78C6EA00511FF8 /* Info.plist */,
+				8C1E66321A78C7AA00511FF8 /* Ball.png */,
+				8C1E66331A78C7AA00511FF8 /* Desktop1.png */,
+				8C1E66341A78C7AA00511FF8 /* Desktop2.png */,
+				8C1E66351A78C7AA00511FF8 /* Desktop3.png */,
+				8C1E66361A78C7AA00511FF8 /* Desktop4.png */,
+				8C1E66371A78C7AA00511FF8 /* Desktop5.png */,
+				8C1E66381A78C7AA00511FF8 /* GameBackGround.png */,
+				8C1E66391A78C7AA00511FF8 /* Paddle.png */,
 				8C1E660E1A78C6EA00511FF8 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -200,7 +229,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C1E66181A78C6EA00511FF8 /* Main.storyboard in Resources */,
+				8C1E663C1A78C7AA00511FF8 /* Desktop2.png in Resources */,
 				8C1E661D1A78C6EB00511FF8 /* LaunchScreen.xib in Resources */,
+				8C1E663D1A78C7AA00511FF8 /* Desktop3.png in Resources */,
+				8C1E66411A78C7AA00511FF8 /* Paddle.png in Resources */,
+				8C1E663F1A78C7AA00511FF8 /* Desktop5.png in Resources */,
+				8C1E663B1A78C7AA00511FF8 /* Desktop1.png in Resources */,
+				8C1E663E1A78C7AA00511FF8 /* Desktop4.png in Resources */,
+				8C1E66401A78C7AA00511FF8 /* GameBackGround.png in Resources */,
+				8C1E663A1A78C7AA00511FF8 /* Ball.png in Resources */,
 				8C1E661A1A78C6EB00511FF8 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,6 +259,7 @@
 				8C1E66151A78C6EA00511FF8 /* ViewController.m in Sources */,
 				8C1E66121A78C6EA00511FF8 /* AppDelegate.m in Sources */,
 				8C1E660F1A78C6EA00511FF8 /* main.m in Sources */,
+				8C1E66441A78D0F500511FF8 /* Game.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

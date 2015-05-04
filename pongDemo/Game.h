@@ -7,7 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface Game : NSObject
+int y;
+int x;
+
+@interface Game : UIViewController
+
+{
+    IBOutlet UIImageView *ball;
+    IBOutlet UIButton *startButton;
+    
+    NSTimer *timer;
+    
+}
+
+- (IBAction)startButton:(id)sender;
+- (void)ballMovement;
 
 @end

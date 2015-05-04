@@ -17,6 +17,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    AnimatedBackground.animationImages = [NSArray arrayWithObjects:
+                                          [UIImage imageNamed:@"Desktop1.png"],
+                                          [UIImage imageNamed:@"Desktop2.png"],
+                                          [UIImage imageNamed:@"Desktop3.png"],
+                                          [UIImage imageNamed:@"Desktop4.png"],
+                                          [UIImage imageNamed:@"Desktop5.png"],nil];
+    [AnimatedBackground setAnimationRepeatCount:0];
+    AnimatedBackground.animationDuration = 5;
+    [AnimatedBackground startAnimating];
 }
 
 - (void)didReceiveMemoryWarning {

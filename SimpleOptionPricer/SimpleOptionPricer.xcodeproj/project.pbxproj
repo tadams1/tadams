@@ -14,6 +14,7 @@
 		8C9EDF5B1A6B1FE800812E00 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C9EDF5A1A6B1FE800812E00 /* Images.xcassets */; };
 		8C9EDF5E1A6B1FE800812E00 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C9EDF5C1A6B1FE800812E00 /* LaunchScreen.xib */; };
 		8C9EDF6A1A6B1FE800812E00 /* SimpleOptionPricerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9EDF691A6B1FE800812E00 /* SimpleOptionPricerTests.m */; };
+		8C9EDF751A6B218F00812E00 /* OptionInst.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9EDF741A6B218E00812E00 /* OptionInst.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		8C9EDF631A6B1FE800812E00 /* SimpleOptionPricerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleOptionPricerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C9EDF681A6B1FE800812E00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C9EDF691A6B1FE800812E00 /* SimpleOptionPricerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleOptionPricerTests.m; sourceTree = "<group>"; };
+		8C9EDF741A6B218E00812E00 /* OptionInst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionInst.m; sourceTree = "<group>"; };
+		8C9EDF761A6B28F800812E00 /* OptionInst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OptionInst.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +84,7 @@
 		8C9EDF4C1A6B1FE700812E00 /* SimpleOptionPricer */ = {
 			isa = PBXGroup;
 			children = (
+				8C9EDF731A6B215B00812E00 /* OptionPricer */,
 				8C9EDF511A6B1FE800812E00 /* AppDelegate.h */,
 				8C9EDF521A6B1FE800812E00 /* AppDelegate.m */,
 				8C9EDF541A6B1FE800812E00 /* ViewController.h */,
@@ -117,6 +121,15 @@
 				8C9EDF681A6B1FE800812E00 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8C9EDF731A6B215B00812E00 /* OptionPricer */ = {
+			isa = PBXGroup;
+			children = (
+				8C9EDF741A6B218E00812E00 /* OptionInst.m */,
+				8C9EDF761A6B28F800812E00 /* OptionInst.h */,
+			);
+			name = OptionPricer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C9EDF751A6B218F00812E00 /* OptionInst.m in Sources */,
 				8C9EDF561A6B1FE800812E00 /* ViewController.m in Sources */,
 				8C9EDF531A6B1FE800812E00 /* AppDelegate.m in Sources */,
 				8C9EDF501A6B1FE800812E00 /* main.m in Sources */,

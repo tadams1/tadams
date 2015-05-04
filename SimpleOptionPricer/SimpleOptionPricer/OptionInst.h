@@ -9,5 +9,15 @@
 #ifndef SimpleOptionPricer_OptionInst_h
 #define SimpleOptionPricer_OptionInst_h
 
+@interface OptionInst : NSObject
+
+@property double strike;
+@property NSDate* maturity;
+@property bool isCall;
+@property double interestRate;
+@property double estVolatility;
+@property double undSpot;
+
+@end
 
 #endif

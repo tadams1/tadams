@@ -17,6 +17,9 @@
 
         app.controller('ctrl', ['$scope', '$http', function($scope, $http) {
           $scope.clubs = ['1W','3W','5W','3I','41','5I','6I','7I','8I','9I','PW','SW'];
+          $scope.postData = function(jsonData) {
+            $http.post('/hole', shot);
+          }
         }]);
 
       function initialize() {
@@ -66,7 +69,8 @@
 
         alert(JSON.stringify(shot));
 
-        $http.post('/hole', shot);
+        $scope.postData(shot);
+        //$http.post('/hole', shot);
  
        /* $.ajax({
             type: 'POST',
