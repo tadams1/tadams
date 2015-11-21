@@ -1,0 +1,40 @@
+<body onload="webGLStart();">
+  <canvas id="mycanvas" style="border: none;" width="500" height="500"></canvas>
+  <br/>
+</body>
+
+
+<script type="text/javascript" src="./glMatrix-0.9.5.min.js"></script>
+<script type="text/javascript" src="./webgl-utils.js"></script>
+
+
+<script>
+	var gl;
+
+	function webGLStart() {
+    	var canvas = document.getElementById("mycanvas");
+    	initGL(canvas);
+    	//initShaders();
+    	//initBuffers();
+    	//initTexture();
+ 
+    	gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    	gl.enable(gl.DEPTH_TEST);
+	}
+
+	function initGL(canvas) {
+    	try {
+      		gl = canvas.getContext("experimental-webgl");
+      		gl.viewportWidth = canvas.width;
+      		gl.viewportHeight = canvas.height;
+    	} catch(e) {
+    	}
+    
+    	if (!gl) {
+      		alert("Could not initialise WebGL, sorry :-( ");
+    	}
+  	}
+
+
+
+</script>
