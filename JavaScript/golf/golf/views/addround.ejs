@@ -1,11 +1,17 @@
 <html>
-<title>Add Round</title>
+<title>Round Management</title>
 	<link href="stylesheets/style.css" rel="stylesheet" type="text/css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
+  <script src= "javascripts/angular.min.js"></script>
+  <script src= "javascripts/angular-route.min.js"></script>
 
 	<script type="text/javascript">
 
+    var app =     angular.module('app', ['ngRoute']);
+    app.controller('ctrl', ['$scope', '$http', function($scope, $http) {
+      $scope.postData = function(jsonData) {
+        $http.post('/hole', shot);
+      }
+    }]);
   
    		function addRound() {
         	var roundname = document.getElementById('roundname');
@@ -30,18 +36,18 @@
             }
         });
     }
-    </script>
-
-<body>
-
-<div class="left-panel"></div>
-<div class="right-panel" id="map-canvas"></div>
-<div class="bottom-panel" id="user-input">
-  <p><label>Add Round Name<input type="text" name="roundname" value="" id="roundname"/></label></p>
-  <p><label>Player<input type="text" name="player" value="" id="player"/></label></p>
-  <p><label>Course<input type="text" name="course" value="" id="course"/></label></p>
-  <p><input type="button" value="Add Round" onclick="addRound()"></p>
-
-</div>
+  </script>
+  <body>
+  
+  <div class="left-panel"></div>
+  <div class="right-panel" id="map-canvas"></div>
+  <div class="bottom-panel" ng-app="app" id="user-input">
+    <form name="roundData" ng-controller="ctrl">
+      <p><label>Add Round Name<input type="text" name="roundname" value="" id="roundname"/></label></p>
+      <p><label>Player<input type="text" name="player" value="" id="player"/></label></p>
+      <p><label>Course<input type="text" name="course" value="" id="course"/></label></p>
+      <p><input type="button" value="Add Round" onclick="addRound()"></p>
+    </form>
+  </div>
 </body>
 </html> 	
