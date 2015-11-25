@@ -1,10 +1,12 @@
 var TriGenerator = function() {
 	var width;
 	var height;
+  var step;
 
-	TriGenerator.prototype.init = function(w,h) {
+	TriGenerator.prototype.init = function(w,h,s) {
 		this.width = w;
 		this.height = h;
+    this.step =s;
 	}
 
 	TriGenerator.prototype.getVerticesCount = function () {
@@ -29,8 +31,8 @@ var TriGenerator = function() {
       		var base = y * w;
       		for(var x = 0; x < w; x++) {
         		var index = (base + x)*3;
-        		vert[index]=x;
-        		vert[index+1]=y;
+        		vert[index]=x/this.step;
+        		vert[index+1]=y/this.step;
         		vert[index+2] = 0;
             normals[index]=0;
             normals[index+1]=0;
@@ -70,9 +72,10 @@ function SphereBumpGenerator() {
 SphereBumpGenerator.prototype = Object.create(TriGenerator.prototype); 
 SphereBumpGenerator.prototype.constructor = SphereBumpGenerator;
 
-SphereBumpGenerator.prototype.init = function(w,h,r,x1,y1) {
+SphereBumpGenerator.prototype.init = function(w,h,s,r,x1,y1) {
   TriGenerator.prototype.init(w,h);
   this.radius = r;
+  this.step = s;
   this.x = x1;
   this.y = y1;
 }
@@ -91,11 +94,11 @@ SphereBumpGenerator.prototype.getVectices = function() {
     for(var x = 0; x < w; x++) {
       var index = (base + x)*3;
       var c = ((x-this.x)*(x-this.x))+((y-this.y)*(y-this.y));
-      vert[index]=x;
-      vert[index+1]=y;
+      vert[index]=x/this.step;
+      vert[index+1]=y/this.step;
       console.log("c + "+ c + " " + this.r)
       if(c<Math.pow(this.radius,2)) {
-        vert[index+2]=-1*(this.radius-Math.sqrt(c));
+        vert[index+2]=-1*(this.radius-Math.sqrt(c))/this.step;
         normals[index]=(x-this.x)/this.radius;
         normals[index+1]=(y-this.y)/this.radius;
         normals[index+2]=(this.radius-Math.sqrt(c))/this.radius;
@@ -112,3 +115,68 @@ SphereBumpGenerator.prototype.getVectices = function() {
     normals: normals  
   } 
 }
+
+
+function MandleBumpGenerator() {
+  TriGenerator.call(this);
+}
+MandleBumpGenerator.prototype = Object.create(TriGenerator.prototype); 
+MandleBumpGenerator.prototype.constructor = MandleBumpGenerator;
+
+MandleBumpGenerator.prototype.init = function(w,h,s) {
+  TriGenerator.prototype.init(w,h,s);
+}
+
+MandleBumpGenerator.prototype.getVectices = function() {
+  var w = this.width+1;
+  var h = this.height+1;
+  console.log(w);
+  console.log(h);
+  var total_vertices = w * h *3;
+  vert = new Float32Array(total_vertices);
+  normals = new Float32Array(total_vertices);
+
+  var xmin = -2.0; var xmax = 1.0;
+  var ymin = -1.5; var ymax = 1.5;
+
+  var maxIt = 10;
+  var x1 = 0.0; var y1 = 0.0;
+  var zx = 0.0; var zx0 = 0.0; var zy = 0.0;
+  var zx2 = 0.0; var zy2 = 0.0;
+
+  for(var y = 0; y < h; y++) {
+    var base = y * w;
+    var y1 = ymin + (ymax - ymin) * y / this.height;
+
+    for(var x = 0; x < w; x++) {
+      x1 = xmin + (xmax - xmin) * x / this.width;
+      zx = x1; 
+      zy = y1;
+      var index = (base + x)*3;
+      vert[index]=x/this.step;
+      vert[index+1]=y/this.step;
+      for(var i = 0; i < maxIt; i++) {
+        var zx2 = zx * zx; 
+        var zy2 = zy * zy;
+        if(zx2 + zy2 > 4.0) 
+          break;
+          
+          zx0 = zx2 - zy2 + x1;
+          zy = 2.0 * zx * zy + y1;
+          zx = zx0;
+      }
+    
+      vert[index+2]=10-i;
+      normals[index] = 0;
+      normals[index+1] = 0;
+      normals[index+2]= 1;
+      
+    }
+  }
+  return {
+    vertices: vert,
+    normals: normals  
+  } 
+}
+
+
