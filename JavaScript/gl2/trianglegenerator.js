@@ -2,11 +2,14 @@ var TriGenerator = function() {
 	var width;
 	var height;
   var step;
+  var vData;
+  var bBuild;
 
 	TriGenerator.prototype.init = function(w,h,s) {
 		this.width = w;
 		this.height = h;
     this.step =s;
+    this.bBuild = false;
 	}
 
 	TriGenerator.prototype.getVerticesCount = function () {
@@ -21,6 +24,10 @@ var TriGenerator = function() {
   	}
 
 	TriGenerator.prototype.getVectices = function() {
+    if(this.bBuild) {
+      return this.vData;
+    }
+
     var w = this.width+1;
     var h = this.height+1;
 		var total_vertices = w * h *3;
@@ -40,10 +47,13 @@ var TriGenerator = function() {
           }
 		  }
 
-   		return {
-    		vertices: vert,
-      	normals: normals
-    	}
+      this.bBuild=true;
+      this.vData = {
+        vertices: vert,
+        normals: normals
+      } 
+      return this.vData;
+   		
 	}
 
 	TriGenerator.prototype.getIndices = function() {
@@ -81,6 +91,9 @@ SphereBumpGenerator.prototype.init = function(w,h,s,r,x1,y1) {
 }
 
 SphereBumpGenerator.prototype.getVectices = function() {
+  if(this.bBuild) {
+      return this.vData;
+  }
   var w = this.width+1;
   var h = this.height+1;
   console.log(w);
@@ -110,12 +123,14 @@ SphereBumpGenerator.prototype.getVectices = function() {
       }
     }
   }
-  return {
-    vertices: vert,
-    normals: normals  
+  this.bBuild=true;
+  this.vData = {
+        vertices: vert,
+        normals: normals
   } 
+  return this.vData;
+      
 }
-
 
 function MandleBumpGenerator() {
   TriGenerator.call(this);
@@ -128,6 +143,10 @@ MandleBumpGenerator.prototype.init = function(w,h,s) {
 }
 
 MandleBumpGenerator.prototype.getVectices = function() {
+  if(this.bBuild) {
+      return this.vData;
+  }
+
   var w = this.width+1;
   var h = this.height+1;
   console.log(w);
@@ -173,10 +192,13 @@ MandleBumpGenerator.prototype.getVectices = function() {
       
     }
   }
-  return {
-    vertices: vert,
-    normals: normals  
-  } 
+  this.bBuild=true;
+  this.vData = {
+        vertices: vert,
+        normals: normals
+      } 
+  return this.vData;
+      
 }
 
 
