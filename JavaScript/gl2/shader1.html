@@ -1,21 +1,30 @@
 <body onload="webGLStart();">
-  <canvas id="mycanvas" style="border: none;" width="640" height="500"></canvas>
+  <canvas id="mycanvas" style="border: none;background: red;" width="640" height="500"></canvas>
   <br/>
+  <div id="cParams">HELLO</div>
+  <input type="checkbox" id="WF" value="Cat" />Wireframe <br />
+
 </body>
 
 <script type="text/javascript" src="./glMatrix-0.9.5.min.js"></script>
 <script type="text/javascript" src="./trianglegenerator.js"></script>
 <script type="text/javascript" src="./webgl-utils.js"></script>
 
-
 <script id="shader-std-fs" type="x-shader/x-fragment">
   precision mediump float;
-  varying vec2 vTextureCoord;
+  varying float vPos;
   varying vec3 vLightWeighting;
 
   void main(void) {
-     gl_FragColor = vec4(vec3(1.1,1.0,0.0) * vLightWeighting,1);
-
+    if(vPos<-1.5) {
+      gl_FragColor = vec4(vec3(0.0,0.0,1.0) * vLightWeighting,1);
+     }else if(vPos>-0.1){
+    gl_FragColor = vec4(vec3(1.0,1.0,1.0),1);
+    
+    }else {
+      gl_FragColor = vec4(vec3(0.0,1.0,0.0) * vLightWeighting,1);
+    }
+    
     //if(vTextureCoord.s == 1.0) {
     //  gl_FragColor = vec4(0.1, 1.0, 0.0, 1.0);
     //} else {
@@ -36,11 +45,13 @@
 
   uniform vec3 uLightingDirection;
   uniform vec3 uDirectionalColor;
+
   varying vec3 vLightWeighting;
+  varying float vPos;
 
   void main(void) {
     gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-
+    vPos = aVertexPosition.z;
     vec3 transformedNormal = uNMatrix * aVertexNormal;
     float directionalLightWeighting = max(dot(transformedNormal, uLightingDirection), 0.0);
     vLightWeighting = vec3(0.2,0.2,0.2) + vec3(0.0,0.8,0.8) * directionalLightWeighting;
@@ -104,9 +115,9 @@
 
 	attribute vec2 a_position;
 
-  	void main() {
+  void main() {
 		gl_Position = vec4(a_position, 0, 1);
-  	}
+  }
 </script>
 
 <script>
@@ -126,6 +137,8 @@
     //initBuffers();
     //initTexture();
     initWFBuffers();
+    dumpInfo();
+   
     //render();
 	  tick();
   }
@@ -134,6 +147,8 @@
     requestAnimFrame(tick);
     handleKeys();
     drawScene();
+    dumpInfo();
+   
     //animate();
   }
 
@@ -159,6 +174,13 @@ function handleKeyDown(event) {
 
 function handleKeyUp(event) {
   currentlyPressedKeys[event.keyCode] = false;
+}
+
+function dumpInfo(){
+  var update = "A = -x; D = +x; S= +y; W= -y; Q= -z; E= +z; T=-rotx; Y=+rotx; Z= -rot; C=+rot<br>" 
+  update = update + "Viewpoint is xpos: " + xpos + " ypos: " + ypos + " zpos: " + zpos + "<br>";
+  update = update +  "Rotation is: " + rot + " xrot: " + rotx;
+  document.getElementById("cParams").innerHTML = update;
 }
 
 function handleKeys() {
@@ -212,9 +234,11 @@ function handleKeys() {
 
 
   function drawScene() {
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    
+    gl.clearColor(135.0, 206.0, 235.0, 1.0);
     gl.enable(gl.DEPTH_TEST);
-    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
+
 
     //console.log(xpos);
     mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
@@ -231,13 +255,17 @@ function handleKeys() {
     gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, normalBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-    gl.drawElements(gl.LINE_STRIP, indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+    if(document.getElementById('WF').checked) {
+      gl.drawElements(gl.LINE_STRIP, indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+    }else{
+      gl.drawElements(gl.TRIANGLE_STRIP, indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+    }
   }
  
   function initWFBuffers() {
   
-    var tg = new SphereBumpGenerator();
-    tg.init(100,100,3,40,50,50);
+    var tg = new NoiseBumpGenerator();
+    tg.init(200,200,3);//,40,50,50);
 
     //var tg = new TriGenerator();
     //tg.init(100,100,3);
@@ -284,6 +312,7 @@ function handleKeys() {
     console.log(ld);
     vec3.normalize(ld, adjustedLD);
     vec3.scale(adjustedLD, -1);
+    console.log("vec3 is:" + adjustedLD)
     console.log(adjustedLD);
     gl.uniform3fv(shaderProgram.lightingDirectionUniform, adjustedLD);
 
