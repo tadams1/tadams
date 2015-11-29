@@ -1,5 +1,5 @@
 <body onload="webGLStart();">
-  <canvas id="mycanvas" style="border: none;background: red;" width="640" height="500"></canvas>
+  <canvas id="mycanvas" style="border: none;background: red;" width="1024" height="500"></canvas>
   <br/>
   <div id="cParams">HELLO</div>
   <input type="checkbox" id="WF" value="Cat" />Wireframe <br />
@@ -16,14 +16,18 @@
   varying vec3 vLightWeighting;
 
   void main(void) {
-    if(vPos<-1.5) {
-      gl_FragColor = vec4(vec3(0.0,0.0,1.0) * vLightWeighting,1);
-     }else if(vPos>-0.1){
-    gl_FragColor = vec4(vec3(1.0,1.0,1.0),1);
+
+      gl_FragColor = vec4(vec3(1.1,1.0,0.0) * vLightWeighting,1);
+
+   
+   // if(vPos<-1.5) {
+   //   gl_FragColor = vec4(vec3(0.0,0.0,1.0) * vLightWeighting,1);
+   // }else if(vPos>-0.1){
+   //   gl_FragColor = vec4(vec3(1.0,1.0,1.0),1);
     
-    }else {
-      gl_FragColor = vec4(vec3(0.0,1.0,0.0) * vLightWeighting,1);
-    }
+   // }else {
+   //   gl_FragColor = vec4(vec3(0.0,1.0,0.0) * vLightWeighting,1);
+   // }
     
     //if(vTextureCoord.s == 1.0) {
     //  gl_FragColor = vec4(0.1, 1.0, 0.0, 1.0);
@@ -264,7 +268,7 @@ function handleKeys() {
  
   function initWFBuffers() {
   
-    var tg = new NoiseBumpGenerator();
+    var tg = new MandleBumpGenerator();
     tg.init(200,200,3);//,40,50,50);
 
     //var tg = new TriGenerator();
@@ -274,7 +278,6 @@ function handleKeys() {
 
     var ic = tg.getVerticesCount();
     var vData = tg.getVectices();
-    console.log(vData.vertices);
     buffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.bufferData(gl.ARRAY_BUFFER,
@@ -291,7 +294,6 @@ function handleKeys() {
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, c, gl.STATIC_DRAW);
     indexBuffer.itemSize = 1;
     indexBuffer.numItems = tg.getIndicesCount();
-    console.log(c);
     
 
    
@@ -309,11 +311,8 @@ function handleKeys() {
  
     var adjustedLD = vec3.create();
     var ld = [-0.25,1,-1];
-    console.log(ld);
     vec3.normalize(ld, adjustedLD);
     vec3.scale(adjustedLD, -1);
-    console.log("vec3 is:" + adjustedLD)
-    console.log(adjustedLD);
     gl.uniform3fv(shaderProgram.lightingDirectionUniform, adjustedLD);
 
 
