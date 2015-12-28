@@ -1,15 +1,46 @@
 <html>
-<title></title>
-    <link href="stylesheets/style.css" rel="stylesheet" type="text/css">
-  <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQ6LMGS6ebrYR_ABSnMfudwc7sgwgoTWg">
-    </script>
+  <title>Shorebird Maps</title>
+  <link href="stylesheets/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQ6LMGS6ebrYR_ABSnMfudwc7sgwgoTWg"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script type="text/javascript">
+
       var theMap;
+      var thePoints;
+      var theMarker;
+      var formattedAddr;
+      $(function() {
+        $( "#accordion" ).accordion({ beforeActivate: function(event, ui) {
+            alert(ui.newHeader.text());
+          }
+        }); 
+      });
+
+      $(function() {
+        $( "#accordion2" ).accordion();
+      });
+      
+      $(function() {
+        $( "#tabs" ).tabs({ beforeActivate: function(event, ui) {
+            
+            if(ui.newPanel.attr('id')=="tabs-1") {
+            
+            clearPoints();
+
+              addPoints();
+            }else{
+             clearPoints();
+             addMarker();
+            } 
+          }
+        }); 
+      });
 
       function initialize() {
- 	      var mapOptions = {
+ 	      
+        var mapOptions = {
           zoom: 4,
           center: {lat: -28, lng: 137.883},
     		  mapTypeId: google.maps.MapTypeId.TERRAIN
@@ -32,51 +63,55 @@
     		  strokeWeight: 2,
     		  fillColor: '#FF0000',
     		  fillOpacity: 0.35
- 		   });
+ 		     });
 
         theMap = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-        //map.data.loadGeoJson('https://storage.googleapis.com/maps-devrel/google.json');
+      
+        theMap.data.addGeoJson(<%- points %>);
+        thePoints = <%- points %>;
+        //alert(JSON.stringify(thePoints));
+   	    theMap.data.addGeoJson(<%- polygons %>);
+    
+        var infowindow = new google.maps.InfoWindow({
+          content: "This is a test"
+        });
 
- 		   theMap.data.addGeoJson(<%- points %>);
- 	     theMap.data.addGeoJson(<%- polygons %>);
-  
-      var infowindow = new google.maps.InfoWindow({
-        content: "This is a test"
-      });
-
-      theMap.data.addListener('dblclick', function(event) {
-        var myHTML = event.feature.getProperty("infobox");
-        infowindow.setContent("<div style='width:150px; text-align: center;'>"+myHTML+"</div>");
-        //alert(JSON.stringify(event.feature.getGeometry().getArray().getArray()));
-        infowindow.setPosition(event.latLng);
-        infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
-        infowindow.open(theMap);
-      });
+        theMap.data.addListener('dblclick', function(event) {
+          var myHTML = event.feature.getProperty("infobox");
+          infowindow.setContent("<div style='width:150px; text-align: center;'>"+myHTML+"</div>");
+          //alert(JSON.stringify(event.feature.getGeometry().getArray().getArray()));
+          infowindow.setPosition(event.latLng);
+          infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
+          infowindow.open(theMap);
+        });
  
-      theMap.addListener('click', function(event) {
-        infowindow.setContent("<div style='width:150px; text-align: center;'>Add bird here</div>");
-        infowindow.setPosition(event.latLng);
-        infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
-        infowindow.open(theMap);
+        theMap.addListener('click', function(event) {
+          infowindow.setContent("<div style='width:150px; text-align: center;'>Add bird here</div>");
+          infowindow.setPosition(event.latLng);
+          infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
+          infowindow.open(theMap);
 
-        var tb1 = document.getElementById('Lat');
-        tb1.value = event.latLng.lat();
-        tb1 = document.getElementById('Lng');
-        tb1.value = event.latLng.lng();
-      });
+          var tb1 = document.getElementById('Lat');
+          tb1.value = event.latLng.lat();
+          tb1 = document.getElementById('Lng');
+          tb1.value = event.latLng.lng();
+        });
 
 
         var callback=function(feature) {
-              theMap.data.setStyle(function(feature) {
-                 return {icon:feature.getProperty('icon')};
-              });
-          }
+          theMap.data.setStyle(function(feature) {
+          return {icon:feature.getProperty('icon')};
+        });
+      }
         
-        theMap.data.forEach(callback);
+      theMap.data.forEach(callback);
 
         //bermudaTriangle.setMap(map);
     }
 
+    function addLocation() {
+      theLng = 
+    }
     
     function addBird() {
         var tb1 = document.getElementById('Lat');
@@ -111,15 +146,50 @@
             contentType: "application/json",
             dataType: 'json'
         });
-
-
-
         theMap.data.addGeoJson(newJSON);
-      
-
+ 
     }
 
+    function addMarker() {
+      if(theMarker == null) {
+        theMarker = new google.maps.Marker({
+          map: theMap,
+          draggable: true,
+          animation: google.maps.Animation.DROP,
+          position: {lat: -28.327, lng: 137.067}
+        });
+      } else {
+        theMarker.setMap(theMap);
+      }
+      theMarker.addListener('click', toggleBounce);
+    }
 
+    function toggleBounce() {
+      if (theMarker.getAnimation() !== null) {
+        theMarker.setAnimation(null);
+      } else {
+        theMarker.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    }
+
+     function lookupLocation(){
+        var request = new XMLHttpRequest();
+        var method = 'GET';
+        var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+theMarker.position.lat+','+theMarker.position.lng+'&sensor=true';
+        var async = true;
+
+        request.open(method, url, async);
+        request.onreadystatechange = function(){
+          if(request.readyState == 4 && request.status == 200){
+            var data = JSON.parse(request.responseText);
+            var address = data.results[0];
+            formattedAddr = address.formatted_address);
+          }
+        };
+        request.send();
+      };
+
+    }
     function findMe() {
        if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -146,18 +216,149 @@
 
     google.maps.event.addDomListener(window, 'load', initialize);
 
+    function clearPoints() {
+        theMap.data.forEach(function(feature) {
+          theMap.data.remove(feature);
+        });
+        if(theMarker != null) {
+          theMarker.setMap(null);
+        }
+    }
 
-      
+    function addPoints() {
+      var fc = {
+        "type": "FeatureCollection",
+        "features": []
+      }
+      for(var i = 0; i < thePoints.features.length; i++) {
+        if($('input[value=' + thePoints.features[i].properties.type + ']').is(":checked")) {
+          fc.features.push(thePoints.features[i]);
+        }
+      }
+      clearPoints();
+      theMap.data.addGeoJson(fc);
+    }
 
-    </script>
+    $(document).ready(function() {
+      $('input[type=checkbox]').change(function() {
+        addPoints();
+    });
+  });
+</script>
 
 
 <body>
+  <div id="tabs" class="tab-panel">
+    <ul>
+      <li><a href="#tabs-1">View Records</a></li>
+      <li><a href="#tabs-2">Log a Threat</a></li>
+      <li><a href="#tabs-3">Log an Action</a></li>
+    </ul>
+    <div id="tabs-1">
+      <div id="threat-tab1" class="threat-panel1">
+        <p>Threats</p>
+        <ul class="threat-checkbox">
+          <li><input type="checkbox" id="threat1" value="IndDev" /><label for="threat1">Industrial Developments</label></li> 
+          <li><input type="checkbox" id="threat2" value="ResDev" /><label for="threat2">Residental Developments</label></li> 
+          <li><input type="checkbox" id="threat3" value="OffRoadDev" /><label for="threat3">Off-road Vehicles Developments</label></li> 
+          <li><input type="checkbox" id="threat4" value="OffLeashDogs" /><label for="threat4">Off-leash Dogs</label></li> 
+          <li><input type="checkbox" id="threat5" value="BadWaterMgmt" /><label for="threat5">Inappropirate Water Management</label></li> 
+          <li><input type="checkbox" id="threat6" value="RecImpact" /><label for="threat6">Recreational impacts</label></li>
+          <li><input type="checkbox" id="threat7" value="InvVeg" /><label for="threat7">Invasive vegetation</label></li> 
+          <li><input type="checkbox" id="threat8" value="Pred" /><label for="threat8">Pressure from predators</label></li> 
+          <li><input type="checkbox" id="threat9" value="Poll" /><label for="threat9">Pollution</label></li> 
+          <li><input type="checkbox" id="threat10" value="UnHarvest" /><label for="threat10">Unsustainable havesting</label></li> 
+        </ul>
+      </div>
+      <div id="threat-tab2" class="threat-panel2">
+        <p>Actions</p>
+        <ul class="threat-checkbox">
+          <li><input type="checkbox" id="action1" value="CommMon" /><label for="action1">Community Monitoring</label></li> 
+          <li><input type="checkbox" id="action2" value="Research" /><label for="action2">Research</label></li> 
+          <li><input type="checkbox" id="action3" value="ImprovPnL" /><label for="action3">Improved policy and legislation</label></li> 
+          <li><input type="checkbox" id="action4" value="Education" /><label for="action4">Education and events</label></li> 
+          <li><input type="checkbox" id="action5" value="SiteProtect" /><label for="action5">Site Protection</label></li> 
+          <li><input type="checkbox" id="action6" value="RubRum" /><label for="action6">Rubbish Removal</label></li>
+          <li><input type="checkbox" id="action7" value="WeedRem" /><label for="action7">Weed removal</label></li> 
+          <li><input type="checkbox" id="action8" value="PredCtrl" /><label for="action8">Predator Control</label></li> 
+          <li><input type="checkbox" id="action9" value="HabCreat" /><label for="action9">Habitat Creation</label></li> 
+          <li><input type="checkbox" id="action10" value="ImproWaterMgmt" /><label for="action10">Improved water management</label></li> 
+        </ul>
+      </div>
+    </div>
+    <div id="tabs-2">
+      <div id="accordion">
+        <h3>Step 1: Location</h3>
+          <div>
+            <p> Where did you observe the threat to shorebirds and/or their habitat?</p>
+            <p><b>Drag the marker on the map to select the location</b></p>
+            <p><input type="button" value="Save and continue" onclick="saveBird()"></p>
+          </div>
+        <h3>Step 2: Details</h3>
+          <div>
+            <p>What type of threat did you observer?</p>
+            <ul class="threat-checkbox">
+              <li><input type="radio" id="threat1" name="threatgroup" value="Industrial Developments" /><label for="threat1">Industrial Developments</label></li> 
+              <li><input type="radio" id="threat2" name="threatgroup" value="Residental Developments" /><label for="threat2">Residental Developments</label></li> 
+              <li><input type="radio" id="threat3" name="threatgroup" value="Off-road Vehicles Developments" /><label for="threat3">Off-road Vehicles Developments</label></li> 
+              <li><input type="radio" id="threat4" name="threatgroup" value="Off-leash Dogs" /><label for="threat4">Off-leash Dogs</label></li> 
+              <li><input type="radio" id="threat5" name="threatgroup" value="Inappropirate Water Management" /><label for="threat5">Inappropirate Water Management</label></li> 
+              <li><input type="radio" id="threat6" name="threatgroup" value="Recreational impacts" /><label for="threat6">Recreational impacts</label></li>
+              <li><input type="radio" id="threat7" name="threatgroup" value="Invasive vegetation" /><label for="threat7">Invasive vegetation</label></li> 
+              <li><input type="radio" id="threat8" name="threatgroup" value="Pressure from predators" /><label for="threat8">Pressure from predators</label></li> 
+              <li><input type="radio" id="threat9" name="threatgroup" value="Pollution" /><label for="threat9">Pollution</label></li> 
+              <li><input type="radio" id="threat10" name="threatgroup" value="Unsustainable havesting" /><label for="threat10">Unsustainable havesting</label></li> 
+            </ul> 
+            <p><label>Please let us know a bit more about your observation (optional)<br><textarea name="Description" value="" rows="2" cols="50" id="desc"></textarea></label></p>
+          </div>
+        <h3>Step 3: Review and Submit</h3>
+          <div>
+            <p>Location: Botany Bay</p>
+            <p>Type of threat: Industrial Development</p>
+            <p>Comments: New airport runway development threatening Bar-tailed godwits and other shorebirds</p>
+          </div>
+      </div>
+    </div>
+    <div id="tabs-3">
+      <div id="accordion2">
+        <h3>Step 1: Location</h3>
+          <div>
+            <p> Where did you observe the threat to shorebirds and/or their habitat?</p>
+            <p><b>Drag the marker on the map to select the location</b></p>
+            <p><input type="button" value="Save and continue" onclick="saveBird()"></p>
+          </div>
+        <h3>Step 2: Details</h3>
+          <div>
+            <p>What type of threat did you observer?</p>
+            <ul class="threat-checkbox">
+               <li><input type="radio" id="action1" name="actiongroup" value="Community Monitoring" /><label for="action1">Community Monitoring</label></li> 
+              <li><input type="radio" id="action2" name="actiongroup" value="Research" /><label for="action2">Research</label></li> 
+              <li><input type="radio" id="action3" name="actiongroup" value="Improved policy and legislation" /><label for="action3">Improved policy and legislation</label></li> 
+              <li><input type="radio" id="action4" name="actiongroup" value="Education and events" /><label for="action4">Education and events</label></li> 
+              <li><input type="radio" id="action5" name="actiongroup" value="Site Protection" /><label for="action5">Site Protection</label></li> 
+              <li><input type="radio" id="action6" name="actiongroup" value="Rubbish Removal" /><label for="action6">Rubbish Removal</label></li>
+              <li><input type="radio" id="action7" name="actiongroup" value="Weed removal" /><label for="action7">Weed removal</label></li> 
+              <li><input type="radio" id="action8" name="actiongroup" value="Predator Control" /><label for="action8">Predator Control</label></li> 
+              <li><input type="radio" id="action9" name="actiongroup" value="Habitat Creation" /><label for="action9">Habitat Creation</label></li> 
+              <li><input type="radio" id="action10" name="actiongroup" value="Improved water management" /><label for="action10">Improved water management</label></li>
+            </ul> 
+            <p><label>Please let us know a bit more about your observation (optional)<br><textarea name="Description" value="" rows="2" cols="50" id="desc"></textarea></label></p>
+          </div>
+        <h3>Step 3: Review and Submit</h3>
+          <div>
+            <p>Location: Botany Bay</p>
+            <p>Type of threat: Industrial Development</p>
+            <p>Comments: New airport runway development threatening Bar-tailed godwits and other shorebirds</p>
+          </div>
+      </div>
+    </div>
+  </div>
 
-<div class="left-panel"></div>
-<div class="right-panel" id="map-canvas"></div>
-<div class="bottom-panel" id="user-input">
-  <p><label>Lat<input type="text" name="Lat" value="" id="Lat"/></label></p>
+
+  <div class="right-panel" id="map-canvas"></div> 
+
+<!-- <div class="bottom-panel" id="user-input">
+      <p><label>Lat<input type="text" name="Lat" value="" id="Lat"/></label></p>
   <p><label>Lng<input type="text" name="Lng" value="" id="Lng"/></label></p>
   <p><label>Threat Description<br><textarea name="Description" value="" rows="5" cols="50" id="desc"></textarea></label></p>
   <p><input type="button" value="Add Bird" onclick="addBird()"></p>
@@ -166,6 +367,6 @@
   <p><input type="radio" name="group1" value="images/Car-4wd-Icon.png">4WD</p>
   <p><input type="radio" name="group1" value="images/Fox_icon.png" checked>Fox</p>
   <p><input type="radio" name="group1" value="images/Water_Tap_Circle_Green.png">Tap</p>
-</div>
+</div> -->
 </body>
 </html> 	

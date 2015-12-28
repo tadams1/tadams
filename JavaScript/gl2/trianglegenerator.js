@@ -318,7 +318,7 @@ NoiseBumpGenerator.prototype.getVectices = function() {
       vert[index]=x/this.step;
       vert[index+1]=(y/this.step)+makeNoise(x*1.23 , y * .137 , 0 );
       var z = makeNoise(x*1.23 , y * .137 , 0 );
-      vert[index+2]=(z-0.5);
+      vert[index+2]=Math.pow(z-0.5,4);
 
   
     }

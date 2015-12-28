@@ -28,19 +28,69 @@ textarea{
   border-radius: none;
 }
 
-.left-panel
+ul.threat-checkbox  { 
+  margin: 0; 
+  padding: 0; 
+  margin-left: 20px; 
+  list-style: none; 
+  font-size: 10px;
+} 
+
+ul.threat-checkbox li input { 
+  margin-right: .25em; 
+} 
+
+ul.threat-checkbox li { 
+  border: 1px transparent solid; 
+  display:inline-block;
+  width:20em;
+} 
+
+ul.threat-checkbox li label { 
+  margin-left: ; 
+} 
+
+.threat-panel1
+{
+    background-color:#fff;
+    width:50%;
+    height:60%;
+    float:left; 
+}
+
+.threat-panel2
+{
+    background-color:#fff;
+    width:50%;
+    height:60%;
+    float:right; 
+}
+
+.top-panel
+{
+
+}
+
+.top-panel
 {        
     background-color:#ccc;
-    width:10%;
-    height:100%;
-    float:left;        
+    width:100%;
+    height:0%;
+    float:top;        
+}
+.tab-panel
+{        
+    background-color:Gray;
+    width:100%;
+    height:60%;
+    float:bottom;
 }
 .right-panel
 {        
     background-color:Gray;
-    width:90%;
-    height:50%;
-    float:right;
+    width:100%;
+    height:40%;
+    float:bottom;
 }
 .bottom-panel
 {        

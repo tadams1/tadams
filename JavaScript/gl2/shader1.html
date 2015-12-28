@@ -8,6 +8,7 @@
 
 <script type="text/javascript" src="./glMatrix-0.9.5.min.js"></script>
 <script type="text/javascript" src="./trianglegenerator.js"></script>
+<script type="text/javascript" src="./geometry.js"></script>
 <script type="text/javascript" src="./webgl-utils.js"></script>
 
 <script id="shader-std-fs" type="x-shader/x-fragment">
@@ -136,6 +137,7 @@
 
     document.onkeydown = handleKeyDown;
     document.onkeyup = handleKeyUp;
+    document.onmousemove = handleMouseMove;
     initGL(canvas);
     initShadersWF();
     //initBuffers();
@@ -145,6 +147,15 @@
    
     //render();
 	  tick();
+  }
+
+  var mouseX;
+  var mouseY;
+  function handleMouseMove(event) {
+    mouseX = event.screenX;
+    mouseY = event.screenY;
+
+    console.log(mouseX, mouseY);
   }
 
   function tick() {
@@ -234,7 +245,9 @@ function handleKeys() {
   var buffer;
   var indexBuffer;
   var normalBuffer;
-
+  var cBuffer;
+  var cnBuffer;
+  var ciBuffer;
 
 
   function drawScene() {
@@ -263,6 +276,19 @@ function handleKeys() {
       gl.drawElements(gl.LINE_STRIP, indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
     }else{
       gl.drawElements(gl.TRIANGLE_STRIP, indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+    }
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, cBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, cBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, cnBuffer, gl.STATIC_DRAW);
+    gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, cnBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ciBuffer);
+    if(document.getElementById('WF').checked) {
+      gl.drawElements(gl.LINE_STRIP, ciBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+    }else{
+      gl.drawElements(gl.TRIANGLE_STRIP, ciBuffer.numItems, gl.UNSIGNED_SHORT, 0);
     }
   }
  
@@ -306,9 +332,34 @@ function handleKeys() {
     );
     normalBuffer.itemSize = 3;
     normalBuffer.numItems = ic/3;
-    gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, normalBuffer.itemSize, gl.FLOAT, false, 0, 0);
   
- 
+
+    var cb = new Cube();
+    cb.init(-30,-10,-75,5);
+    console.log(cb.getVectices());
+    var cbVdata = cb.getVectices();
+    console.log(cbVdata.vertices);
+    
+    cBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, cBuffer);
+    console.log("Vert" + cbVdata.vertices);
+    gl.bufferData(gl.ARRAY_BUFFER,cbVdata.vertices, gl.STATIC_DRAW);
+    cBuffer.numItems = cb.getVerticesCount();
+    cBuffer.itemSize = 3;
+
+    cnBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, cnBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER,cbVdata.normals, gl.STATIC_DRAW);
+    cnBuffer.numItems = cb.getVerticesCount();
+    cnBuffer.itemSize = 3;
+
+    ciBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ciBuffer);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,cb.getIndices(), gl.STATIC_DRAW);
+    ciBuffer.numItems = cb.getIndicesCount();
+    ciBuffer.itemSize = 1;
+
+
     var adjustedLD = vec3.create();
     var ld = [-0.25,1,-1];
     vec3.normalize(ld, adjustedLD);
