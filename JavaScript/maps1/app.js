@@ -8,8 +8,9 @@ var common = require('common');
 var layers = require('./layers');
 
 var routes = require('./routes/index');
+var viewrecords = require('./routes/viewrecords');
 var users = require('./routes/users');
-
+var maps = require('./routes/maps');
 
 var app = express();
 
@@ -34,9 +35,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-
-
-
-
-
+app.use('/maps', maps);
+app.use('/viewrecords', viewrecords);
 module.exports = app;

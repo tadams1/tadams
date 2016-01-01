@@ -22,6 +22,14 @@
             {
               "id": "ResDev",
               "text": "Residental Development"
+           },
+           {
+              "id": "OffLeashDogs",
+              "text": "Off Leash Dogs"
+           },
+           {
+              "id": "BadWaterMgmt",
+              "text": "Bad Water Management"
            }
            ],
         "actions": 
@@ -49,7 +57,14 @@
       });
 
       $(function() {
-        $( "#accordion2" ).accordion();
+        $( "#accordion2" ).accordion({ beforeActivate: function(event, ui) {
+            if(ui.newHeader.text()=="Step 3: Review and Submit") {
+              $("label[id='actionlocation']").text('Location: ' + formattedAddr);
+              $("label[id='actiontype']").text('Threat Description: ' + $("input[name=actiongroup]:checked").attr("displayvalue"));
+              $("label[id='actioncomment']").text('Comment: ' + $("textarea#actioncomment").val());
+            }
+          }
+        }); 
       });
       
       $(function() {
@@ -74,10 +89,11 @@
 
         theMap = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
       
-        theMap.data.addGeoJson(<%- points %>);
+        //theMap.data.addGeoJson(<%- points %>);
         thePoints = <%- points %>;
+        alert(JSON.stringify(<%- polygons %>));
    	    theMap.data.addGeoJson(<%- polygons %>);
-    
+        //theMap.data.loadGeoJson("http://localhost:3000/maps?geotype=Point&type=OffLeashDogs")
   
         theMap.data.addListener('dblclick', function(event) {
           var myHTML = event.feature.getProperty("infobox");
@@ -121,7 +137,7 @@
       tchk.append('<ul class="' + thename + '-checkbox">');
       for(var i = 0; i < thearray.length; i++) {
           topt.append('<li><input type="radio" name="' + thename + 'group" displayvalue="' + thearray[i].text + '" value="' + thearray[i].id + '">' + thearray[i].text + "</input></li>");
-          tchk.append('<li><input type="checkbox" id="' + thename  + i + '" value="' + thearray[i].id + '" /><label for="' + thename + i + '">' + thearray[i].text + '</label></li>');
+          tchk.append('<li><input type="checkbox" onclick=updateJSON(this,"Point","' + thearray[i].id + '") + id="' + thename  + i + '" value="' + thearray[i].id + '" /><label for="' + thename + i + '">' + thearray[i].text + '</label></li>');
       }
       topt.append('</ul>');
       tchk.append('</ul>');      
@@ -157,15 +173,15 @@
 
         alert(JSON.stringify(newJSON));
   
-        /*$.ajax({
+        $.ajax({
             type: 'POST',
             url: '/',
             data: JSON.stringify(newJSON),
             success: function(data) { alert('data: ' + data); },
             contentType: "application/json",
             dataType: 'json'
-        });*/
-        theMap.data.addGeoJson(newJSON);
+        });
+        //theMap.data.addGeoJson(newJSON);
     }
 
     function addMarker() {
@@ -256,9 +272,25 @@
       theMap.data.addGeoJson(fc);
     }
 
+    function updateJSON(chkbox, geotype, dbtype) {
+      if(chkbox.checked) {
+        theMap.data.loadGeoJson('http://localhost:3000/maps?geotype=' + geotype + '&type='+ dbtype);
+      }else{
+        var callback=function(feature) {
+          
+          if(feature.getProperty('type') == dbtype) {
+            theMap.data.remove(feature);
+          }
+        };
+        theMap.data.forEach(callback);
+      }
+    }
+
     $(document).ready(function() {
       $('input[type=checkbox]').change(function() {
-        addPoints();
+        if($(this).is(":checked")) {
+            alert($(this).attr("displayvalue"));
+        }
     });
   });
 </script>
@@ -310,21 +342,24 @@
       <div id="accordion2">
         <h3>Step 1: Location</h3>
           <div>
-            <p> Where did you observe the threat to shorebirds and/or their habitat?</p>
+            <p> Where did you observe the action to shorebirds and/or their habitat?</p>
             <p><b>Drag the marker on the map to select the location</b></p>
-            <p><input type="button" value="Save and continue" onclick="saveBird()"></p>
+            <p><input type="button" value="Save and continue" onclick="addLocation()"></p>
           </div>
         <h3>Step 2: Details</h3>
           <div>
-            <p>What type of threat did you observer?</p>
+            <p>What type of action did you observer?</p>
             <div id="actiontype" class="threat-checkbox"></div>
-            <p><label>Please let us know a bit more about your observation (optional)<br><textarea name="Description" value="" rows="2" cols="50" id="desc"></textarea></label></p>
+            <p><label>Please let us know a bit more about your observation (optional)<br><textarea name="Description" id="actioncomment"value="" rows="2" cols="50" id="desc"></textarea></label></p>
           </div>
         <h3>Step 3: Review and Submit</h3>
           <div>
-            <p>Location:</p>
-            <p>Type of threat: Industrial Development</p>
-            <p>Comments: New airport runway development threatening Bar-tailed godwits and other shorebirds</p>
+            <ul>
+              <li><label id="actionlocation"></label></li>
+              <li><label id="actiontype"></label></li>
+              <li><label id="actioncomment"></label></li>
+            <ul>
+            <p><input type="button" value="Save and continue" onclick="saveAction()"></p>
           </div>
       </div>
     </div>
@@ -332,17 +367,5 @@
 
 
   <div class="right-panel" id="map-canvas"></div> 
-
-<!-- <div class="bottom-panel" id="user-input">
-      <p><label>Lat<input type="text" name="Lat" value="" id="Lat"/></label></p>
-  <p><label>Lng<input type="text" name="Lng" value="" id="Lng"/></label></p>
-  <p><label>Threat Description<br><textarea name="Description" value="" rows="5" cols="50" id="desc"></textarea></label></p>
-  <p><input type="button" value="Add Bird" onclick="addBird()"></p>
-  <p><input type="button" value="Remove Bird" onclick="removeAll()"></p>
-  <p><input type="button" value="Find Me" onclick="findMe()"></p>
-  <p><input type="radio" name="group1" value="images/Car-4wd-Icon.png">4WD</p>
-  <p><input type="radio" name="group1" value="images/Fox_icon.png" checked>Fox</p>
-  <p><input type="radio" name="group1" value="images/Water_Tap_Circle_Green.png">Tap</p>
-</div> -->
 </body>
 </html> 	

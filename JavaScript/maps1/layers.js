@@ -10,6 +10,15 @@ function layers() {
 }
 
 
+layers.prototype.runQuery = function() {
+  this.db.collection('test').find({'geometry.type': 'Point'},{'_id': false}).toArray(function (err, items) {
+    console.log(items);
+    console.log(err); 
+      console.log("Object Created:")
+  });
+
+}
+
 layers.prototype.getDBData = function(callback, geotype, myobj) {
 
 	this.db.collection('test1').find({'geometry.type': geotype},{'_id': false}).toArray(function (err, items) {

@@ -28,6 +28,56 @@ textarea{
   border-radius: none;
 }
 
+
+html, body {
+    height: 100%;
+}
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background-color: moccasin;
+    
+}
+.wrapper {
+    position:absolute;
+    top: 21px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: fuchsia;
+}
+.inner-wrapper,
+.center.pane .inner {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+.pane {
+    display: table-cell;
+}
+.left.pane {
+    width: 15%;
+   background-color: green; 
+}
+.center.pane {
+    width: 70%;
+    background-color: lightblue;
+}
+.right.pane {
+    width: 15%;
+    background-color: #999;
+}
+
+
+      #map {
+        height: 100%;
+        weight: 100%;
+      }
+
+
 ul.threat-checkbox  { 
   margin: 0; 
   padding: 0; 
@@ -49,6 +99,21 @@ ul.threat-checkbox li {
 ul.threat-checkbox li label { 
   margin-left: ; 
 } 
+
+.vrthreat-panel1
+{
+    width:100%;
+    height:50%;
+  font-size: 10px;
+}
+
+.vrthreat-panel2
+{
+    width:100%;
+    height:50%;
+    
+  font-size: 10px;
+}
 
 .threat-panel1
 {
