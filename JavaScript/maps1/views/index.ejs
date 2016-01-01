@@ -11,12 +11,38 @@
       var thePoints;
       var theMarker;
       var formattedAddr;
+
+      var pageInfo = {
+        "threats": 
+           [
+            {
+              "id": "IndDev",
+              "text": "Industrial Development"
+            },
+            {
+              "id": "ResDev",
+              "text": "Residental Development"
+           }
+           ],
+        "actions": 
+          [
+            {
+              "id": "action1",
+              "text": "Jane Small"
+            },
+            {
+              "id": "action2",
+              "text": "actionzzz"
+            }
+          ]
+      };
+
       $(function() {
         $( "#accordion" ).accordion({ beforeActivate: function(event, ui) {
             if(ui.newHeader.text()=="Step 3: Review and Submit") {
-              alert(formattedAddr);
-              $("label[id='xyz']").text(formattedAddr);
-//              $( "#xyz" ).html = formattedAddr;
+              $("label[id='threatlocation']").text('Location: ' + formattedAddr);
+              $("label[id='threattype']").text('Threat Description: ' + $("input[name=threatgroup]:checked").attr("displayvalue"));
+              $("label[id='threatcomment']").text('Comment: ' + $("textarea#threatcomment").val());
             }
           }
         }); 
@@ -74,14 +100,31 @@
           tb1.value = event.latLng.lng();
         });
 
-
         var callback=function(feature) {
           theMap.data.setStyle(function(feature) {
           return {icon:feature.getProperty('icon')};
         });
+
+        
       }
         
+      buildPage('threat', pageInfo.threats);
+      buildPage('action', pageInfo.actions);
+      
       theMap.data.forEach(callback);
+    }
+
+    function buildPage(thename, thearray) {
+      var topt = $('#' + thename + 'type');
+      var tchk = $('#' + thename + 'typechk');
+      topt.append('<ul class="' + thename + '-checkbox">');
+      tchk.append('<ul class="' + thename + '-checkbox">');
+      for(var i = 0; i < thearray.length; i++) {
+          topt.append('<li><input type="radio" name="' + thename + 'group" displayvalue="' + thearray[i].text + '" value="' + thearray[i].id + '">' + thearray[i].text + "</input></li>");
+          tchk.append('<li><input type="checkbox" id="' + thename  + i + '" value="' + thearray[i].id + '" /><label for="' + thename + i + '">' + thearray[i].text + '</label></li>');
+      }
+      topt.append('</ul>');
+      tchk.append('</ul>');      
     }
 
     function addLocation() {
@@ -89,41 +132,40 @@
       $( ".selector" ).accordion( "option", "active", 2 );
     }
     
-    function addBird() {
-        var tb1 = document.getElementById('Lat');
-        var tb2 = document.getElementById('Lng');
-        var tb3 = document.getElementById('desc');
-        
-        var myLatlng = new google.maps.LatLng(tb1.value,tb2.value);
+    function saveThreat() {
+      saveLocation('threat');
+    }
 
-        $("input[name=group1]:checked").val()
+    function saveAction() {
+      saveLocation('action');
+    }
 
-        var newJSON = {
+    function saveLocation(savetype) {
+     var newJSON = {
           "type": "Feature",
           "properties": {
             "letter": "o",
-            "infobox": tb3.value,
-            "icon": $("input[name=group1]:checked").val()
+            "type": $('input[name=' + savetype + 'group]:checked').attr("value"),
+            "comment": $('textarea#' + savetype + 'comment').val()
           },
           "geometry": 
           {
             "type": "Point",
-            "coordinates": [myLatlng.lng(), myLatlng.lat()]
+            "coordinates": [theMarker.position.lng(), theMarker.position.lat()]
           }
         }
 
         alert(JSON.stringify(newJSON));
   
-        $.ajax({
+        /*$.ajax({
             type: 'POST',
             url: '/',
             data: JSON.stringify(newJSON),
             success: function(data) { alert('data: ' + data); },
             contentType: "application/json",
             dataType: 'json'
-        });
+        });*/
         theMap.data.addGeoJson(newJSON);
- 
     }
 
     function addMarker() {
@@ -232,33 +274,11 @@
     <div id="tabs-1">
       <div id="threat-tab1" class="threat-panel1">
         <p>Threats</p>
-        <ul class="threat-checkbox">
-          <li><input type="checkbox" id="threat1" value="IndDev" /><label for="threat1">Industrial Developments</label></li> 
-          <li><input type="checkbox" id="threat2" value="ResDev" /><label for="threat2">Residental Developments</label></li> 
-          <li><input type="checkbox" id="threat3" value="OffRoadDev" /><label for="threat3">Off-road Vehicles Developments</label></li> 
-          <li><input type="checkbox" id="threat4" value="OffLeashDogs" /><label for="threat4">Off-leash Dogs</label></li> 
-          <li><input type="checkbox" id="threat5" value="BadWaterMgmt" /><label for="threat5">Inappropirate Water Management</label></li> 
-          <li><input type="checkbox" id="threat6" value="RecImpact" /><label for="threat6">Recreational impacts</label></li>
-          <li><input type="checkbox" id="threat7" value="InvVeg" /><label for="threat7">Invasive vegetation</label></li> 
-          <li><input type="checkbox" id="threat8" value="Pred" /><label for="threat8">Pressure from predators</label></li> 
-          <li><input type="checkbox" id="threat9" value="Poll" /><label for="threat9">Pollution</label></li> 
-          <li><input type="checkbox" id="threat10" value="UnHarvest" /><label for="threat10">Unsustainable havesting</label></li> 
-        </ul>
+       <div id='threattypechk'></div>
       </div>
       <div id="threat-tab2" class="threat-panel2">
         <p>Actions</p>
-        <ul class="threat-checkbox">
-          <li><input type="checkbox" id="action1" value="CommMon" /><label for="action1">Community Monitoring</label></li> 
-          <li><input type="checkbox" id="action2" value="Research" /><label for="action2">Research</label></li> 
-          <li><input type="checkbox" id="action3" value="ImprovPnL" /><label for="action3">Improved policy and legislation</label></li> 
-          <li><input type="checkbox" id="action4" value="Education" /><label for="action4">Education and events</label></li> 
-          <li><input type="checkbox" id="action5" value="SiteProtect" /><label for="action5">Site Protection</label></li> 
-          <li><input type="checkbox" id="action6" value="RubRum" /><label for="action6">Rubbish Removal</label></li>
-          <li><input type="checkbox" id="action7" value="WeedRem" /><label for="action7">Weed removal</label></li> 
-          <li><input type="checkbox" id="action8" value="PredCtrl" /><label for="action8">Predator Control</label></li> 
-          <li><input type="checkbox" id="action9" value="HabCreat" /><label for="action9">Habitat Creation</label></li> 
-          <li><input type="checkbox" id="action10" value="ImproWaterMgmt" /><label for="action10">Improved water management</label></li> 
-        </ul>
+        <div id='actiontypechk'></div>
       </div>
     </div>
     <div id="tabs-2">
@@ -272,28 +292,17 @@
         <h3>Step 2: Details</h3>
           <div>
             <p>What type of threat did you observer?</p>
-            <ul class="threat-checkbox">
-              <li><input type="radio" id="threat1" name="threatgroup" value="Industrial Developments" /><label for="threat1">Industrial Developments</label></li> 
-              <li><input type="radio" id="threat2" name="threatgroup" value="Residental Developments" /><label for="threat2">Residental Developments</label></li> 
-              <li><input type="radio" id="threat3" name="threatgroup" value="Off-road Vehicles Developments" /><label for="threat3">Off-road Vehicles Developments</label></li> 
-              <li><input type="radio" id="threat4" name="threatgroup" value="Off-leash Dogs" /><label for="threat4">Off-leash Dogs</label></li> 
-              <li><input type="radio" id="threat5" name="threatgroup" value="Inappropirate Water Management" /><label for="threat5">Inappropirate Water Management</label></li> 
-              <li><input type="radio" id="threat6" name="threatgroup" value="Recreational impacts" /><label for="threat6">Recreational impacts</label></li>
-              <li><input type="radio" id="threat7" name="threatgroup" value="Invasive vegetation" /><label for="threat7">Invasive vegetation</label></li> 
-              <li><input type="radio" id="threat8" name="threatgroup" value="Pressure from predators" /><label for="threat8">Pressure from predators</label></li> 
-              <li><input type="radio" id="threat9" name="threatgroup" value="Pollution" /><label for="threat9">Pollution</label></li> 
-              <li><input type="radio" id="threat10" name="threatgroup" value="Unsustainable havesting" /><label for="threat10">Unsustainable havesting</label></li> 
-            </ul> 
-            <p><label>Please let us know a bit more about your observation (optional)<br><textarea name="Description" value="" rows="2" cols="50" id="desc"></textarea></label></p>
+            <div id="threattype" class="threat-checkbox"></div>
+            <p><label>Please let us know a bit more about your observation (optional)<br><textarea name="Description" id="threatcomment" value="" rows="2" cols="50" id="desc"></textarea></label></p>
           </div>
         <h3>Step 3: Review and Submit</h3>
           <div>
             <ul>
-              <li><label id="xyz"></label>xxxx</li>
-              <li><input type="label" id="threatType"></li>
-              <li><input type="label" id="threatComment"></li>
+              <li><label id="threatlocation"></label></li>
+              <li><label id="threattype"></label></li>
+              <li><label id="threatcomment"></label></li>
             <ul>
-            <p><input type="button" value="Save and continue" onclick="saveLocation()"></p>
+            <p><input type="button" value="Save and continue" onclick="saveThreat()"></p>
           </div>
       </div>
     </div>
@@ -308,18 +317,7 @@
         <h3>Step 2: Details</h3>
           <div>
             <p>What type of threat did you observer?</p>
-            <ul class="threat-checkbox">
-               <li><input type="radio" id="action1" name="actiongroup" value="Community Monitoring" /><label for="action1">Community Monitoring</label></li> 
-              <li><input type="radio" id="action2" name="actiongroup" value="Research" /><label for="action2">Research</label></li> 
-              <li><input type="radio" id="action3" name="actiongroup" value="Improved policy and legislation" /><label for="action3">Improved policy and legislation</label></li> 
-              <li><input type="radio" id="action4" name="actiongroup" value="Education and events" /><label for="action4">Education and events</label></li> 
-              <li><input type="radio" id="action5" name="actiongroup" value="Site Protection" /><label for="action5">Site Protection</label></li> 
-              <li><input type="radio" id="action6" name="actiongroup" value="Rubbish Removal" /><label for="action6">Rubbish Removal</label></li>
-              <li><input type="radio" id="action7" name="actiongroup" value="Weed removal" /><label for="action7">Weed removal</label></li> 
-              <li><input type="radio" id="action8" name="actiongroup" value="Predator Control" /><label for="action8">Predator Control</label></li> 
-              <li><input type="radio" id="action9" name="actiongroup" value="Habitat Creation" /><label for="action9">Habitat Creation</label></li> 
-              <li><input type="radio" id="action10" name="actiongroup" value="Improved water management" /><label for="action10">Improved water management</label></li>
-            </ul> 
+            <div id="actiontype" class="threat-checkbox"></div>
             <p><label>Please let us know a bit more about your observation (optional)<br><textarea name="Description" value="" rows="2" cols="50" id="desc"></textarea></label></p>
           </div>
         <h3>Step 3: Review and Submit</h3>
