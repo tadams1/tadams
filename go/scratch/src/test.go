@@ -1,7 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"io/ioutil"
+)
 
-func main() {
-   fmt.Println("Test1");
+type Page struct {
+    Title string
+    Body  []byte
 }
+
+func (p *Page) save() error {
+    filename := p.Title + ".txt"
+    return ioutil.WriteFile(filename, p.Body, 0600)
+}
+
+

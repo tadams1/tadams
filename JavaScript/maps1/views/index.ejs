@@ -13,7 +13,11 @@
       var formattedAddr;
       $(function() {
         $( "#accordion" ).accordion({ beforeActivate: function(event, ui) {
-            alert(ui.newHeader.text());
+            if(ui.newHeader.text()=="Step 3: Review and Submit") {
+              alert(formattedAddr);
+              $("label[id='xyz']").text(formattedAddr);
+//              $( "#xyz" ).html = formattedAddr;
+            }
           }
         }); 
       });
@@ -24,11 +28,7 @@
       
       $(function() {
         $( "#tabs" ).tabs({ beforeActivate: function(event, ui) {
-            
             if(ui.newPanel.attr('id')=="tabs-1") {
-            
-            clearPoints();
-
               addPoints();
             }else{
              clearPoints();
@@ -45,37 +45,14 @@
           center: {lat: -28, lng: 137.883},
     		  mapTypeId: google.maps.MapTypeId.TERRAIN
   		  };
-        
-        var bermudaTriangle;
-
-        var triangleCoords = [
-    		  new google.maps.LatLng(25.774252, -80.190262),
-    		  new google.maps.LatLng(18.466465, -66.118292),
-    		  new google.maps.LatLng(32.321384, -64.75737),
-    		  new google.maps.LatLng(25.774252, -80.190262)
-  		  ];
-
-        // Load a GeoJSON from the same server as our demo.
-  		  bermudaTriangle = new google.maps.Polygon({
-   			  paths: triangleCoords,
-    		  strokeColor: '#FF0000',
-    		  strokeOpacity: 0.8,
-    		  strokeWeight: 2,
-    		  fillColor: '#FF0000',
-    		  fillOpacity: 0.35
- 		     });
 
         theMap = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
       
         theMap.data.addGeoJson(<%- points %>);
         thePoints = <%- points %>;
-        //alert(JSON.stringify(thePoints));
    	    theMap.data.addGeoJson(<%- polygons %>);
     
-        var infowindow = new google.maps.InfoWindow({
-          content: "This is a test"
-        });
-
+  
         theMap.data.addListener('dblclick', function(event) {
           var myHTML = event.feature.getProperty("infobox");
           infowindow.setContent("<div style='width:150px; text-align: center;'>"+myHTML+"</div>");
@@ -105,12 +82,11 @@
       }
         
       theMap.data.forEach(callback);
-
-        //bermudaTriangle.setMap(map);
     }
 
     function addLocation() {
-      theLng = 
+      lookupLocation();
+      $( ".selector" ).accordion( "option", "active", 2 );
     }
     
     function addBird() {
@@ -175,7 +151,7 @@
      function lookupLocation(){
         var request = new XMLHttpRequest();
         var method = 'GET';
-        var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+theMarker.position.lat+','+theMarker.position.lng+'&sensor=true';
+        var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+theMarker.position.lat()+','+theMarker.position.lng()+'&sensor=true';
         var async = true;
 
         request.open(method, url, async);
@@ -183,13 +159,12 @@
           if(request.readyState == 4 && request.status == 200){
             var data = JSON.parse(request.responseText);
             var address = data.results[0];
-            formattedAddr = address.formatted_address);
+            formattedAddr = address.formatted_address;
           }
         };
         request.send();
-      };
-
     }
+
     function findMe() {
        if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -292,7 +267,7 @@
           <div>
             <p> Where did you observe the threat to shorebirds and/or their habitat?</p>
             <p><b>Drag the marker on the map to select the location</b></p>
-            <p><input type="button" value="Save and continue" onclick="saveBird()"></p>
+            <p><input type="button" value="Save and continue" onclick="addLocation()"></p>
           </div>
         <h3>Step 2: Details</h3>
           <div>
@@ -313,9 +288,12 @@
           </div>
         <h3>Step 3: Review and Submit</h3>
           <div>
-            <p>Location: Botany Bay</p>
-            <p>Type of threat: Industrial Development</p>
-            <p>Comments: New airport runway development threatening Bar-tailed godwits and other shorebirds</p>
+            <ul>
+              <li><label id="xyz"></label>xxxx</li>
+              <li><input type="label" id="threatType"></li>
+              <li><input type="label" id="threatComment"></li>
+            <ul>
+            <p><input type="button" value="Save and continue" onclick="saveLocation()"></p>
           </div>
       </div>
     </div>
@@ -346,7 +324,7 @@
           </div>
         <h3>Step 3: Review and Submit</h3>
           <div>
-            <p>Location: Botany Bay</p>
+            <p>Location:</p>
             <p>Type of threat: Industrial Development</p>
             <p>Comments: New airport runway development threatening Bar-tailed godwits and other shorebirds</p>
           </div>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7B1817AA-015B-421B-82F3-62E551F336F0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>project</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>2955D516A6C1074E272AABCE935604929EC1D017</key>
+		<string>https://github.com/tadams1/tadams.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>OSX/OpenGLTest/OpenGLTest.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>2955D516A6C1074E272AABCE935604929EC1D017</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/tadams1/tadams.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>2955D516A6C1074E272AABCE935604929EC1D017</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2955D516A6C1074E272AABCE935604929EC1D017</string>
+			<key>IDESourceControlWCCName</key>
+			<string>tadams</string>
+		</dict>
+	</array>
+</dict>
+</plist>
