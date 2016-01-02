@@ -37,13 +37,28 @@ html, body {
     top: 0;
     left: 0;
     right: 0;
-    height: 20px;
-    background-color: moccasin;
+    height: 150;
+    background-color: #bfcfec;
     
+}
+
+.leftimage1 {
+  width: 50%;
+  height: 100%;
+  float: left;
+}
+
+
+.rightimage1 {
+  width: 50%;
+  height: 100%;
+  float: left;
+  text-align: right;
+ 
 }
 .wrapper {
     position:absolute;
-    top: 21px;
+    top: 151px;
     right: 0;
     bottom: 0;
     left: 0;
@@ -60,7 +75,7 @@ html, body {
 }
 .left.pane {
     width: 15%;
-   background-color: green; 
+   background-color: #bdecb6; 
 }
 .center.pane {
     width: 70%;
@@ -68,14 +83,14 @@ html, body {
 }
 .right.pane {
     width: 15%;
-    background-color: #999;
+    background-color: #b19cd9;
 }
 
 
-      #map {
-        height: 100%;
-        weight: 100%;
-      }
+#map {
+      height: 100%;
+      weight: 100%;
+}
 
 
 ul.threat-checkbox  { 
@@ -86,8 +101,24 @@ ul.threat-checkbox  {
   font-size: 10px;
 } 
 
+ul.action-checkbox  { 
+  margin: 0; 
+  padding: 0; 
+  margin-left: 20px; 
+  list-style: none; 
+  font-size: 10px;
+} 
+
+ul.layers-checkbox  { 
+  margin: 0; 
+  padding: 0; 
+  margin-left: 20px; 
+  list-style: none; 
+  font-size: 10px;
+}
+
 ul.threat-checkbox li input { 
-  margin-right: .25em; 
+  margin-right: .5em; 
 } 
 
 ul.threat-checkbox li { 
@@ -111,7 +142,7 @@ ul.threat-checkbox li label {
 {
     width:100%;
     height:50%;
-    
+
   font-size: 10px;
 }
 

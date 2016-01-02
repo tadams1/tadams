@@ -109,17 +109,20 @@
 
     function buildPage(thename, thearray) {
       var tchk = $('#' + thename + 'typechk');
-      tchk.append('<ul class="' + thename + '-checkbox">');
       var featureType;
       if(thename=="layers"){
         featureType = "Polygon";
       }else{
         featureType = "Point";
       }
+      var theList = $('<ul class="' + thename + '-checkbox"></ul>');
       for(var i = 0; i < thearray.length; i++) {
-          tchk.append('<li><input type="checkbox" onclick=updateJSON(this,"' + featureType + '","' + thearray[i].id + '") + id="' + thename  + i + '" value="' + thearray[i].id + '" /><label for="' + thename + i + '">' + thearray[i].text + '</label></li>');
+          var theItem = $('<li></li>');
+
+          theItem.append('<input type="checkbox" onclick=updateJSON(this,"' + featureType + '","' + thearray[i].id + '") + id="' + thename  + i + '" value="' + thearray[i].id + '" /><label for="' + thename + i + '">' + thearray[i].text + '</label>');
+          theList.append(theItem);
       }
-      tchk.append('</ul>');      
+      tchk.append(theList);      
     }
 
 
@@ -127,7 +130,7 @@
 
     function updateJSON(chkbox, geotype, dbtype) {
       if(chkbox.checked) {
-        theMap.data.loadGeoJson('http://localhost:3000/maps?geotype=' + geotype + '&type='+ dbtype);
+        theMap.data.loadGeoJson('http://10.1.1.8:3000/maps?geotype=' + geotype + '&type='+ dbtype);
       }else{
         var callback=function(feature) {
           
@@ -145,6 +148,15 @@
 
 
 <body>
+  <div class="header">
+    <div class="leftimage1">
+      <img src="/images/logo2.jpg"/>
+    </div>
+    <div class="rightimage1">
+      <img src="/images/logo1.jpg"/>
+    </div>
+
+  </div>
   <div class="wrapper">
     <div class="inner-wrapper">
         <div class="left pane">
