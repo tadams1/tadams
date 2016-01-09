@@ -18,7 +18,8 @@ var layers = new layers();
 
 console.log("TestVal" + layers.testVal);
 app.set('layers', layers)
-layers.init();
+layers.init('test1', 'pageinfo');
+//	layers.addHTML();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 //app.set('view engine', 'jade');

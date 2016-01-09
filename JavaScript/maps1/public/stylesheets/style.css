@@ -58,9 +58,9 @@ html, body {
 }
 .wrapper {
     position:absolute;
-    top: 151px;
+    top: 101px;
     right: 0;
-    bottom: 0;
+    bottom: 10%;
     left: 0;
     background-color: fuchsia;
 }
@@ -74,22 +74,34 @@ html, body {
     display: table-cell;
 }
 .left.pane {
-    width: 15%;
+    width: 20%;
    background-color: #bdecb6; 
 }
 .center.pane {
-    width: 70%;
+    width: 80%;
     background-color: lightblue;
-}
-.right.pane {
-    width: 15%;
-    background-color: #b19cd9;
 }
 
 
 #map {
       height: 100%;
       weight: 100%;
+}
+
+#header-container{
+  background-color:#FFFFFF;
+  height:110px;
+  width: 100%;
+  border-bottom:10px solid #494949;
+  margin-bottom:10px;
+  -webkit-box-shadow:0 40px 40px -40px #AAA;
+     -moz-box-shadow:0 40px 40px -40px #AAA;
+          box-shadow:0 40px 40px -40px #AAA;
+}
+
+.wrapper{
+  margin:auto;
+  width:100%;
 }
 
 
@@ -104,12 +116,12 @@ ul.threat-checkbox  {
 ul.action-checkbox  { 
   margin: 0; 
   padding: 0; 
-  margin-left: 20px; 
+  margin-left: 10px; 
   list-style: none; 
   font-size: 10px;
 } 
 
-ul.layers-checkbox  { 
+ul.layer-checkbox  { 
   margin: 0; 
   padding: 0; 
   margin-left: 20px; 
@@ -128,6 +140,20 @@ ul.threat-checkbox li {
 } 
 
 ul.threat-checkbox li label { 
+  margin-left: ; 
+} 
+
+ul.action-checkbox li input { 
+  margin-right: .5em; 
+} 
+
+ul.action-checkbox li { 
+  border: 1px transparent solid; 
+  display:inline-block;
+  width:20em;
+} 
+
+ul.action-checkbox li label { 
   margin-left: ; 
 } 
 
@@ -162,37 +188,256 @@ ul.threat-checkbox li label {
     float:right; 
 }
 
-.top-panel
-{
 
+/* FOOTER */
+
+#footer-container{
+  background-color:#DCDBD1;
+  height:200px;
+  border-top:10px solid #494949;
+  margin-top:10px;
+  padding-top:10px;
+  -webkit-box-shadow:0 -40px 40px -40px #AAA;
+     -moz-box-shadow:0 -40px 40px -40px #AAA;
+          box-shadow:0 -40px 40px -40px #AAA;
 }
 
-.top-panel
-{        
-    background-color:#ccc;
-    width:100%;
-    height:0%;
-    float:top;        
+#footer-container footer{
+  color:494949;
 }
-.tab-panel
-{        
-    background-color:Gray;
-    width:100%;
-    height:60%;
-    float:bottom;
+
+
+@font-face {
+    font-family: 'si';
+    src: url('../assets/socicon.eot');
+    src: url('../assets/socicon.eot?#iefix') format('embedded-opentype'),
+         url('../assets/socicon.woff') format('woff'),
+         url('../assets/socicon.ttf') format('truetype'),
+         url('../assets/socicon.svg#icomoonregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+ 
 }
-.right-panel
-{        
-    background-color:Gray;
-    width:100%;
-    height:40%;
-    float:bottom;
+ 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    @font-face {
+        font-family:si;
+        src: url(PATH_TO/socicon.svg) format(svg);
+    }
 }
-.bottom-panel
-{        
-    background-color:Gray;
-    width:90%;
-    top:50%;
-    height:50%;
-    float:right;
+
+.soc {
+    overflow:hidden;
+    margin:0; padding:0;
+    list-style:none;
+}
+
+.soc li {
+    display:inline-block;
+    *display:inline;
+    zoom:1;
+}
+
+.soc li a {
+    font-family:si!important;
+    font-style:normal;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -ms-box-sizing:border-box;
+    -o-box-sizing:border-box;
+    box-sizing:border-box;
+
+    -o-transition:.1s;
+    -ms-transition:.1s;
+    -moz-transition:.1s;
+    -webkit-transition:.1s;
+    transition:.1s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+
+    overflow:hidden;
+    text-decoration:none;
+    text-align:center;
+    display:block;
+    position: relative;
+    z-index: 1;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 22px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin-right: 10px;
+    color: #ffffff;
+    background-color: none;
+}
+
+.soc-icon-last{
+    margin:0 !important;
+}
+
+.soc-twitter {
+    background-color: #4da7de;
+}
+.soc-twitter:before {
+    content:'a';
+}
+.soc-facebook {
+    background-color: #3e5b98;
+}
+.soc-facebook:before {
+    content:'b';
+}
+.soc-google {
+    background-color: #d93e2d;
+}
+.soc-google:before {
+    content:'c';
+}
+.soc-youtube {
+    background-color: #e02a20;
+}
+.soc-youtube:before {
+    content:'r';
+}
+.soc-instagram {
+    background-color: #9c7c6e;
+}
+.soc-instagram:before {
+    content:'x';
+}
+
+.soc-twitter:hover {
+    background-color: #3993ca;
+}
+.soc-facebook:hover {
+    background-color: #2a4784;
+}
+.soc-google:hover {
+    background-color: #c52a19;
+}
+.soc-youtube:hover {
+    background-color: #cc160c;
+}
+.soc-instagram:hover {
+    background-color: #88685a;
+}
+
+body{
+  font-family:font-family: Ubuntu, sans-serif;
+}
+
+
+
+#header-container{
+  background-color:#FFFFFF;
+  height:110px;
+  width: 100%;
+  border-bottom:10px solid #494949;
+  margin-bottom:10px;
+  -webkit-box-shadow:0 40px 40px -40px #AAA;
+     -moz-box-shadow:0 40px 40px -40px #AAA;
+          box-shadow:0 40px 40px -40px #AAA;
+}
+
+h2, h3{
+  margin:30px 0;
+}
+
+#, h2, h3{
+  font-weight:normal; 
+}
+
+#title{
+  font-family: 'Oleo Script', cursive;
+  font-size: 35px;
+  color:#6B6B6B;
+  padding-top:30px;
+  float:right;
+}
+
+h2{
+  font-size: 55px;
+}
+
+h3{
+  font-size: 40px;
+}
+
+h4 { font-size:20px; }
+
+nav{
+  float:left;
+  margin-top:50px;
+}
+
+nav ul, nav ul li{
+  display:inline;
+}
+
+nav a{
+  font-family: 'Ubuntu', cursive;
+  padding:20px;
+  color:white;
+  text-decoration:none;
+  background-color:#0789B4;
+}
+
+aside{
+  color:#444;
+  padding:20px;
+  float:right;
+  height:500px;
+  width:200px;
+  display: block;
+  background-color:#E8DCC0;
+  margin-bottom:50px;
+  -webkit-box-shadow:0 0px 40px -10px #AAA;
+     -moz-box-shadow:0 0px 40px -10px #AAA;
+          box-shadow:0 0px 40px -10px #AAA; 
+}
+
+
+#main aside p { width:180px; font-size:13px; }
+#main p{
+  font:16px/1.35em;
+  width:100%;
+  padding-bottom: 2em;
+  text-shadow:none;
+}
+
+#main header h2{
+  padding-bottom:0px;
+  line-height: 1em;
+}
+
+#main header p {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+}
+.container div {
+    height: 200px;
+}
+
+.column-left {
+    width: 60%;
+    left: 0;
+    position: absolute;
+}
+.column-right {
+    width: 40%;
+    right: 0;
+    position: absolute;
 }

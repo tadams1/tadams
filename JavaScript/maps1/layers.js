@@ -5,13 +5,14 @@ var MongoClient = require('mongodb').MongoClient
 function layers() {
 	this.strPolygons = "init";
   this.strPoints = "init";
+  this.pageInfo = "init";
 	this.db = null;
 	console.log("Object Created:")
 }
 
 
 layers.prototype.runQuery = function() {
-  this.db.collection('test').find({'geometry.type': 'Point'},{'_id': false}).toArray(function (err, items) {
+  this.db.collection(this.geoname).find({'geometry.type': 'Point'},{'_id': false}).toArray(function (err, items) {
     console.log(items);
     console.log(err); 
       console.log("Object Created:")
@@ -20,21 +21,35 @@ layers.prototype.runQuery = function() {
 }
 
 layers.prototype.getDBData = function(callback, geotype, myobj) {
-
-	this.db.collection('test1').find({'geometry.type': geotype},{'_id': false}).toArray(function (err, items) {
+	this.db.collection(this.geoname).find({'geometry.type': geotype},{'_id': false}).toArray(function (err, items) {
 		var obj1 = {	
 				"type": "FeatureCollection",
   				"features": []
   			}
 		obj1.features = items;//push(obj1.features[0]);
-		console.log(obj1);
+		//console.log(obj1);
 		var strJSONData = JSON.stringify(obj1);
 		callback(strJSONData,geotype, myobj);
 
 	});
 }
 
-layers.prototype.init = function() {
+layers.prototype.getPageInfoData = function(callback, myobj) {
+  this.db.collection(this.infoname).find({}).toArray(function (err, items) {
+    var obj1 = {  
+        "types": []
+        }
+    obj1.types = items;//push(obj1.features[0]);
+    console.log(obj1);
+    var strJSONData = JSON.stringify(obj1);
+    callback(strJSONData, myobj);
+
+  });
+}
+
+layers.prototype.init = function(geoname, infoname) {
+  this.geoname = geoname;
+  this.infoname = infoname;
 	this.connectDB(this.callFetch, this);
 	this.testVal = "2";
 
@@ -44,6 +59,7 @@ layers.prototype.callFetch = function(theDB, myobj) {
 	myobj.db = theDB;
 	myobj.getDBData(myobj.updateJSON, "Point", myobj);  
   myobj.getDBData(myobj.updateJSON, "Polygon", myobj);
+  myobj.getPageInfoData(myobj.updateInfoJSON, myobj);
 }
 
 layers.prototype.connectDB = function(callback, myobj) {
@@ -51,7 +67,7 @@ layers.prototype.connectDB = function(callback, myobj) {
 	MongoClient.connect(url, function(err, db) {
 		assert.equal(null, err);
 		console.log("Connected correctly to server");
-		console.log(err);
+		console.log("err:" + err);
 		callback(db, myobj);
 	});
 }
@@ -67,7 +83,10 @@ layers.prototype.updateJSON = function(res, geotype, myobj) {
 	console.log("updateJSON: " + res);
 }
 
-
+layers.prototype.updateInfoJSON = function(res, myobj) {
+  myobj.pageInfo = res;
+  console.log("updateJSON: " + res);
+}
 
 module.exports = layers
 
@@ -147,6 +166,139 @@ exports.testsave = function () {
 
 layers.prototype.savePointer = function(newJSON) {
 	this.db.collection('test1').insert(newJSON);
+}
+
+layers.prototype.addHTML = function() {
+        var pageInfo = {
+        "types": 
+           [
+            {
+              "id": "IndDev",
+              "text": "Industrial Development",
+              "type": "threat"
+            },
+            {
+              "id": "ResDev",
+              "text": "Residental Development",
+              "type": "threat"
+           },
+           {
+              "id": "Vehicles",
+              "text": "Vehicles",
+              "type": "threat"
+           },
+           {
+              "id": "OffLeashDogs",
+              "text": "Off Leash Dogs",
+              "type": "threat"
+           },
+           {
+              "id": "BadWaterMgmt",
+              "text": "Changes to water flows",
+              "type": "threat"
+           },
+           {
+              "id": "RecImpact",
+              "text": "Recreational Impacts",
+              "type": "threat"
+           },
+           {
+              "id": "Weeds",
+              "text": "Weeds",
+              "type": "threat"
+           },
+           {
+              "id": "IntroPred",
+              "text": "Introduced Predators",
+              "type": "threat"
+           },
+           {
+              "id": "Pollution",
+              "text": "Pollution",
+              "type": "threat",
+           },
+           {
+              "id": "UnsusHarvest",
+              "text": "Unsustainable harvesting",
+              "type": "threat"
+           },
+
+           {
+              "id": "CommMon",
+              "text": "Community Monitoring",
+              "type": "action"
+            },
+            {
+              "id": "Research",
+              "text": "Research",
+              "type": "action"
+            },
+            {
+              "id": "ImprovPol",
+              "text": "Improved policy and legislation",
+              "type": "action"
+            },
+           
+            {
+              "id": "Education",
+              "text": "Education and events",
+              "type": "action"
+            },
+           
+            {
+              "id": "SiteProtect",
+              "text": "Site Protection",
+              "type": "action"
+            },
+           
+            {
+              "id": "RubbishRemoval",
+              "text": "Rubbish removal",
+              "type": "action"
+            },
+            {
+              "id": "WeedRemoval",
+              "text": "Weed removal",
+              "type": "action"
+            },
+            {
+              "id": "Predator control",
+              "text": "Predator control",
+              "type": "action"
+            },
+            {
+              "id": "HabitatCtrl",
+              "text": "Habitat creation",
+              "type": "action"
+            },
+            {
+              "id": "ImprovWaterMgmt",
+              "text": "Improved water management",
+              "type": "action"
+            },
+            {
+              "id": "F",
+              "text": "Important Bird Areas",
+              "type": "layer"
+            },
+            {
+              "id": "o",
+              "text": "Ramsar Sites",
+              "type": "layer"
+            }
+          ]
+      };
+
+        var url = "mongodb://localhost:27017/myprojects"
+    MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+      console.log("Connected correctly to server");
+
+      for(var i=0;i<pageInfo.types.length;i++) {
+                db.collection('pageinfo').insert(pageInfo.types[i]);
+      }
+
+    });
 }
 
 layers.prototype.testsave = function () {

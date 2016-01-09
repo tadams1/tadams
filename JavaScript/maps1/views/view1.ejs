@@ -1,0 +1,340 @@
+<html>
+  <title>Shorebird Maps</title>
+  <link href="stylesheets/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQ6LMGS6ebrYR_ABSnMfudwc7sgwgoTWg"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script type="text/javascript">
+
+      var theMap;
+      var thePoints;
+      var theMarker;
+
+      var pageInfo;
+      var formattedAddr;
+      var infowindow;
+
+      function initialize() {
+ 	      
+        var mapOptions = {
+          zoom: 4,
+          center: {lat: -28, lng: 137.883},
+    		  mapTypeId: google.maps.MapTypeId.TERRAIN
+  		  };
+
+        theMap = new google.maps.Map(document.getElementById('map'), mapOptions);
+        theMap.data.setStyle(function(feature) {
+          return {icon:feature.getProperty('icon')};
+        });
+        thePoints = <%- points %>;
+        pageInfo = <%- pageInfo %>;
+        var infowindow = new google.maps.InfoWindow();
+
+        theMap.data.addListener('click', function(event) {
+          if(event.feature == null) {
+            infowindow.close();
+            return;
+          }  
+          var myHTML = event.feature.getProperty("type") + "<p>" + "Type: " +  event.feature.getProperty("typetext") + "<p>" + "Comment: " +  event.feature.getProperty("comment");
+
+          infowindow.setContent("<div style='width:150px; text-align: center;'>" + myHTML + "</div>");
+          infowindow.setPosition(event.latLng);
+          infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
+          infowindow.open(theMap);
+        });
+
+        doViewRecords();
+        //buildPage('threat', pageInfo.types);
+        //buildPage('action', pageInfo.types);
+        //buildPage('layer', pageInfo.types);
+
+      }
+
+    function buildPage(thename, thearray) {
+      var tchk = $('#' + thename + 'typechk');
+      var featureType;
+      if(thename=="layer"){
+        featureType = "Polygon";
+      }else{
+        featureType = "Point";
+      }
+      var theList = $('<ul class="' + thename + '-checkbox"></ul>');
+      for(var i = 0; i < thearray.length; i++) {
+          if(thearray[i].type == thename) {
+            var theItem = $('<li></li>');
+            theItem.append('<input type="checkbox" onclick=updateJSON(this,"' + featureType + '","' + thearray[i].id + '") + id="' + thename  + i + '" value="' + thearray[i].id + '" /><label for="' + thename + i + '">' + thearray[i].text + '</label>');
+            theList.append(theItem);
+          }
+      }
+      tchk.append(theList);      
+    }
+
+    function lookupLocation(){
+        var request = new XMLHttpRequest();
+        var method = 'GET';
+        var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+theMarker.position.lat()+','+theMarker.position.lng()+'&sensor=true';
+        var async = true;
+
+        request.open(method, url, async);
+        request.onreadystatechange = function(){
+          if(request.readyState == 4 && request.status == 200){
+            var data = JSON.parse(request.responseText);
+            var address = data.results[0];
+            formattedAddr = address.formatted_address;
+            $("label[id='location']").text('Location: ' + formattedAddr);
+          }
+        };
+        request.send();
+    }
+
+  function saveLocation(savetype) {
+     var newJSON = {
+          "type": "Feature",
+          "properties": {
+            "type": savetype,
+            "typeid": $('#select'+savetype + ' option:selected').val(),
+            "typetext": $('#select'+savetype + ' option:selected').text(),
+            "comment": $('textarea#' + savetype + 'comment').val(),
+            "icon": "images/" + savetype + "marker.png"
+          },
+          "geometry": 
+          {
+            "type": "Point",
+            "coordinates": [theMarker.position.lng(), theMarker.position.lat()]
+          }
+        }
+
+      
+        $.ajax({
+            type: 'POST',
+            url: '/',
+            data: JSON.stringify(newJSON),
+            success: function(data) { alert('data: ' + data); },
+            contentType: "application/json",
+            dataType: 'json'
+        });
+
+          alert('Congratulations, your record has been saved!');
+  
+        //theMap.data.addGeoJson(newJSON);
+    }
+    function findMe() {
+       if(navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            theMarker.setPosition(pos);      
+            theMap.setCenter(pos);
+            theMap.setZoom(13);
+            lookupLocation();
+         }, function() {
+          });
+      }
+    }
+
+
+    function buildSelector(theselector, thename, thearray) {
+      for(var i = 0; i < thearray.length; i++) {
+          if(thearray[i].type == thename) {
+            theselector.append($('<option>', {
+                value: thearray[i].id,
+                text: thearray[i].text
+            }));
+          }
+      } 
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    function updateJSON(chkbox, geotype, dbtype) {
+      if(chkbox.checked) {
+        theMap.data.loadGeoJson('http://10.1.1.8:3000/maps?geotype=' + geotype + '&type='+ dbtype);
+      }else{
+        var callback=function(feature) {
+          
+          if(feature.getProperty('typeid') == dbtype || feature.getProperty('letter') == dbtype) {
+            theMap.data.remove(feature);
+          }
+        };
+        theMap.data.forEach(callback);
+      }
+    }
+
+    function addMarker() {
+      if(theMarker == null) {
+        theMarker = new google.maps.Marker({
+          map: theMap,
+          draggable: true,
+          animation: google.maps.Animation.DROP,
+          position: {lat: -28.327, lng: 137.067},
+          icon: 'images/marker.png'
+        });
+      } else {
+        theMarker.setMap(theMap);
+      }
+      theMarker.addListener('click', toggleBounce);
+      theMarker.addListener('dragend',lookupLocation);
+    }
+
+    function toggleBounce() {
+      if (theMarker.getAnimation() !== null) {
+        theMarker.setAnimation(null);
+      } else {
+        theMarker.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    }
+
+    function removeAll() {
+      var callback=function(feature) {
+        theMap.data.remove(feature);
+      };
+      theMap.data.forEach(callback);
+    }
+
+    function resetPane() {
+      if($("#accordion").length) {
+          $("#accordion").accordion("destroy");    // Removes the accordion bits
+          $("#accordion").empty();
+          $("#accordion").remove(); 
+        }
+
+      if($("#threatpane").length) {
+        $("#threatpane").empty();
+        $('#threatpane').remove();
+      }
+
+      if($("#actionpane").length) {
+        $("#actionpane").empty();
+        $('#actionpane').remove();
+      }
+
+
+    }
+
+    function doViewRecords() {
+
+
+      resetPane();
+
+        if(theMarker != null) {
+          theMarker.setMap(null);
+        }
+
+      var newdiv = $("<div id='accordion' class='accordion'><div>");
+      newdiv.appendTo('#leftpane');
+
+      $('#accordion').append('<div><h3>Threats</h3><div id="threattypechk"></div></div><div><h3>Actions</h3><div id="actiontypechk"></div></div><div><h3>Layers</h3><div id="layertypechk"</div></div>');
+      $( "#accordion" ).accordion({
+        header: "> div > h3",
+        collapsible: true,
+        active: false,
+        autoHeight: true,
+        heightStyle: "content" 
+      });
+     
+      buildPage('threat', pageInfo.types);
+      buildPage('action', pageInfo.types);
+      buildPage('layer', pageInfo.types);      
+      $( "#accordion" ).accordion("option","active",0);
+      current = "R";
+    }
+
+    function doViewThreats(threattype) {
+
+      addMarker();
+      resetPane();
+      removeAll()
+
+      var newdiv = $('<div id="' + threattype + 'pane" class=addthreat"></div');
+      newdiv.appendTo('#leftpane');
+
+      newdiv.append('<h2>Add an ' + threattype + '</h2><p><h4>Location</h4><p>');
+      var l =$('<label/>').attr({
+        id: "location",
+      });
+      l.text('Location: Drag the marker to the location');
+      newdiv.append(l);
+
+      var r=$('<input/>').attr({
+          type: "button",
+          id: "find",
+          value: 'findMe',
+          onclick: 'findMe()',
+          class: 'findbutton'
+      });
+
+
+      newdiv.append("<p>");
+      newdiv.append(r);
+      newdiv.append("<p><h4>Details</h4>");
+
+
+      var selector = $("<select id='select" + threattype + "' class=selectorclass></select>");
+      buildSelector(selector, threattype, pageInfo.types);
+      newdiv.append(selector);
+
+      newdiv.append('<p><label>Please let us know a bit more about your observation (optional)<br><textarea name="Description" id="' + threattype + 'comment" value="" rows="2" cols="100" id="desc"></textarea></label></p>');
+
+    
+      var b=$('<input/>').attr({
+          type: "button",
+          id: "save",
+          value: 'Save ' + threattype,
+          onclick: 'saveLocation("'+ threattype + '")',
+          class: 'savebutton'
+      });
+      newdiv.append(b);
+  }
+
+</script>
+
+
+<body>
+
+  <div id="header-container">
+    <header class="wrapper2">
+      <h1 id="title">Shorebird Action Map</h1>
+      <nav>
+      
+    <div class="btn-group btn-group-lg">
+      <button type="button" class="btn btn-primary" value="Input Button" onClick="doViewRecords()">View records</button>
+      <button type="button" class="btn btn-primary"value="Input Button" onClick="doViewThreats('threat')">Log a threat</button>
+      <button type="button" class="btn btn-primary"value="Input Button" onClick="doViewThreats('action')">Log an action</button>
+    </div>
+        
+      </nav>
+    </header>
+  </div>
+
+  
+  <div class="wrapper">
+    <div class="inner-wrapper">
+    <div id="leftpane" class="left pane"></div>
+    <div class="center pane" id="map"></div>
+        
+</div>
+  <div id="footer-container">
+  <footer class="wrapper2">
+      <div class="container">
+         <div class="column-left">Brought to you by BirdLife Australia, the nation’s premier independent bird conservation organisation.</div>
+   <div class="column-right"><h4>Follow the flock</h4>
+   <ul class="soc">
+    <li><a class="soc-twitter" href="#"></a></li>
+    <li><a class="soc-facebook" href="#"></a></li>
+    <li><a class="soc-google" href="#"></a></li>
+    <li><a class="soc-youtube" href="#"></a></li>
+    <li><a class="soc-instagram soc-icon-last" href="#"></a></li>
+</ul>
+   
+   <p>Join the conversation with #aussiebirdcount & @BirdLifeOz</p></div>
+                  
+                  
+  
+  </div>
+      </footer>
+  </div>
+
+</body>
+</html> 	

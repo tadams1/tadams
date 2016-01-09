@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
     var clause;
 
     if(req.query.geotype == "Point") {
-    	clause={"geometry.type": req.query.geotype, "properties.type": req.query.type};
+    	clause={"geometry.type": req.query.geotype, "properties.typeid": req.query.type};
     	console.log(clause);
     } else {
     	clause={'geometry.type': req.query.geotype, 'properties.letter': req.query.type};

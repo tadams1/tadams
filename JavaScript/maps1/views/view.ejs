@@ -10,52 +10,10 @@
       var theMap;
       var thePoints;
       var theMarker;
-      var formattedAddr;
 
-      var pageInfo = {
-        "threats": 
-           [
-            {
-              "id": "IndDev",
-              "text": "Industrial Development"
-            },
-            {
-              "id": "ResDev",
-              "text": "Residental Development"
-           },
-           {
-              "id": "OffLeashDogs",
-              "text": "Off Leash Dogs"
-           },
-           {
-              "id": "BadWaterMgmt",
-              "text": "Bad Water Management"
-           }
-           ],
-        "actions": 
-          [
-            {
-              "id": "action1",
-              "text": "Jane Small"
-            },
-            {
-              "id": "action2",
-              "text": "actionzzz"
-            }
-          ],
-          "layers":
-          [
-            {
-              "id": "F",
-              "text": "Important Bird Areas"
-            },
-            {
-              "id": "o",
-              "text": "Ramsar Sites"
-            }
-          ]
-      };
-    
+      var pageInfo;
+      var formattedAddr;
+      var infowindow;
 
       function initialize() {
  	      
@@ -66,61 +24,47 @@
   		  };
 
         theMap = new google.maps.Map(document.getElementById('map'), mapOptions);
-      
-        //theMap.data.addGeoJson(<%- points %>);
-        thePoints = <%- points %>;
-   	    //theMap.data.addGeoJson(<%- polygons %>);
-        //theMap.data.loadGeoJson("http://localhost:3000/maps?geotype=Point&type=OffLeashDogs")
-  
-        theMap.data.addListener('dblclick', function(event) {
-          var myHTML = event.feature.getProperty("infobox");
-          infowindow.setContent("<div style='width:150px; text-align: center;'>"+myHTML+"</div>");
-          //alert(JSON.stringify(event.feature.getGeometry().getArray().getArray()));
-          infowindow.setPosition(event.latLng);
-          infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
-          infowindow.open(theMap);
-        });
- 
-        theMap.addListener('click', function(event) {
-          infowindow.setContent("<div style='width:150px; text-align: center;'>Add bird here</div>");
-          infowindow.setPosition(event.latLng);
-          infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
-          infowindow.open(theMap);
-
-          var tb1 = document.getElementById('Lat');
-          tb1.value = event.latLng.lat();
-          tb1 = document.getElementById('Lng');
-          tb1.value = event.latLng.lng();
-        });
-
-        var callback=function(feature) {
-          theMap.data.setStyle(function(feature) {
+        theMap.data.setStyle(function(feature) {
           return {icon:feature.getProperty('icon')};
         });
+        thePoints = <%- points %>;
+        pageInfo = <%- pageInfo %>;
+        var infowindow = new google.maps.InfoWindow();
 
-        
+        theMap.data.addListener('click', function(event) {
+          if(event.feature == null) {
+            infowindow.close();
+            return;
+          }  
+          var myHTML = event.feature.getProperty("type") + "<p>" + "Type: " +  event.feature.getProperty("typetext") + "<p>" + "Comment: " +  event.feature.getProperty("comment");
+
+          infowindow.setContent("<div style='width:150px; text-align: center;'>" + myHTML + "</div>");
+          infowindow.setPosition(event.latLng);
+          infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
+          infowindow.open(theMap);
+        });
+
+        buildPage('threat', pageInfo.types);
+        buildPage('action', pageInfo.types);
+        buildPage('layer', pageInfo.types);
+
       }
-
-      buildPage('threat', pageInfo.threats);
-      buildPage('action', pageInfo.actions);
-      buildPage('layers', pageInfo.layers);
-      theMap.data.forEach(callback);
-    }
 
     function buildPage(thename, thearray) {
       var tchk = $('#' + thename + 'typechk');
       var featureType;
-      if(thename=="layers"){
+      if(thename=="layer"){
         featureType = "Polygon";
       }else{
         featureType = "Point";
       }
       var theList = $('<ul class="' + thename + '-checkbox"></ul>');
       for(var i = 0; i < thearray.length; i++) {
-          var theItem = $('<li></li>');
-
-          theItem.append('<input type="checkbox" onclick=updateJSON(this,"' + featureType + '","' + thearray[i].id + '") + id="' + thename  + i + '" value="' + thearray[i].id + '" /><label for="' + thename + i + '">' + thearray[i].text + '</label>');
-          theList.append(theItem);
+          if(thearray[i].type == thename) {
+            var theItem = $('<li></li>');
+            theItem.append('<input type="checkbox" onclick=updateJSON(this,"' + featureType + '","' + thearray[i].id + '") + id="' + thename  + i + '" value="' + thearray[i].id + '" /><label for="' + thename + i + '">' + thearray[i].text + '</label>');
+            theList.append(theItem);
+          }
       }
       tchk.append(theList);      
     }
@@ -134,16 +78,13 @@
       }else{
         var callback=function(feature) {
           
-          if(feature.getProperty('type') == dbtype || feature.getProperty('letter') == dbtype) {
+          if(feature.getProperty('typeid') == dbtype || feature.getProperty('letter') == dbtype) {
             theMap.data.remove(feature);
           }
         };
         theMap.data.forEach(callback);
       }
     }
-
-    
-
 </script>
 
 
@@ -151,7 +92,7 @@
   <div class="header">
     <div class="leftimage1">
       <img src="/images/logo2.jpg"/>
-    </div>
+      </div>
     <div class="rightimage1">
       <img src="/images/logo1.jpg"/>
     </div>
@@ -162,19 +103,19 @@
         <div class="left pane">
       <div id="threat-tab1" class="vrthreat-panel1">
         <p>Threats</p>
-       <div id='threattypechk'></div>
+      <div id='threattypechk'></div>
       </div>
       <div id="threat-tab2" class="vrthreat-panel2">
         <p>Actions</p>
         <div id='actiontypechk'></div>
+        </div>
       </div>
-        </div>
-        <div class="center pane" id="map">
-        </div>
+      <div class="center pane" id="map">
+      </div>
         <div class="right pane">
         <div id="threat-tab1" class="vrthreat-panel1">
         <p>Layers</p>
-        <div id='layerstypechk'></div>
+        <div id='layertypechk'></div>
         </div>
         </div>
     </div>

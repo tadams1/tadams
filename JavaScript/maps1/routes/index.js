@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
     var layers = req.app.get('layers');
     console.log('in request')
     console.log("Req:" + layers.strPoints);
-    res.render('index', { points: layers.strPoints, polygons: layers.strPolygons});
+    res.render('index', { points: layers.strPoints, polygons: layers.strPolygons, pageInfo: layers.pageInfo});
 });
 
 
