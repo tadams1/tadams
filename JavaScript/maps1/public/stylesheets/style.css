@@ -12,7 +12,7 @@ textarea{
 	height: 75px;
 	margin: 10px;
 	border: 3px solid #cccccc;
-	padding: 5px;
+	padding: 10px;
 	font-family: Tahoma, sans-serif;
   font-size: 8px;
 }
@@ -106,71 +106,31 @@ html, body {
 }
 
 
-ul.threat-checkbox  { 
+ul.view-checkbox  { 
   margin: 0; 
   padding: 0; 
   margin-left: 20px; 
   list-style: none; 
   font-size: 10px;
+  font-family: Arial;
+
 } 
 
-ul.action-checkbox  { 
-  margin: 0; 
-  padding: 0; 
-  margin-left: 10px; 
-  list-style: none; 
-  font-size: 10px;
-} 
-
-ul.layer-checkbox  { 
-  margin: 0; 
-  padding: 0; 
-  margin-left: 20px; 
-  list-style: none; 
-  font-size: 10px;
-}
-
-ul.threat-checkbox li input { 
+ul.view-checkbox li input { 
   margin-right: .5em; 
 } 
 
-ul.threat-checkbox li { 
+ul.view-checkbox li { 
   border: 1px transparent solid; 
   display:inline-block;
   width:20em;
 } 
 
-ul.threat-checkbox li label { 
+ul.view-checkbox li label { 
   margin-left: ; 
 } 
 
-ul.action-checkbox li input { 
-  margin-right: .5em; 
-} 
 
-ul.action-checkbox li { 
-  border: 1px transparent solid; 
-  display:inline-block;
-  width:20em;
-} 
-
-ul.action-checkbox li label { 
-  margin-left: ; 
-} 
-
-ul.layer-checkbox li input { 
-  margin-right: .5em; 
-} 
-
-ul.layer-checkbox li { 
-  border: 1px transparent solid; 
-  display:inline-block;
-  width:20em;
-} 
-
-ul.layer-checkbox li label { 
-  margin-left: ; 
-} 
 .vrthreat-panel1
 {
     width:100%;
@@ -252,15 +212,7 @@ ul.layer-checkbox li label {
     zoom:1;
 }
 
-#overlay {
-    position: fixed;
-    top: 40%;
-    left: 40%;
-    width: 40%;
-    height: 40%;
-    background-color: #000;
-    z-index: 10000;
-}
+p
 
 .soc li a {
     font-family:si!important;
@@ -372,10 +324,13 @@ body{
 
 h2, h3{
   margin:30px 0;
+  font-family: Arial;
 }
 
 #, h2, h3{
   font-weight:normal; 
+
+  font-family: Arial;
 }
 
 #title{
@@ -392,6 +347,8 @@ h2{
 
 h3{
   font-size: 40px;
+
+  font-family: Arial;
 }
 
 h4 { font-size:20px; }
@@ -464,4 +421,41 @@ aside{
     width: 40%;
     right: 0;
     position: absolute;
+}
+
+#overlay {
+    position: fixed;
+    top: 40%;
+    left: 40%;
+    width: 40%;
+    height: 40%;
+    background-color: #FFFFFF;
+    z-index: 10000;
+}
+
+.ui-accordion .ui-accordion-header {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  margin: 2px 0 0 0;
+  padding: .5em .5em .5em .7em;
+  min-height: 0; /* support: IE7 */
+  font-size: 100%;
+}
+.ui-accordion .ui-accordion-icons {
+  padding-left: 2.2em;
+}
+.ui-accordion .ui-accordion-icons .ui-accordion-icons {
+  padding-left: 2.2em;
+}
+.ui-accordion .ui-accordion-header .ui-accordion-header-icon {
+  position: absolute;
+  left: .5em;
+  top: 50%;
+  margin-top: -8px;
+}
+.ui-accordion .ui-accordion-content {
+  padding: 1em 2.2em;
+  border-top: 0;
+  overflow: auto;
 }

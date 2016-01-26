@@ -61,20 +61,15 @@
 
     function buildPage(thename, thearray) {
       var tchk = $('#' + thename + 'typechk');
-      var featureType;
-      if(thename=="layer"){
-        featureType = "Polygon";
-      }else{
-        featureType = "Point";
-      }
-      var theList = $('<ul class="' + thename + '-checkbox"></ul>');
+
+      var theList = $('<ul class="view-checkbox"></ul>');
       var sa = $('<li></li>');
       sa.append('<input type="checkbox" id="' + thename + 'selectall" /><label for="' + thename + 'selectall">Select All</label>');
       theList.append(sa);
       for(var i = 0; i < thearray.length; i++) {
           if(thearray[i].type == thename) {
             var theItem = $('<li></li>');
-            theItem.append('<input type="checkbox" class="' + thename + 'group" onclick=updateJSON(this,"' + featureType + '","' + thearray[i].id + '") + id="' + thename  + i + '" value="' + thearray[i].id + '" /><label for="' + thename + i + '">' + thearray[i].text + '</label>');
+            theItem.append('<input type="checkbox" class="' + thename + 'group" onclick=updateJSON(this,"' + thearray[i].id + '") + id="' + thename  + i + '" value="' + thearray[i].id + '" /><label for="' + thename + i + '">' + thearray[i].text + '</label>');
             theList.append(theItem);
           }
       }
@@ -139,7 +134,7 @@
         //theMap.data.addGeoJson(newJSON);
     }
     function findMe() {
-      $("#overlay").show();
+      $("#imgoverlay").show();
       
        if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -148,9 +143,9 @@
             theMap.setCenter(pos);
             theMap.setZoom(13);
             lookupLocation();
-                  $("#overlay").hide();
+                  $("#imgoverlay").hide();
          }, function() {
-                $("#overlay").hide();
+                $("#imgoverlay").hide();
           });
       }
     }
@@ -169,7 +164,7 @@
 
     google.maps.event.addDomListener(window, 'load', initialize);
 
-    function updateJSON(chkbox, geotype, dbtype) {
+    function updateJSON(chkbox, dbtype) {
       if(chkbox.checked) {
         theMap.data.loadGeoJson('http://10.1.1.9:3000/maps?type='+ dbtype);
       }else{
@@ -277,14 +272,32 @@
 
 
     function showOverlay(savetype) {
-      var overlaydiv = $('<div id="overlay" class="overlay"><div>');
+      var overlaydiv = $('<div id="overlay" class="overlay1"><div>');
       overlaydiv.append("<h3>Congratulations, your record has been saved!</h3><p>");
-      overlaydiv.append("<h4>Details are:<h4><p>");
+      overlaydiv.append("<h4>Please share with your social networks:<h4><p>");
 
-      overlaydiv.append("Your name: " + yourname + " <p>");
-      overlaydiv.append("Your email: " + youremail + " <p>");
-      overlaydiv.append("Type: " + savetype + " <p>");
-      overlaydiv.append("Type of " + savetype + ": " + $('#select'+savetype + ' option:selected').text() + "<p>");
+      
+
+      var networks = ['<a class="soc-twitter" href="#"></a>', 
+                      '<a class="soc-facebook" href="#"></a>', 
+                      '<a class="soc-google" href="#"></a>',
+                      '<a class="soc-youtube" href="#"></a>',
+                      '<a class="soc-instagram soc-icon-last" href="#"></a>'
+                      ];
+      var soclist = $('<ul class="soc"></ul>');
+      for(var n = 0; n < networks.length; ++n) {
+        var sa = $('<li></li>');
+        sa.append(networks[n]);
+        soclist.append(sa);
+
+      }
+      overlaydiv.append(soclist);
+
+      overlaydiv.append("<h4>Or find out how else you can take actions to help Australia’s birds<h4><p>");
+
+
+
+
       overlaydiv.appendTo(document.body)
 
       overlaydiv.click(function() {
@@ -303,35 +316,33 @@
       var newdiv = $('<div id="' + threattype + 'pane" class=addthreat"></div');
       newdiv.appendTo('#leftpane');
 
-      newdiv.append('<h2>Log a ' + threattype + '</h2><p><h4>Your location</h4><p>');
+      newdiv.append('<h4>Your location</h4><p>');
 
 
-      newdiv.append('<img id="overlay" src="images/spin.gif" /><p>');
-      $("#overlay").hide();
+      newdiv.append('<img id="imgoverlay" src="images/spin.gif" /><p>');
+      $("#imgoverlay").hide();
      
       var r=$('<input/>').attr({
           type: "button",
           id: "find",
           value: 'Find your location',
           onclick: 'findMe()',
-          class: 'findbutton'
+          class: 'btn-danger'
       });
       newdiv.append(r);
 
       var l =$('<label>/>').attr({
         id: "location",
       });
-      l.text('Or drag the marker on the map. You can zoom in and out using your mouse or +/- the buttons on themap.');
+      l.text('Or drag the marker on the map. Zoom in and out using your mouse or +/- the buttons on themap.');
       newdiv.append(l);
-
       newdiv.append("<p><h4>Details</h4>Select the threat type:");
-
 
       var selector = $("<select id='select" + threattype + "' class=selectorclass></select>");
       buildSelector(selector, threattype, pageInfo.types);
       newdiv.append(selector);
 
-      newdiv.append('<p><label>Please let us know a bit more about your observation (optional)<br><textarea name="Description" id="' + threattype + 'comment" value="" rows="2" cols="400" id="desc"></textarea></label></p>');
+      newdiv.append('<p><p><label>Please let us know a bit more about your observation (optional)<br><textarea name="Description" id="' + threattype + 'comment" value="" rows="2" cols="400" id="desc"></textarea></label></p>');
 
 
       newdiv.append('<p><label>Add a link here for further details (optional)<br><input name="linkddr" id="' + threattype + 'linkaddr" /></p>');
@@ -357,7 +368,7 @@
           id: "save",
           value: 'Save ' + threattype,
           onclick: 'saveLocation("'+ threattype + '")',
-          class: 'savebutton'
+          class: 'btn-danger'
       });
       newdiv.append(b);
   }
@@ -411,6 +422,7 @@
       <div class="container">
          <div class="column-left">Brought to you by BirdLife Australia, the nation’s premier independent bird conservation organisation.</div>
    <div class="column-right"><h4>Follow the flock</h4>
+
    <ul class="soc">
     <li><a class="soc-twitter" href="#"></a></li>
     <li><a class="soc-facebook" href="#"></a></li>
@@ -418,7 +430,6 @@
     <li><a class="soc-youtube" href="#"></a></li>
     <li><a class="soc-instagram soc-icon-last" href="#"></a></li>
 </ul>
-   
    <p>Join the conversation with #aussiebirdcount & @BirdLifeOz</p></div>
                   
                   
