@@ -10,12 +10,14 @@
     <script type="text/javascript">
 
       var theMap;
-      var thePoints;
       var theMarker;
 
       var pageInfo;
       var formattedAddr;
       var infowindow;
+      var yourname;
+      var youremail;
+
 
       function initialize() {
  	      
@@ -29,7 +31,7 @@
         theMap.data.setStyle(function(feature) {
           return {icon:feature.getProperty('icon')};
         });
-        thePoints = <%- points %>;
+
         pageInfo = <%- pageInfo %>;
         var infowindow = new google.maps.InfoWindow();
 
@@ -51,6 +53,10 @@
         //buildPage('action', pageInfo.types);
         //buildPage('layer', pageInfo.types);
 
+        localStorage.clear();
+        yourname = localStorage.getItem('yourname');
+        youremail = localStorage.getItem('youremail');
+
       }
 
     function buildPage(thename, thearray) {
@@ -62,10 +68,13 @@
         featureType = "Point";
       }
       var theList = $('<ul class="' + thename + '-checkbox"></ul>');
+      var sa = $('<li></li>');
+      sa.append('<input type="checkbox" id="' + thename + 'selectall" /><label for="' + thename + 'selectall">Select All</label>');
+      theList.append(sa);
       for(var i = 0; i < thearray.length; i++) {
           if(thearray[i].type == thename) {
             var theItem = $('<li></li>');
-            theItem.append('<input type="checkbox" onclick=updateJSON(this,"' + featureType + '","' + thearray[i].id + '") + id="' + thename  + i + '" value="' + thearray[i].id + '" /><label for="' + thename + i + '">' + thearray[i].text + '</label>');
+            theItem.append('<input type="checkbox" class="' + thename + 'group" onclick=updateJSON(this,"' + featureType + '","' + thearray[i].id + '") + id="' + thename  + i + '" value="' + thearray[i].id + '" /><label for="' + thename + i + '">' + thearray[i].text + '</label>');
             theList.append(theItem);
           }
       }
@@ -91,6 +100,12 @@
     }
 
   function saveLocation(savetype) {
+    yourname = $( '#' + savetype + 'yourname').val();
+    youremail = $( '#' + savetype + 'emailaddr').val();
+
+    localStorage.setItem('yourname', yourname);
+    localStorage.setItem('youremail', youremail);
+    var dt = new Date();   
      var newJSON = {
           "type": "Feature",
           "properties": {
@@ -98,7 +113,11 @@
             "typeid": $('#select'+savetype + ' option:selected').val(),
             "typetext": $('#select'+savetype + ' option:selected').text(),
             "comment": $('textarea#' + savetype + 'comment').val(),
-            "icon": "images/" + savetype + "marker.png"
+            "icon": "images/" + savetype + "marker.png",
+            "link": $( '#' + savetype + 'linkaddr').val(),
+            "yourname": yourname,
+            "youremail": youremail,
+            "datesaved":  dt.toJSON()
           },
           "geometry": 
           {
@@ -106,8 +125,6 @@
             "coordinates": [theMarker.position.lng(), theMarker.position.lat()]
           }
         }
-
-      
         $.ajax({
             type: 'POST',
             url: '/',
@@ -117,11 +134,13 @@
             dataType: 'json'
         });
 
-          alert('Congratulations, your record has been saved!');
-  
+        //  alert('Congratulations, your record has been saved!');
+      showOverlay(savetype);
         //theMap.data.addGeoJson(newJSON);
     }
     function findMe() {
+      $("#overlay").show();
+      
        if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -129,7 +148,9 @@
             theMap.setCenter(pos);
             theMap.setZoom(13);
             lookupLocation();
+                  $("#overlay").hide();
          }, function() {
+                $("#overlay").hide();
           });
       }
     }
@@ -150,11 +171,11 @@
 
     function updateJSON(chkbox, geotype, dbtype) {
       if(chkbox.checked) {
-        theMap.data.loadGeoJson('http://10.1.1.8:3000/maps?geotype=' + geotype + '&type='+ dbtype);
+        theMap.data.loadGeoJson('http://10.1.1.9:3000/maps?type='+ dbtype);
       }else{
         var callback=function(feature) {
           
-          if(feature.getProperty('typeid') == dbtype || feature.getProperty('letter') == dbtype) {
+          if(feature.getProperty('typeid') == dbtype) {
             theMap.data.remove(feature);
           }
         };
@@ -193,6 +214,15 @@
       theMap.data.forEach(callback);
     }
 
+   function removeByType(theType) {
+      var callback=function(feature) {
+        if(feature.getProperty('type')== theType || (theType=='layer' && feature.getGeometry().getType() == 'Polygon')) {
+          theMap.data.remove(feature);
+        }
+      };
+      theMap.data.forEach(callback);
+    }
+
     function resetPane() {
       if($("#accordion").length) {
           $("#accordion").accordion("destroy");    // Removes the accordion bits
@@ -222,6 +252,10 @@
           theMarker.setMap(null);
         }
 
+      var pos = {lat: -28, lng: 137.883};
+      theMap.setCenter(pos);
+      theMap.setZoom(4);
+
       var newdiv = $("<div id='accordion' class='accordion'><div>");
       newdiv.appendTo('#leftpane');
 
@@ -241,6 +275,25 @@
       current = "R";
     }
 
+
+    function showOverlay(savetype) {
+      var overlaydiv = $('<div id="overlay" class="overlay"><div>');
+      overlaydiv.append("<h3>Congratulations, your record has been saved!</h3><p>");
+      overlaydiv.append("<h4>Details are:<h4><p>");
+
+      overlaydiv.append("Your name: " + yourname + " <p>");
+      overlaydiv.append("Your email: " + youremail + " <p>");
+      overlaydiv.append("Type: " + savetype + " <p>");
+      overlaydiv.append("Type of " + savetype + ": " + $('#select'+savetype + ' option:selected').text() + "<p>");
+      overlaydiv.appendTo(document.body)
+
+      overlaydiv.click(function() {
+        $("#overlay").empty();
+        $('#overlay').remove();
+
+      });
+    }
+
     function doViewThreats(threattype) {
 
       addMarker();
@@ -250,33 +303,54 @@
       var newdiv = $('<div id="' + threattype + 'pane" class=addthreat"></div');
       newdiv.appendTo('#leftpane');
 
-      newdiv.append('<h2>Add an ' + threattype + '</h2><p><h4>Location</h4><p>');
-      var l =$('<label/>').attr({
-        id: "location",
-      });
-      l.text('Location: Drag the marker to the location');
-      newdiv.append(l);
+      newdiv.append('<h2>Log a ' + threattype + '</h2><p><h4>Your location</h4><p>');
 
+
+      newdiv.append('<img id="overlay" src="images/spin.gif" /><p>');
+      $("#overlay").hide();
+     
       var r=$('<input/>').attr({
           type: "button",
           id: "find",
-          value: 'findMe',
+          value: 'Find your location',
           onclick: 'findMe()',
           class: 'findbutton'
       });
-
-
-      newdiv.append("<p>");
       newdiv.append(r);
-      newdiv.append("<p><h4>Details</h4>");
+
+      var l =$('<label>/>').attr({
+        id: "location",
+      });
+      l.text('Or drag the marker on the map. You can zoom in and out using your mouse or +/- the buttons on themap.');
+      newdiv.append(l);
+
+      newdiv.append("<p><h4>Details</h4>Select the threat type:");
 
 
       var selector = $("<select id='select" + threattype + "' class=selectorclass></select>");
       buildSelector(selector, threattype, pageInfo.types);
       newdiv.append(selector);
 
-      newdiv.append('<p><label>Please let us know a bit more about your observation (optional)<br><textarea name="Description" id="' + threattype + 'comment" value="" rows="2" cols="100" id="desc"></textarea></label></p>');
+      newdiv.append('<p><label>Please let us know a bit more about your observation (optional)<br><textarea name="Description" id="' + threattype + 'comment" value="" rows="2" cols="400" id="desc"></textarea></label></p>');
 
+
+      newdiv.append('<p><label>Add a link here for further details (optional)<br><input name="linkddr" id="' + threattype + 'linkaddr" /></p>');
+
+
+      var str1 = yourname;
+      if(yourname == null) {
+        str1 = "Please enter your name"
+      }
+
+      newdiv.append('<p><label>Your name<br><input name="yourname" id="' + threattype + 'yourname" value="' + str1 + '" ></input><p>');
+
+      var str2 = youremail;
+      if(youremail == null) {
+        str2 = "Please enter your email"
+      }
+
+      newdiv.append('<p><label>Please enter your email<br><input name="emailaddr" id="' + threattype + 'emailaddr" value="' + str2 +  '" ></input></p>');
+    
     
       var b=$('<input/>').attr({
           type: "button",
@@ -287,6 +361,17 @@
       });
       newdiv.append(b);
   }
+
+    $(document).on('change','[id$="selectall"]' , function() {
+      var theType = this.id.substring(0, this.id.length -9);
+      removeByType(theType);
+      $("." + theType + "group").prop('checked',false);
+      if($(this).prop("checked")) {
+        $("." + this.id.substring(0, this.id.length -9) + "group").trigger('click');
+      }
+    });
+
+
 
 </script>
 
@@ -299,9 +384,11 @@
       <nav>
       
     <div class="btn-group btn-group-lg">
+      <button type="button" class="btn btn-primary" value="Input Button" onclick="location.href='/about'">About</button>
       <button type="button" class="btn btn-primary" value="Input Button" onClick="doViewRecords()">View records</button>
-      <button type="button" class="btn btn-primary"value="Input Button" onClick="doViewThreats('threat')">Log a threat</button>
-      <button type="button" class="btn btn-primary"value="Input Button" onClick="doViewThreats('action')">Log an action</button>
+      <button type="button" class="btn btn-primary" value="Input Button" onClick="doViewThreats('threat')">Log a threat</button>
+      <button type="button" class="btn btn-primary" value="Input Button" onClick="doViewThreats('action')">Log an action</button>
+      <button type="button" class="btn btn-primary" value="Input Button" onClick="location.href='/getinvolved'">Get Involved</button>
     </div>
         
       </nav>
@@ -311,8 +398,12 @@
   
   <div class="wrapper">
     <div class="inner-wrapper">
-    <div id="leftpane" class="left pane"></div>
-    <div class="center pane" id="map"></div>
+    <div id="leftpane" class="left pane">
+    </div>
+    <div class="center pane" id="map">
+      
+
+    </div>
         
 </div>
   <div id="footer-container">
@@ -335,6 +426,7 @@
   </div>
       </footer>
   </div>
+
 
 </body>
 </html> 	
