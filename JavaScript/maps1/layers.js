@@ -1,5 +1,5 @@
 var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
+  , assert = require('assert'), cfg = require('./config');
 
 
 function layers() {
@@ -63,7 +63,7 @@ layers.prototype.callFetch = function(theDB, myobj) {
 }
 
 layers.prototype.connectDB = function(callback, myobj) {
-	var url = "mongodb://localhost:27017/BirdMap"
+	var url = cfg.mongodb.url;
 	MongoClient.connect(url, function(err, db) {
 		assert.equal(null, err);
 		console.log("Connected correctly to server");
@@ -91,7 +91,7 @@ layers.prototype.updateInfoJSON = function(res, myobj) {
 module.exports = layers
 
 layers.prototype.savePointer = function(newJSON) {
-	this.db.collection('MapData').insert(newJSON);
+	this.db.collection(cfg.mongodb.col).insert(newJSON);
 }
 
 layers.prototype.addHTML = function() {
@@ -215,7 +215,7 @@ layers.prototype.addHTML = function() {
           ]
       };
 
-        var url = "mongodb://localhost:27017/BirdMap"
+        var url = cfg.mongodb.url;
     MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
       console.log("Connected correctly to server");
@@ -228,7 +228,7 @@ layers.prototype.addHTML = function() {
 }
 
 layers.prototype.testsave = function () {
-	var url = "mongodb://localhost:27017/BirdMap"
+	var url = cfg.mongodb.url;
 	MongoClient.connect(url, function(err, db) {
 	  	assert.equal(null, err);
 	  	console.log("Connected correctly to server");
@@ -270,7 +270,7 @@ layers.prototype.testsave = function () {
       			}
       	console.log(myj2);
 
-      	db.collection('MapData').insert(myj2);
+      	db.collection(cfg.mongodb.col).insert(myj2);
 
 	 myj2=     {
       "type": "Feature",
@@ -304,7 +304,7 @@ layers.prototype.testsave = function () {
 
     console.log(myj2);
 
-    db.collection('MapData').insert(myj2);
+    db.collection(cfg.mongodb.col).insert(myj2);
 
         });
 

@@ -6,26 +6,30 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var common = require('common');
 var layers = require('./layers');
+var cfg = require('./config')
 
 var kml = require('./routes/kml');
 var routes = require('./routes/index');
-var viewrecords = require('./routes/viewrecords');
+var mapview = require('./routes/mapview');
 var users = require('./routes/users');
 var maps = require('./routes/maps');
+var about = require('./routes/about');
 
 var app = express();
 
 var layers = new layers();
 
 console.log("TestVal" + layers.testVal);
+
+app.listen(cfg.listenport);
 app.set('layers', layers)
 layers.init('test1', 'pageinfo');
-	//layers.addHTML();
+//layers.testsave();
+//layers.addHTML();
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'jade');
-app.set('view engine', 'ejs');
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -39,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/maps', maps);
-app.use('/viewrecords', viewrecords);
+app.use('/mapview', mapview);
 app.use('/kml', kml);
+app.use('/about', about)
 module.exports = app;

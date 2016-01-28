@@ -17,6 +17,7 @@
       var infowindow;
       var yourname;
       var youremail;
+      var showall;
 
 
       function initialize() {
@@ -33,6 +34,8 @@
         });
 
         pageInfo = <%- pageInfo %>;
+   
+        var view = <%- view %> ;
         var infowindow = new google.maps.InfoWindow();
 
         theMap.data.addListener('click', function(event) {
@@ -48,11 +51,17 @@
           infowindow.open(theMap);
         });
 
-        doViewRecords();
+        if(view =='threat' || view  == 'action') {  
+          doViewThreats(view);
+        } else {
+          doViewRecords();
+        }
         //buildPage('threat', pageInfo.types);
         //buildPage('action', pageInfo.types);
         //buildPage('layer', pageInfo.types);
 
+        theMap.data.loadGeoJson('/maps?type=ALL');
+        showall = true;
         localStorage.clear();
         yourname = localStorage.getItem('yourname');
         youremail = localStorage.getItem('youremail');
@@ -133,19 +142,21 @@
       showOverlay(savetype);
         //theMap.data.addGeoJson(newJSON);
     }
-    function findMe() {
+    function findMe(updatemarker) {
       $("#imgoverlay").show();
       
        if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            theMarker.setPosition(pos);      
             theMap.setCenter(pos);
             theMap.setZoom(13);
-            lookupLocation();
-                  $("#imgoverlay").hide();
+            if(updatemarker) {
+              theMarker.setPosition(pos);      
+              lookupLocation();
+            }
+             $("#imgoverlay").hide();
          }, function() {
-                $("#imgoverlay").hide();
+              $("#imgoverlay").hide();
           });
       }
     }
@@ -165,8 +176,15 @@
     google.maps.event.addDomListener(window, 'load', initialize);
 
     function updateJSON(chkbox, dbtype) {
+      if(showall) {
+        var callback=function(feature) {
+          theMap.data.remove(feature);
+        };
+        theMap.data.forEach(callback);
+        showall=false;
+      }
       if(chkbox.checked) {
-        theMap.data.loadGeoJson('http://10.1.1.9:3000/maps?type='+ dbtype);
+        theMap.data.loadGeoJson('/maps?type='+ dbtype);
       }else{
         var callback=function(feature) {
           
@@ -267,6 +285,20 @@
       buildPage('action', pageInfo.types);
       buildPage('layer', pageInfo.types);      
       $( "#accordion" ).accordion("option","active",0);
+
+
+      newdiv.append('<img id="imgoverlay" src="images/spin.gif" /><p>');
+      $("#imgoverlay").hide();
+     
+      var r=$('<input/>').attr({
+          type: "button",
+          id: "find",
+          value: 'Zoom to location',
+          onclick: 'findMe(false)',
+          class: 'btn-danger'
+      });
+      newdiv.append(r);
+
       current = "R";
     }
 
@@ -326,7 +358,7 @@
           type: "button",
           id: "find",
           value: 'Find your location',
-          onclick: 'findMe()',
+          onclick: 'findMe(true)',
           class: 'btn-danger'
       });
       newdiv.append(r);
@@ -382,6 +414,12 @@
       }
     });
 
+   $(function() {
+      $( 'input[type="checkbox"]' ).tooltip({
+         content: function(event, ui) { return $(this).attr('value'); },
+      });
+  });
+
 
 
 </script>
@@ -429,7 +467,7 @@
     <li><a class="soc-google" href="#"></a></li>
     <li><a class="soc-youtube" href="#"></a></li>
     <li><a class="soc-instagram soc-icon-last" href="#"></a></li>
-</ul>
+  </ul>
    <p>Join the conversation with #aussiebirdcount & @BirdLifeOz</p></div>
                   
                   
