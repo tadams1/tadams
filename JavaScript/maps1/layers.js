@@ -99,38 +99,26 @@ layers.prototype.addHTML = function() {
         "types": 
            [
             {
-              "id": "IndDev",
-              "text": "Industrial Development",
+              "id": "Dev",
+              "text": "Development - industrial or residential",
               "type": "threat"
             },
+            
             {
-              "id": "ResDev",
-              "text": "Residental Development",
+              "id": "RecImpact",
+              "text": "Recreational - e.g. Off-leash dogs, off-road driving",
               "type": "threat"
            },
-           {
-              "id": "Vehicles",
-              "text": "Vehicles",
-              "type": "threat"
-           },
-           {
-              "id": "OffLeashDogs",
-              "text": "Off Leash Dogs",
-              "type": "threat"
-           },
+    
            {
               "id": "BadWaterMgmt",
-              "text": "Changes to water flows",
+              "text": "Inappropriate water management",
               "type": "threat"
            },
-           {
-              "id": "RecImpact",
-              "text": "Recreational Impacts",
-              "type": "threat"
-           },
+          
            {
               "id": "Weeds",
-              "text": "Weeds",
+              "text": "Weeds invasion",
               "type": "threat"
            },
            {
@@ -144,26 +132,22 @@ layers.prototype.addHTML = function() {
               "type": "threat",
            },
            {
-              "id": "UnsusHarvest",
-              "text": "Unsustainable harvesting",
+              "id": "Clim",
+              "text": "Climate change",
               "type": "threat"
            },
 
            {
-              "id": "CommMon",
-              "text": "Community Monitoring",
+              "id": "ShowLove",
+              "text": "Show the love for shorebirds",
               "type": "action"
             },
             {
-              "id": "Research",
-              "text": "Research",
+              "id": "PetIt",
+              "text": "Sign a petition",
               "type": "action"
             },
-            {
-              "id": "ImprovPol",
-              "text": "Improved policy and legislation",
-              "type": "action"
-            },
+           
            
             {
               "id": "Education",
@@ -172,34 +156,14 @@ layers.prototype.addHTML = function() {
             },
            
             {
-              "id": "SiteProtect",
-              "text": "Site Protection",
+              "id": "HabitatRes",
+              "text": "Habitat restoration or care",
               "type": "action"
             },
            
             {
-              "id": "RubbishRemoval",
-              "text": "Rubbish removal",
-              "type": "action"
-            },
-            {
-              "id": "WeedRemoval",
-              "text": "Weed removal",
-              "type": "action"
-            },
-            {
-              "id": "Predator control",
-              "text": "Predator control",
-              "type": "action"
-            },
-            {
-              "id": "HabitatCtrl",
-              "text": "Habitat creation",
-              "type": "action"
-            },
-            {
-              "id": "ImprovWaterMgmt",
-              "text": "Improved water management",
+              "id": "Advocoacy",
+              "text": "Advocacy - saving shorebird habitat",
               "type": "action"
             },
             {
