@@ -34,7 +34,6 @@
         });
 
         pageInfo = <%- pageInfo %>;
-   
         var view = <%- view %> ;
         var infowindow = new google.maps.InfoWindow();
 
@@ -60,7 +59,7 @@
         //buildPage('action', pageInfo.types);
         //buildPage('layer', pageInfo.types);
 
-        theMap.data.loadGeoJson('/maps?type=ALL');
+        theMap.data.loadGeoJson(pageInfo.mapprefix + '/maps?type=ALL');
         showall = true;
         localStorage.clear();
         yourname = localStorage.getItem('yourname');
@@ -184,7 +183,7 @@
         showall=false;
       }
       if(chkbox.checked) {
-        theMap.data.loadGeoJson('/maps?type='+ dbtype);
+        theMap.data.loadGeoJson(pageInfo.mapprefix + '/maps?type='+ dbtype);
       }else{
         var callback=function(feature) {
           
@@ -433,11 +432,10 @@
       <nav>
       
     <div class="btn-group btn-group-lg">
-      <button type="button" class="btn btn-primary" value="Input Button" onclick="location.href='/about'">About</button>
+      <button type="button" class="btn btn-primary" value="Input Button" onclick="location.href='about'">About</button>
       <button type="button" class="btn btn-primary" value="Input Button" onClick="doViewRecords()">View records</button>
       <button type="button" class="btn btn-primary" value="Input Button" onClick="doViewThreats('threat')">Log a threat</button>
       <button type="button" class="btn btn-primary" value="Input Button" onClick="doViewThreats('action')">Log an action</button>
-      <button type="button" class="btn btn-primary" value="Input Button" onClick="location.href='/getinvolved'">Get Involved</button>
     </div>
         
       </nav>

@@ -37,7 +37,8 @@ layers.prototype.getDBData = function(callback, geotype, myobj) {
 layers.prototype.getPageInfoData = function(callback, myobj) {
   this.db.collection(this.infoname).find({}).toArray(function (err, items) {
     var obj1 = {  
-        "types": []
+        "types": [],
+        "mapprefix": cfg.mapprefix
         }
     obj1.types = items;//push(obj1.features[0]);
     console.log(obj1);
