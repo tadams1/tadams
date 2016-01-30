@@ -81,7 +81,7 @@
               id: thename + i,
               checked: true,
               value: thearray[i].id ,
-              onclick: 'updateJSON(this,"' + thearray[i].id + "')",
+              onclick: 'updateJSON(this,"' + thearray[i].id + '")',
               class: thename + 'group'
             });
 
@@ -246,17 +246,15 @@
           $("#accordion").remove(); 
         }
 
-      if($("#threatpane").length) {
-        $("#threatpane").empty();
-        $('#threatpane').remove();
+      if($("#threatfrm").length) {
+        $("#threatfrm").empty();
+        $('#threatfrm').remove();
       }
 
-      if($("#actionpane").length) {
-        $("#actionpane").empty();
-        $('#actionpane').remove();
+      if($("#actionfrm").length) {
+        $("#actionfrm").empty();
+        $('#actionfrm').remove();
       }
-
-
     }
 
     function doViewRecords() {
@@ -379,15 +377,23 @@
       newdiv.append(l);
 
 
-      theform.append("<h4>Details</h4>");
+      newdiv.append("<h4>Details</h4>");
       var l1 = $('<label>').attr('for', 'select' + threattype).text("Select the " + threattype + " type:");
       var selector = $("<select id='select" + threattype + "' class=selectorclass></select>");
       selector.appendTo(l1);
 
       buildSelector(selector, threattype, pageInfo.types);
-      newdiv.append(selector);
+      newdiv.append(l1);
 
-      theform.append('<p>');
+      var l3 = $('<label>').attr('for', 'thetitle').text('Please enter a title');
+      var ititle = $("<input>").attr({
+        name: "thetitle",
+        id: "thetitle",
+        required: true
+      });
+      ititle.appendTo(l3);
+      newdiv.append(l3);
+      
       var l2 = $('<label>').attr('for', threattype + 'comment').text("Please let us know a bit more about your observation (optional)");
       var ta = $('<textarea>').attr({
         name: "Description",
@@ -398,16 +404,6 @@
       });
       ta.appendTo(l2);
       newdiv.append(l2);
-
-
-      var l3 = $('<label>').attr('for', 'thetitle').text('Please enter a title');
-      var ititle = $("<input>").attr({
-        name: "thetitle",
-        id: "thetitle",
-        required: true
-      });
-      ititle.appendTo(l3);
-      newdiv.append(l3);
 
       var l4 = $('<label>').attr('for', threattype + 'linkaddr').text('Add a link here for further details (optional)');
       var ilink = $('<input>').attr({
@@ -420,7 +416,7 @@
 
       var str1 = yourname;
       if(yourname == null) {
-        str1 = "Please enter your name"
+        str1 = ""
       }
 
       var l5 = $('<label>').attr('for', threattype + 'yourname').text('Your name');
@@ -434,7 +430,7 @@
   
       var str2 = youremail;
       if(youremail == null) {
-        str2 = "Please enter your email"
+        str2 = ""
       }
       
       var l6 = $('<label>').attr('for', threattype + 'emailaddr').text('Please enter your email');
