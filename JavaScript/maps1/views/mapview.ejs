@@ -1,10 +1,11 @@
 <html>
   <title>Shorebird Maps</title>
-  <link href="stylesheets/style.css" rel="stylesheet" type="text/css">
+
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQ6LMGS6ebrYR_ABSnMfudwc7sgwgoTWg"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+      <link href="stylesheets/style.css" rel="stylesheet" type="text/css">
 
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script type="text/javascript">
@@ -283,7 +284,7 @@
       var r=$('<input/>').attr({
           type: "button",
           id: "find",
-          value: 'Zoom to location',
+          value: 'Zoom to your location',
           onclick: 'findMe(false)',
           class: 'btn-danger'
       });
@@ -363,7 +364,7 @@
       });
       l.text('Or drag the marker on the map. Zoom in and out using your mouse or +/- the buttons on themap.');
       newdiv.append(l);
-      newdiv.append("<p><h4>Details</h4>Select the threat type:");
+      newdiv.append("<p><h4>Details</h4>Select the" + threattype + " type:");
 
       var selector = $("<select id='select" + threattype + "' class=selectorclass></select>");
       buildSelector(selector, threattype, pageInfo.types);
@@ -424,7 +425,7 @@
 
   <div id="header-container">
     <header class="wrapper2">
-      <h1 id="title">Shorebird Action Map</h1>
+      <h1 id="title">Shorebird Conservation Map</h1>
       <nav>
       
     <div class="btn-group btn-group-lg">
@@ -449,26 +450,61 @@
     </div>
         
 </div>
-  <div id="footer-container">
-  <footer class="wrapper2">
-      <div class="container">
-         <div class="column-left">Brought to you by BirdLife Australia, the nation’s premier independent bird conservation organisation.</div>
-   <div class="column-right"><h4>Follow the flock</h4>
 
-   <ul class="soc">
-    <li><a class="soc-twitter" href="#"></a></li>
-    <li><a class="soc-facebook" href="#"></a></li>
-    <li><a class="soc-google" href="#"></a></li>
-    <li><a class="soc-youtube" href="#"></a></li>
-    <li><a class="soc-instagram soc-icon-last" href="#"></a></li>
-  </ul>
-   <p>Join the conversation with #aussiebirdcount & @BirdLifeOz</p></div>
-                  
-                  
-  
-  </div>
+<footer>
+
+<p>
+This is a beta version of this map. Please provide <a href="https://www.surveymonkey.com/r/FJ9TL86">feedback and let us know what you think!</a></p>
+
+
+<div id="footer-container-1">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">Shorebirds need your help. Act now to protect the species and places at risk. <a href="http://www.birdlife.org.au/get-involved" class="btn btn-default btn-sm">Get involved</a> or <a href="http://www.birdlife.org.au/support-us/donate"class="btn btn-default btn-sm">Donate</a> 
+        </div>
+      </div>
+    </div>
+ </div>
+
+   <div id="footer-container-2">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8"><img src="images/birdlife-australia-logo.png" alt="BirdLife Australis"> <br>Brought to you by <a href="www.birdlife.org.au">BirdLife Australia</a>, the nation’s premier independent bird conservation organisation.</div>
+          <div class="col-sm-4">
+            <h4>Follow the flock</h4>
+            <ul class="soc">
+              <li>
+                <a class="soc-twitter" href="https://twitter.com/BirdlifeOz"></a>
+              </li>
+              <li>
+                <a class="soc-facebook" href="https://www.facebook.com/BirdLifeAustralia"></a>
+              </li>
+              <li>
+                <a class="soc-google" href="https://plus.google.com/112350676933876368379/posts"></a>
+              </li>
+              <li>
+                <a class="soc-youtube" href="https://www.youtube.com/channel/UCTKLS4Otm3PmpTBGv3nEC6A"></a>
+              </li>
+              <li>
+                <a class="soc-instagram soc-icon-last" href="https://www.instagram.com/birdlifeoz/"></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="footer-container-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">Site by <a href="www.ecocene.com.au">Ecocene Solutions</a></div>
+          </div>
+        </div>
+
+</div>
+
       </footer>
-  </div>
+        </div>
 
 
 </body>
