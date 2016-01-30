@@ -13,7 +13,7 @@ a {
 
 */
 
-/* unknown use Styles! */
+/* unknown use styles! */
  
 /*
 
@@ -93,7 +93,6 @@ h2, h3{
 */
 
 #title{
-  font-family: 'Montserrat', sans-serif;
   font-size: 25px;
   color:#0086C9;
   padding-top:10px;
@@ -101,14 +100,7 @@ h2, h3{
   float:right;
 }
 
- 
-div.image{  
-    float:left; /* important */  
-    width: 100%
-    position:relative; /* important(so we can absolutely position the description div */  
- }
- 
- 
+
 
 h2 { 
    position: absolute; 
@@ -129,13 +121,11 @@ h2 span {
 
 h3{
   font-size: 40px;
-    font-family: 'Montserrat', sans-serif;
    color:#0086C9;
 }
 
 h4 { 
   font-size:20px; 
-  font-family: 'Montserrat', sans-serif;
    color:#0086C9;
 }
 
@@ -221,11 +211,11 @@ nav a{
 }
 
 textarea{
-	width: 100%;
-	height: 75px;
-	margin: 10px;
-	border: 3px solid #cccccc;
-	padding: 5px;
+  width: 100%;
+  height: 75px;
+  margin: 10px;
+  border: 3px solid #cccccc;
+  padding: 5px;
   font-size: 8px;
 }
 
@@ -243,27 +233,27 @@ textarea{
 */
 
 
-/* unused
+
 
 #map {
       height: 50%;
       weight: 100%;
 }
 
-*/ 
 
 /* CHECKBOX STYLES */ 
 
 ul.view-checkbox  { 
-  margin: 0; 
-  padding: 0; 
-  margin-left: 5px; 
+  margin: 0px; 
+  padding: 0px; 
   list-style: none; 
   font-size: 12px;
 } 
 
 ul.view-checkbox li input { 
   padding: 5px; 
+  margin-right: 5px;
+  margin-left: 10px;
 } 
 
 ul.view-checkbox li { 
@@ -275,6 +265,7 @@ ul.view-checkbox li {
 ul.view-checkbox li label { 
   margin-left: ; 
 } 
+
 .vrthreat-panel1
 {
     width:100%;
@@ -292,7 +283,7 @@ ul.view-checkbox li label {
 
 .threat-panel1
 {
-    background-color:#fff;
+    background-color:#FFFFFF;
     width:50%;
     height:60%;
     float:left; 
@@ -306,7 +297,13 @@ ul.view-checkbox li label {
     float:right; 
 }
 
+label {
+    color: #494949;
+    font-weight:normal !important;
+}
 
+
+/*
 #body-container-1 {
   background-color: #494949;
   height: 35px;
@@ -316,7 +313,7 @@ ul.view-checkbox li label {
   text-align: center;
   color: #FFFFFF;
 }
-
+*/
 
 /* FOOTER */
 
@@ -552,11 +549,12 @@ aside{
 
 #overlay {
     position: fixed;
-    top: 40%;
+    top: 20%;
     left: 40%;
     width: 40%;
     height: 40%;
-    background-color: #000;
+    padding: 15px;
+    background-color: #FFFFFF;
     z-index: 10000;
 }
 
@@ -567,10 +565,11 @@ aside{
   cursor: pointer;
   position: relative;
   margin: 2px 0 0 0;
-  padding: .5em .5em .5em .7em;
+  padding: .2em .2em .2em .2em;
   min-height: 0; /* support: IE7 */
-  font-size: 100%;
-  font-family: "Arial";
+  font-size: 20px;
+  color:#0086C9;
+  
 }
 .ui-accordion .ui-accordion-icons {
   padding-left: 2.2em;
@@ -585,8 +584,7 @@ aside{
   margin-top: -8px;
 }
 .ui-accordion .ui-accordion-content {
-  padding: 1em 2.2em;
+  padding: 1em 0.1em;
   border-top: 0;
   overflow: auto;
-  font-family: "Arial";
 }
