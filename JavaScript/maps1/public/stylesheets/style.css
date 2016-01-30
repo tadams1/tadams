@@ -191,7 +191,7 @@ nav a{
 .pane {
     display: table-cell;
 }
-.left.pane {
+.leftpane {
   width: 25%;
   padding-left: 5px
   margin: 5px
@@ -203,6 +203,13 @@ nav a{
     background-color: #B3D1FF;
 }
 
+#threatfrm {
+  padding-left: 20px
+}
+
+#actionfrm {
+  padding-left: 20px
+}
 
 #addthreat {
   width: 25%;
