@@ -17,8 +17,7 @@
       var infowindow;
       var yourname;
       var youremail;
-      var showall;
-
+      
 
       function initialize() {
  	      
@@ -60,7 +59,6 @@
         //buildPage('layer', pageInfo.types);
 
         theMap.data.loadGeoJson(pageInfo.mapprefix + '/maps?type=ALL');
-        showall = true;
         localStorage.clear();
         yourname = localStorage.getItem('yourname');
         youremail = localStorage.getItem('youremail');
@@ -72,12 +70,12 @@
 
       var theList = $('<ul class="view-checkbox"></ul>');
       var sa = $('<li></li>');
-      sa.append('<input type="checkbox" id="' + thename + 'selectall" /><label for="' + thename + 'selectall">Select All</label>');
+      sa.append('<input type="checkbox" id="' + thename + 'selectall" checked /><label for="' + thename + 'selectall">Select All</label>');
       theList.append(sa);
       for(var i = 0; i < thearray.length; i++) {
           if(thearray[i].type == thename) {
             var theItem = $('<li></li>');
-            theItem.append('<input type="checkbox" class="' + thename + 'group" onclick=updateJSON(this,"' + thearray[i].id + '") + id="' + thename  + i + '" value="' + thearray[i].id + '" /><label for="' + thename + i + '">' + thearray[i].text + '</label>');
+            theItem.append('<input type="checkbox" class="' + thename + 'group" onclick=updateJSON(this,"' + thearray[i].id + '") + id="' + thename  + i + '" value="' + thearray[i].id + '" checked /><label for="' + thename + i + '">' + thearray[i].text + '</label>');
             theList.append(theItem);
           }
       }
@@ -130,7 +128,7 @@
         }
         $.ajax({
             type: 'POST',
-            url: '/',
+            url: 'mapview',
             data: JSON.stringify(newJSON),
             success: function(data) { alert('data: ' + data); },
             contentType: "application/json",
@@ -175,13 +173,6 @@
     google.maps.event.addDomListener(window, 'load', initialize);
 
     function updateJSON(chkbox, dbtype) {
-      if(showall) {
-        var callback=function(feature) {
-          theMap.data.remove(feature);
-        };
-        theMap.data.forEach(callback);
-        showall=false;
-      }
       if(chkbox.checked) {
         theMap.data.loadGeoJson(pageInfo.mapprefix + '/maps?type='+ dbtype);
       }else{
@@ -271,7 +262,7 @@
       var newdiv = $("<div id='accordion' class='accordion'><div>");
       newdiv.appendTo('#leftpane');
 
-      $('#accordion').append('<div><h3>Threats</h3><div id="threattypechk"></div></div><div><h3>Actions</h3><div id="actiontypechk"></div></div><div><h3>Layers</h3><div id="layertypechk"</div></div>');
+      $('#accordion').append('<div><h3>Threats <img src="images/threatmarker.png" /></h3><div id="threattypechk"></div></div><div><h3>Actions<img src="images/actionmarker.png" /></h3><div id="actiontypechk"></div></div><div><h3>Layers</h3><div id="layertypechk"</div></div>');
       $( "#accordion" ).accordion({
         header: "> div > h3",
         collapsible: true,
@@ -304,6 +295,12 @@
 
     function showOverlay(savetype) {
       var overlaydiv = $('<div id="overlay" class="overlay1"><div>');
+      var btnClose =$('<a></a>').attr({
+          class: "boxclose",
+          id: "boxclose"
+      });
+      overlaydiv.append(btnClose)
+
       overlaydiv.append("<h3>Congratulations, your record has been saved!</h3><p>");
       overlaydiv.append("<h4>Please share with your social networks:<h4><p>");
 
@@ -331,10 +328,9 @@
 
       overlaydiv.appendTo(document.body)
 
-      overlaydiv.click(function() {
-        $("#overlay").empty();
-        $('#overlay').remove();
-
+      btnClose.click(function() {
+          $("#overlay").empty();
+          $('#overlay').remove();
       });
     }
 
