@@ -60,7 +60,6 @@
         //buildPage('layer', pageInfo.types);
 
         theMap.data.loadGeoJson(pageInfo.mapprefix + '/maps?type=ALL');
-        localStorage.clear();
         yourname = localStorage.getItem('yourname');
         youremail = localStorage.getItem('youremail');
 
@@ -76,7 +75,20 @@
       for(var i = 0; i < thearray.length; i++) {
           if(thearray[i].type == thename) {
             var theItem = $('<li></li>');
-            theItem.append('<input type="checkbox" class="' + thename + 'group" onclick=updateJSON(this,"' + thearray[i].id + '") + id="' + thename  + i + '" value="' + thearray[i].id + '" checked /><label for="' + thename + i + '">' + thearray[i].text + '</label>');
+            var chkbox=$('<input/>').attr({
+              type: "checkbox",
+              title: thearray[i].title,
+              id: thename + i,
+              checked: true,
+              value: thearray[i].id ,
+              onclick: 'updateJSON(this,"' + thearray[i].id + "')",
+              class: thename + 'group'
+            });
+
+            var lbl=$("<label>").attr('for', thename + i).text(thearray[i].text)
+
+            chkbox.appendTo(theItem);
+            lbl.appendTo(theItem);
             theList.append(theItem);
           }
       }
@@ -342,10 +354,11 @@
       removeAll()
 
       var newdiv = $('<div id="' + threattype + 'pane" class=addthreat"></div');
-      newdiv.appendTo('#leftpane');
-
+      var theform = $('<form id="' + threattype +'frm"></form>');
+      newdiv.appendTo(theform)
+      theform.appendTo('#leftpane');
+      
       newdiv.append('<h4>Your location</h4><p>');
-
 
       newdiv.append('<img id="imgoverlay" src="images/spin.gif" /><p>');
       $("#imgoverlay").hide();
@@ -364,42 +377,95 @@
       });
       l.text('Or drag the marker on the map. Zoom in and out using your mouse or +/- the buttons on themap.');
       newdiv.append(l);
-      newdiv.append("<p><h4>Details</h4>Select the" + threattype + " type:");
 
+
+      theform.append("<h4>Details</h4>");
+      var l1 = $('<label>').attr('for', 'select' + threattype).text("Select the " + threattype + " type:");
       var selector = $("<select id='select" + threattype + "' class=selectorclass></select>");
+      selector.appendTo(l1);
+
       buildSelector(selector, threattype, pageInfo.types);
       newdiv.append(selector);
 
-      newdiv.append('<p><p><label>Please let us know a bit more about your observation (optional)<br><textarea name="Description" id="' + threattype + 'comment" value="" rows="2" cols="400" id="desc"></textarea></label></p>');
+      theform.append('<p>');
+      var l2 = $('<label>').attr('for', threattype + 'comment').text("Please let us know a bit more about your observation (optional)");
+      var ta = $('<textarea>').attr({
+        name: "Description",
+        id: threattype + 'comment',
+        value: '',
+        rows: 2,
+        cols: 400
+      });
+      ta.appendTo(l2);
+      newdiv.append(l2);
 
 
-      newdiv.append('<p><label>Add a link here for further details (optional)<br><input name="linkddr" id="' + threattype + 'linkaddr" /></p>');
+      var l3 = $('<label>').attr('for', 'thetitle').text('Please enter a title');
+      var ititle = $("<input>").attr({
+        name: "thetitle",
+        id: "thetitle",
+        required: true
+      });
+      ititle.appendTo(l3);
+      newdiv.append(l3);
 
+      var l4 = $('<label>').attr('for', threattype + 'linkaddr').text('Add a link here for further details (optional)');
+      var ilink = $('<input>').attr({
+        type: "input",
+        name: "linkddr",
+        id: threattype + 'linkaddr'
+      });
+      ilink.appendTo(l4);
+      newdiv.append(l4);
 
       var str1 = yourname;
       if(yourname == null) {
         str1 = "Please enter your name"
       }
 
-      newdiv.append('<p><label>Your name<br><input name="yourname" id="' + threattype + 'yourname" value="' + str1 + '" ></input><p>');
-
+      var l5 = $('<label>').attr('for', threattype + 'yourname').text('Your name');
+      var iname = $("<input>").attr({
+          name: "yourname",
+          id: threattype + 'yourname',
+          value: str1
+      });
+      iname.appendTo(l5);
+      newdiv.append(l5);
+  
       var str2 = youremail;
       if(youremail == null) {
         str2 = "Please enter your email"
       }
-
-      newdiv.append('<p><label>Please enter your email<br><input name="emailaddr" id="' + threattype + 'emailaddr" value="' + str2 +  '" ></input></p>');
-    
+      
+      var l6 = $('<label>').attr('for', threattype + 'emailaddr').text('Please enter your email');
+      var ename = $("<input>").attr({
+          type: "email",
+          name: "emailaddr",
+          id: threattype + 'emailaddr',
+          value: str2,
+          required: true
+      });
+      ename.appendTo(l6)
+      newdiv.append(l6);  
     
       var b=$('<input/>').attr({
-          type: "button",
+          type: "submit",
           id: "save",
           value: 'Save ' + threattype,
-          onclick: 'saveLocation("'+ threattype + '")',
           class: 'btn-danger'
       });
       newdiv.append(b);
   }
+
+    $(document).on('submit','#actionfrm',function(){
+      saveLocation('action');
+      return false;
+    })
+    
+    $(document).on('submit','#threatfrm',function(){
+      saveLocation('threat');
+      return false;
+    })
 
     $(document).on('change','[id$="selectall"]' , function() {
       var theType = this.id.substring(0, this.id.length -9);
@@ -410,11 +476,10 @@
       }
     });
 
-   $(function() {
-      $( 'input[type="checkbox"]' ).tooltip({
-         content: function(event, ui) { return $(this).attr('value'); },
-      });
-  });
+     $(function () {
+        $("*").tooltip();     
+    });
+
 
 
 

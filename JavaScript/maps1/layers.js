@@ -101,13 +101,15 @@ layers.prototype.addHTML = function() {
            [
             {
               "id": "Dev",
-              "text": "Development - industrial or residential",
+              "text": "Development",
+              "title": "Industrial or residential",
               "type": "threat"
             },
             
             {
               "id": "RecImpact",
-              "text": "Recreational - e.g. Off-leash dogs, off-road driving",
+              "text": "Recreational",
+              "title": "e.g. Off-leash dogs, off-road driving",
               "type": "threat"
            },
     
@@ -164,7 +166,8 @@ layers.prototype.addHTML = function() {
            
             {
               "id": "Advocoacy",
-              "text": "Advocacy - saving shorebird habitat",
+              "text": "Advocacy",
+              "title": "Saving shorebird habitat",
               "type": "action"
             },
             {

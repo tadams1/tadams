@@ -2,7 +2,7 @@ var config = module.exports = {};
  
 config.env = 'development';
 config.hostname = 'dev.example.com';
-config.mapprefix = 'http://192.168.1.113:3000'
+config.mapprefix = 'http://192.168.1.101:3000'
  
 //mongo database
 config.mongodb = {};
