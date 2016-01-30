@@ -393,7 +393,7 @@
       });
       ititle.appendTo(l3);
       newdiv.append(l3);
-      
+
       var l2 = $('<label>').attr('for', threattype + 'comment').text("Please let us know a bit more about your observation (optional)");
       var ta = $('<textarea>').attr({
         name: "Description",
@@ -423,6 +423,7 @@
       var iname = $("<input>").attr({
           name: "yourname",
           id: threattype + 'yourname',
+          required: true,
           value: str1
       });
       iname.appendTo(l5);
