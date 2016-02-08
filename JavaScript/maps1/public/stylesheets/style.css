@@ -219,7 +219,7 @@ nav a{
 }
 
 textarea{
-  width: 100%;
+  width: 90%;
   height: 75px;
   margin: 10px;
   border: 3px solid #cccccc;
@@ -605,4 +605,18 @@ a.boxclose{
     margin-top:-30px;
     margin-right:-30px;
     cursor:pointer;
+}
+
+body {
+  font: 14px/1.4 arial;
+}
+
+.selectorclass
+{
+    width:30%;
+}
+
+.imgTest
+{
+  padding: .2em;
 }

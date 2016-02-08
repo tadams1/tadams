@@ -139,6 +139,8 @@
       saveLocation('action');
     }
 
+
+
     function saveLocation(savetype) {
      var newJSON = {
           "type": "Feature",
@@ -255,9 +257,14 @@
       theMap.data.addGeoJson(fc);
     }
 
-    function updateJSON(chkbox, geotype, dbtype) {
+    function loadThreat(geotype) {
+      removeAll();
+      theMap.data.loadGeoJson('http://localhost:3000/maps?geotype=ALLTYPE&types=' + geotype);
+    }
+
+    function updateJSON(chkbox, geotype) {
       if(chkbox.checked) {
-        theMap.data.loadGeoJson('http://localhost:3000/maps?geotype=' + geotype + '&type='+ dbtype);
+        theMap.data.loadGeoJson('http://localhost:3000/maps?geotype=' + geotype);
       }else{
         var callback=function(feature) {
           

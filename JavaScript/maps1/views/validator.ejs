@@ -1,0 +1,37 @@
+<html>
+  <title>Shorebird Maps</title>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQ6LMGS6ebrYR_ABSnMfudwc7sgwgoTWg"></script>   
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="stylesheets/style.css" rel="stylesheet" type="text/css">
+
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script type="text/javascript">
+
+      var theMap;
+      var theMarker;
+
+      var pageInfo;
+      var formattedAddr;
+      var infowindow;
+      var yourname;
+      var youremail;
+      
+
+      function initialize() {
+ 	      
+        var mapOptions = {
+          zoom: 4,
+          center: {lat: -28, lng: 137.883},
+    		  mapTypeId: google.maps.MapTypeId.TERRAIN
+  		  };
+
+        theMap = new google.maps.Map(document.getElementById('map'), mapOptions);
+        theMap.data.setStyle(function(feature) {
+          return {icon:feature.getProperty('icon')};
+        });
+
+        pageInfo = <%- pageInfo %>;
+        var view = <%- view %> ;

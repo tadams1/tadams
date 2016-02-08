@@ -106,9 +106,22 @@
             });
 
             var lbl=$("<label>").attr('for', thename + i).text(thearray[i].text)
-
+            
             chkbox.appendTo(theItem);
             lbl.appendTo(theItem);
+            
+            if(!(typeof thearray[i].title === "undefined")) {
+            var img = $('<img>').attr({
+              class: "imgTest",
+              src: "images/inf.png",
+              textinfo: thearray[i].title
+            });
+              img.appendTo(theItem);
+            }  
+
+   
+           
+
             theList.append(theItem);
           }
       }
@@ -139,6 +152,10 @@
 
     localStorage.setItem('yourname', yourname);
     localStorage.setItem('youremail', youremail);
+    var cmt = $('textarea#' + savetype + 'comment').val();
+    if(cmt.length()>100) {
+      alert('Your comment is more than 100 characters only the first 100 will be saved')
+    }
     var dt = new Date();   
      var newJSON = {
           "type": "Feature",
@@ -146,7 +163,7 @@
             "type": savetype,
             "typeid": $('#select'+savetype + ' option:selected').val(),
             "typetext": $('#select'+savetype + ' option:selected').text(),
-            "comment": $('textarea#' + savetype + 'comment').val(),
+            "comment": cmt,
             "icon": "images/" + savetype + "marker.png",
             "link": $( '#' + savetype + 'linkaddr').val(),
             "yourname": yourname,
@@ -198,7 +215,8 @@
           if(thearray[i].type == thename) {
             theselector.append($('<option>', {
                 value: thearray[i].id,
-                text: thearray[i].text
+                text: thearray[i].text,
+                title: thearray[i].title
             }));
           }
       } 
@@ -410,11 +428,19 @@
 
       newdiv.append("<h4>Details</h4>");
       var l1 = $('<label>').attr('for', 'select' + threattype).text("Select the " + threattype + " type:");
-      var selector = $("<select id='select" + threattype + "' class=selectorclass></select>");
+      var selector = $("<select id='select" + threattype + "' class=  ></select>");
       selector.appendTo(l1);
 
       buildSelector(selector, threattype, pageInfo.types);
       newdiv.append(l1);
+
+                  var img = $('<img>').attr({
+              class: "imgTest",
+              src: "images/inf.png",
+              textinfo: "WHOA"
+            });
+              img.appendTo(newdiv);
+            
 
       var l3 = $('<label>').attr('for', 'thetitle').text('Please enter a title');
       var ititle = $("<input>").attr({
@@ -431,7 +457,7 @@
         id: threattype + 'comment',
         value: '',
         rows: 2,
-        cols: 400
+        cols: 1
       });
       ta.appendTo(l2);
       newdiv.append(l2);
@@ -515,8 +541,21 @@
     });
 
      $(function () {
-        $("*").tooltip();     
+      $( document ).tooltip({
+      items: "img, [textinfo]",
+      content: function() {
+        var element = $( this );
+        if ( element.is( "[textinfo]" ) ) {
+          var text = element.attr( "textinfo" ); //element.text();
+          return text;
+        }
+        if ( element.is( "[title]" ) ) {
+          return element.attr( "title" );
+        }
+
+      }
     });
+  });
 
 
 
