@@ -153,9 +153,7 @@
     localStorage.setItem('yourname', yourname);
     localStorage.setItem('youremail', youremail);
     var cmt = $('textarea#' + savetype + 'comment').val();
-    if(cmt.length()>100) {
-      alert('Your comment is more than 100 characters only the first 100 will be saved')
-    }
+
     var dt = new Date();   
      var newJSON = {
           "type": "Feature",
@@ -358,7 +356,7 @@
 
       var networks = ['<a class="soc-twitter" href="http://twitter.com/?status=How+to+pre-populate+%23social+%23media+%23share+%23buttons+%23tutorial+http://bit.ly/8504xO+from+@marygillen+%23content+%23marketing+%23idea"></a>', 
                       '<a class="soc-facebook" href="http://www.facebook.com/share.php?u=http://www.ecocene.com.au/map/about"><"></a>', 
-                      '<a class="soc-google" href="https://plus.google.com/share?url=http://www.ecocene.com.au/map/about"></a>',
+                      '<a class="soc-google" href="https://plus.google.com/share?url=http://www.ecocene.com.au/map/about"></a>'
                                            ];
       var soclist = $('<ul class="soc"></ul>');
       for(var n = 0; n < networks.length; ++n) {
@@ -432,13 +430,19 @@
       buildSelector(selector, threattype, pageInfo.types);
       newdiv.append(l1);
 
-                  var img = $('<img>').attr({
-              class: "imgTest",
-              src: "images/inf.png",
-              textinfo: "WHOA"
-            });
-              img.appendTo(newdiv);
-            
+      var img = $('<img>').attr({
+          class: "imgTest",
+          id: "theImg",
+          src: "images/inf.png",
+          textinfo: "WHOA"
+        });
+      img.appendTo(newdiv);
+      
+
+      $('#leftpane').on('change', '#select' + threattype, function(){
+        //$('#theImg').attr('textinfo', $('option:selected', this).attr('title'));
+      });
+
 
       var l3 = $('<label>').attr('for', 'thetitle').text('Please enter a title');
       var ititle = $("<input>").attr({
