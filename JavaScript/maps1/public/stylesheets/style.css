@@ -72,6 +72,16 @@ html, body {
  
  /* HEADER */
  
+#feedback-container{
+  background-color:#32cd32;
+  height:30px;
+  width: 100%;
+  border-bottom:2px solid #494949;
+  margin-bottom:0px;
+  text-align: center;
+}
+
+
  #header-container{
   background-color:#FFFFF;
   height:90px;

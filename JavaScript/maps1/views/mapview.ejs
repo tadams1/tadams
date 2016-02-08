@@ -317,12 +317,10 @@
 
       
 
-      var networks = ['<a class="soc-twitter" href="#"></a>', 
-                      '<a class="soc-facebook" href="#"></a>', 
-                      '<a class="soc-google" href="#"></a>',
-                      '<a class="soc-youtube" href="#"></a>',
-                      '<a class="soc-instagram soc-icon-last" href="#"></a>'
-                      ];
+      var networks = ['<a class="soc-twitter" href="http://twitter.com/?status=How+to+pre-populate+%23social+%23media+%23share+%23buttons+%23tutorial+http://bit.ly/8504xO+from+@marygillen+%23content+%23marketing+%23idea"></a>', 
+                      '<a class="soc-facebook" href="http://www.facebook.com/share.php?u=http://www.ecocene.com.au/map/about"><"></a>', 
+                      '<a class="soc-google" href="https://plus.google.com/share?url=http://www.ecocene.com.au/map/about"></a>',
+                                           ];
       var soclist = $('<ul class="soc"></ul>');
       for(var n = 0; n < networks.length; ++n) {
         var sa = $('<li></li>');
@@ -483,7 +481,10 @@
 </script>
 
 
-<body>
+<header>
+
+<div id="feedback-container">
+This is a beta version of this map. Please provide <a href="https://www.surveymonkey.com/r/FJ9TL86">feedback and let us know what you think!</a></div>
 
   <div id="header-container">
     <header class="wrapper2">
@@ -491,17 +492,18 @@
       <nav>
       
     <div class="btn-group btn-group-lg">
-      <button type="button" class="btn btn-primary" value="Input Button" onclick="location.href='about'">About</button>
+      <button type="button" class="btn btn-primary" value="Input Button" onclick="location.href='about'">Home</button>
       <button type="button" class="btn btn-primary" value="Input Button" onClick="doViewRecords()">View records</button>
+           <button type="button" class="btn btn-primary" value="Input Button" onClick="doViewThreats('action')">Log an action</button>
       <button type="button" class="btn btn-primary" value="Input Button" onClick="doViewThreats('threat')">Log a threat</button>
-      <button type="button" class="btn btn-primary" value="Input Button" onClick="doViewThreats('action')">Log an action</button>
+ 
     </div>
         
       </nav>
     </header>
   </div>
 
-  
+  <body>
   <div class="wrapper">
     <div class="inner-wrapper">
     <div id="leftpane" class="left pane">
@@ -514,10 +516,6 @@
 </div>
 
 <footer>
-
-<p>
-This is a beta version of this map. Please provide <a href="https://www.surveymonkey.com/r/FJ9TL86">feedback and let us know what you think!</a></p>
-
 
 <div id="footer-container-1">
     <div class="container">
