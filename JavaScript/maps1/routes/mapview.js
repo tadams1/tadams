@@ -6,10 +6,10 @@ router.get('/', function(req, res, next) {
 	// Connection URL
 	// Use connect method to connect to the Server
 
-	
     var layers = req.app.get('layers');
     console.log('in request')
     console.log("Req:" + layers.strPoints);
+    console.log("PI" + layers.pageInfo);
     res.render('mapview', { view : "'" + req.query.view + "'", pageInfo: layers.pageInfo});
 });
 

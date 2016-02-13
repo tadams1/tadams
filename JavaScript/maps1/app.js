@@ -14,7 +14,8 @@ var mapview = require('./routes/mapview');
 var users = require('./routes/users');
 var maps = require('./routes/maps');
 var about = require('./routes/about');
-
+var validator = require('./routes/validator');
+var pageinfo = require('./routes/pageinfo');
 var app = express();
 
 var layers = new layers();
@@ -45,5 +46,7 @@ app.use('/users', users);
 app.use('/maps', maps);
 app.use('/mapview', mapview);
 app.use('/kml', kml);
-app.use('/about', about)
+app.use('/about', about);
+app.use('/validator', validator);
+app.use('/pageinfo', pageinfo);
 module.exports = app;

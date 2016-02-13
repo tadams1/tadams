@@ -53,7 +53,18 @@ layers.prototype.init = function(geoname, infoname) {
   this.infoname = infoname;
 	this.connectDB(this.callFetch, this);
 	this.testVal = "2";
+}
 
+layers.prototype.refreshPageInfo = function(obj) {
+    this.db.collection(this.infoname).find({}).toArray(function (err, items) {
+    var obj1 = {  
+        "types": [],
+        "mapprefix": cfg.mapprefix
+        }
+    obj1.types = items;//push(obj1.features[0]);
+    console.log(obj1);
+    obj.pageInfo = JSON.stringify(obj1);
+  });
 }
 
 layers.prototype.callFetch = function(theDB, myobj) {

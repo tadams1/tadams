@@ -57,6 +57,12 @@
         }
 
         theMap.data.loadGeoJson(pageInfo.mapprefix + '/maps?type=ALL');
+        theMap.data.loadGeoJson('http://10.1.1.9:3000/sb1.geojson');
+
+        theMap.data.addListener('addfeature', function(event) {
+          console.log(event);
+        });
+   
         yourname = localStorage.getItem('yourname');
         youremail = localStorage.getItem('youremail');
 
@@ -368,7 +374,7 @@
       }
       overlaydiv.append(soclist);
 
-      overlaydiv.append("<h4><a href="http://birdlife.org.au/campaigns/how-you-can-help">Or find out how else you can take action to help Australia’s birds</a><h4><p>");
+      overlaydiv.append("<h4><a href='http://birdlife.org.au/campaigns/how-you-can-help'>Or find out how else you can take action to help Australia’s birds</a><h4><p>");
 
 
 
