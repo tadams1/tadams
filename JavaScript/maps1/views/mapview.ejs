@@ -314,7 +314,7 @@
       theMap.setZoom(4);
 
       var newdiv = $("<div id='accordion' class='accordion'><div>");
-      newdiv.appendTo('#leftpane');
+      newdiv.appendTo('#rightpane');
 
       $('#accordion').append('<div><h3>Threats <img src="images/threatmarker.png" /></h3><div id="threattypechk"></div></div><div><h3>Actions<img src="images/actionmarker.png" /></h3><div id="actiontypechk"></div></div><div><h3>Layers</h3><div id="layertypechk"</div></div>');
       $( "#accordion" ).accordion({
@@ -406,7 +406,7 @@
       var newdiv = $('<div id="' + threattype + 'pane" class=addthreat"></div');
       var theform = $('<form id="' + threattype +'frm"></form>');
       newdiv.appendTo(theform)
-      theform.appendTo('#leftpane');
+      theform.appendTo('#rightpane');
       
       newdiv.append('<h4>Your location</h4><p>');
 
@@ -446,7 +446,7 @@
       img.appendTo(newdiv);
       
 
-      $('#leftpane').on('change', '#select' + threattype, function(){
+      $('#rightpane').on('change', '#select' + threattype, function(){
         //$('#theImg').attr('textinfo', $('option:selected', this).attr('title'));
       });
 
@@ -597,12 +597,11 @@ This is a beta version of this map. Please provide <a href="https://www.surveymo
   <body>
   <div class="wrapper">
     <div class="inner-wrapper">
-    <div id="leftpane" class="left pane">
+        <div class="center pane" id="map">
+          </div>
+    <div id="rightpane">
     </div>
-    <div class="center pane" id="map">
-      
 
-    </div>
         
 </div>
 
