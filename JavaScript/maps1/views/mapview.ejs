@@ -1,5 +1,5 @@
 <html>
-  <title>Shorebird Maps</title>
+  <title>Shorebird Conservation Map | BirdLife Australia</title>
 
      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQ6LMGS6ebrYR_ABSnMfudwc7sgwgoTWg"></script>   
      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -316,7 +316,7 @@
       var newdiv = $("<div id='accordion' class='accordion'><div>");
       newdiv.appendTo('#rightpane');
 
-      $('#accordion').append('<div><h3>Threats <img src="images/threatmarker.png" /></h3><div id="threattypechk"></div></div><div><h3>Actions<img src="images/actionmarker.png" /></h3><div id="actiontypechk"></div></div><div><h3>Layers</h3><div id="layertypechk"</div></div>');
+      $('#accordion').append('<div><h3>Actions<img src="images/actionmarker.png" /></h3><div id="actiontypechk"></div></div><div><h3>Threats <img src="images/threatmarker.png" /></h3><div id="threattypechk"></div></div><div><h3>Layers</h3><div id="layertypechk"</div></div>');
       $( "#accordion" ).accordion({
         header: "> div > h3",
         collapsible: true,
@@ -408,7 +408,7 @@
       newdiv.appendTo(theform)
       theform.appendTo('#rightpane');
       
-      newdiv.append('<h4>Your location</h4><p>');
+      newdiv.append('<h4>1. Find your location</h4><p>');
 
       newdiv.append('<img id="imgoverlay" src="images/spin.gif" /><p>');
       $("#imgoverlay").hide();
@@ -429,8 +429,8 @@
       newdiv.append(l);
 
 
-      newdiv.append("<h4>Details</h4>");
-      var l1 = $('<label>').attr('for', 'select' + threattype).text("Select the " + threattype + " type:");
+      newdiv.append("<h4>2. Enter threat details</h4>");
+      var l1 = $('<label>').attr('for', 'select' + threattype).text("Please select the " + threattype + " type:");
       var selector = $("<select id='select" + threattype + "' class=  ></select>");
       selector.appendTo(l1);
 
@@ -451,16 +451,7 @@
       });
 
 
-      var l3 = $('<label>').attr('for', 'thetitle').text('Please enter a title');
-      var ititle = $("<input>").attr({
-        name: "thetitle",
-        id: "thetitle",
-        required: true
-      });
-      ititle.appendTo(l3);
-      newdiv.append(l3);
-
-      var l2 = $('<label>').attr('for', threattype + 'comment').text("Please let us know a bit more about your observation (optional)");
+      var l2 = $('<label>').attr('for', threattype + 'comment').text("Let us know a bit more about your observation (in 100 characters or less)");
       var ta = $('<textarea>').attr({
         name: "Description",
         id: threattype + 'comment',
@@ -471,7 +462,7 @@
       ta.appendTo(l2);
       newdiv.append(l2);
 
-      var l3a = $('<label>').attr('for', threattype + 'date').text('Date:');
+      var l3a = $('<label>').attr('for', threattype + 'date').text('Date ');
       var idate = $('<input>').attr({
         type: "date",
         name: "thedate",
@@ -481,7 +472,7 @@
       idate.appendTo(l3a);
       newdiv.append(l3a);
 
-      var l4 = $('<label>').attr('for', threattype + 'linkaddr').text('Add a link here for further details (optional)');
+      var l4 = $('<label>').attr('for', threattype + 'linkaddr').text('Link to further information (optional)');
       var ilink = $('<input>').attr({
         type: "input",
         name: "linkddr",
@@ -495,7 +486,7 @@
         str1 = ""
       }
 
-      var l5 = $('<label>').attr('for', threattype + 'yourname').text('Your name');
+      var l5 = $('<label>').attr('for', threattype + 'yourname').text('Your name ');
       var iname = $("<input>").attr({
           name: "yourname",
           id: threattype + 'yourname',
@@ -510,7 +501,7 @@
         str2 = ""
       }
       
-      var l6 = $('<label>').attr('for', threattype + 'emailaddr').text('Please enter your email');
+      var l6 = $('<label>').attr('for', threattype + 'emailaddr').text('Your email ');
       var ename = $("<input>").attr({
           type: "email",
           name: "emailaddr",
@@ -574,25 +565,19 @@
 
 <header>
 
-<div id="feedback-container">
-This is a beta version of this map. Please provide <a href="https://www.surveymonkey.com/r/FJ9TL86">feedback and let us know what you think!</a></div>
-
   <div id="header-container">
-    <header class="wrapper2">
-      <h1 id="title">Shorebird Conservation Map</h1>
-      <nav>
-      
-    <div class="btn-group btn-group-lg">
-      <button type="button" class="btn btn-primary" value="Input Button" onclick="location.href='about'">Home</button>
-      <button type="button" class="btn btn-primary" value="Input Button" onClick="doViewRecords()">View records</button>
-           <button type="button" class="btn btn-primary" value="Input Button" onClick="doViewThreats('action')">Log an action</button>
-      <button type="button" class="btn btn-primary" value="Input Button" onClick="doViewThreats('threat')">Log a threat</button>
- 
-    </div>
-        
-      </nav>
+   <h1 id="title">Shorebird Conservation Map</h1>
+        <nav>
+         <ul class="nav nav-pills">
+          <li role="presentation" class="active"><a href="mapview">Home</a></li>
+          <li role="presentation"><a href="mapview?view=action">Register an action</a></li>
+          <li role="presentation"><a href="mapview?view=threat">Log a threat</a></li>
+        </ul>
+            </nav>
+
+</div>
     </header>
-  </div>
+
 
   <body>
   <div class="wrapper">
@@ -608,7 +593,7 @@ This is a beta version of this map. Please provide <a href="https://www.surveymo
 <footer>
 
 <div id="footer-container-1">
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
          <div class="col-sm-12">Shorebirds need your help. Act now to protect the species and places at risk. <a href="http://birdlife.org.au/campaigns/how-you-can-help" class="btn btn-default btn-sm">Get involved</a> or <a href="http://www.birdlife.org.au/current-appeal" class="btn btn-default btn-sm">Donate</a> 
         </div>
@@ -617,7 +602,7 @@ This is a beta version of this map. Please provide <a href="https://www.surveymo
  </div>
 
    <div id="footer-container-2">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
           <div class="col-sm-8"><img src="images/birdlife-australia-logo.png" alt="BirdLife Australis"> <br>Brought to you by <a href="www.birdlife.org.au">BirdLife Australia</a>, the nation’s premier independent bird conservation organisation.</div>
           <div class="col-sm-4">
