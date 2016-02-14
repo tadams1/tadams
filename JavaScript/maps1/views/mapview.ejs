@@ -17,6 +17,7 @@
       var formattedAddr;
       var infowindow;
       var yourname;
+      var sbarea;
       var youremail;
       
 
@@ -25,7 +26,8 @@
         var mapOptions = {
           zoom: 4,
           center: {lat: -28, lng: 137.883},
-    		  mapTypeId: google.maps.MapTypeId.TERRAIN
+    		  mapTypeId: google.maps.MapTypeId.TERRAIN,
+          streetViewControl: false
   		  };
 
         theMap = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -42,7 +44,14 @@
             infowindow.close();
             return;
           }  
-          var myHTML = event.feature.getProperty("type") + "<p>" + "Type: " +  event.feature.getProperty("typetext") + "<p>" + "Comment: " +  event.feature.getProperty("comment");
+          var d = new Date(event.feature.getProperty("datesaved"));
+          var myHTML = "Theat type: " + event.feature.getProperty("typetext") + "<p>" + "Dave Saved: " + d.getDate() + "-" + d.getMonth()+1 + "-" + d.getYear()  + "<p>" + "Details: " + event.feature.getProperty("comment").substr(1,100) + "<p>";
+
+          if(event.feature.getProperty("link").length > 0) {
+            myHTML += "Link to futher details:   <a href='" + event.feature.getProperty("link") + "' target='_blank'>" + event.feature.getProperty("link")  + "</a><p>";
+          }
+
+          myHTML += "Logged by: " + event.feature.getProperty("yourname");
 
           infowindow.setContent("<div style='width:150px; text-align: center;'>" + myHTML + "</div>");
           infowindow.setPosition(event.latLng);
@@ -57,7 +66,21 @@
         }
 
         theMap.data.loadGeoJson(pageInfo.mapprefix + '/maps?type=ALL');
-        theMap.data.loadGeoJson('http://10.1.1.9:3000/sb1.geojson');
+        //theMap.data.loadGeoJson('n');
+
+        sbarea = new google.maps.FusionTablesLayer({
+        map: theMap,
+        heatmap: { enabled: false },
+        query: {
+          select: "col133",
+          from: "1-n3pOFdEKjunwq__ZG8uCr1L2c28OwKdJKE_fc2i",
+          where: ""
+        },
+        options: {
+            styleId: 2,
+            templateId: 2
+          }
+        });
 
         theMap.data.addListener('addfeature', function(event) {
           console.log(event);
@@ -107,7 +130,7 @@
               id: thename + i,
               checked: true,
               value: thearray[i].id ,
-              onclick: 'updateJSON(this,"' + thearray[i].id + '")',
+              onclick: 'updateJSON(this,"' + thearray[i].id + '","' +  thearray[i].type + '")',
               class: thename + 'group'
             });
 
@@ -170,6 +193,7 @@
             "comment": cmt,
             "icon": "images/" + savetype + "marker.png",
             "link": $( '#' + savetype + 'linkaddr').val(),
+            "validated": false,
             "yourname": yourname,
             "youremail": youremail,
             "datesaved":  new Date($('#' + savetype + 'date').val())
@@ -189,11 +213,10 @@
             dataType: 'json'
         });
 
-        //  alert('Congratulations, your record has been saved!');
       showOverlay(savetype);
-        //theMap.data.addGeoJson(newJSON);
-
     }
+
+
     function findMe(updatemarker) {
       $("#imgoverlay").show();
       
@@ -229,16 +252,26 @@
     google.maps.event.addDomListener(window, 'load', initialize);
 
     function updateJSON(chkbox, dbtype, type2) {
-      if(chkbox.checked) {
-        theMap.data.loadGeoJson(pageInfo.mapprefix + '/maps?type='+ dbtype);
-      }else{
-        var callback=function(feature) {
-          
-          if(feature.getProperty('typeid') == dbtype) {
-            theMap.data.remove(feature);
-          }
-        };
-        theMap.data.forEach(callback);
+      if(type2=='layer') {
+        var v = eval(dbtype);
+
+        if(chkbox.checked) {
+          v.setMap(theMap);
+        } else {
+          v.setMap(null);
+        }
+      } else {
+        if(chkbox.checked) {
+          theMap.data.loadGeoJson(pageInfo.mapprefix + '/maps?type='+ dbtype);
+        }else{
+          var callback=function(feature) {
+            
+            if(feature.getProperty('typeid') == dbtype) {
+              theMap.data.remove(feature);
+            }
+          };
+          theMap.data.forEach(callback);
+        }
       }
     }
 
